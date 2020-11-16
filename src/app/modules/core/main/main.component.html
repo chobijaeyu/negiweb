@@ -1,0 +1,31 @@
+<mat-sidenav-container fxFlexFill fullscreen>
+    <mat-sidenav #sidenav>
+        <mat-nav-list fxLayout="column" fxLayoutGap="1rem">
+            <a (click)="sidenav.toggle()" mat-list-item>Close</a>
+            <a mat-raised-button color="accent" [routerLink]="[ '/task' ]">タスクリスト</a>
+            <a mat-raised-button color="accent" [routerLink]="[ '/field' ]">フィールド管理</a>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content fxLayout="column" fxFill>
+        <header>
+            <nav fxLayout="row">
+                <button mat-icon-button (click)="sidenav.toggle()" fxShow="true" fxHide.gt-sm>
+                    <mat-icon>menu</mat-icon>
+                </button>
+                <a mat-raised-button color="primary" [routerLink]="[ '/' ]">NEGI</a>
+                <a mat-raised-button color="accent" [routerLink]="[ '/task' ]" fxHide.lt-md>タスクリスト</a>
+                <a mat-raised-button color="accent" [routerLink]="[ '/field' ]" fxHide.lt-md>フィールド管理</a>
+                <div class="flex-spacer"></div>
+                <!-- <div *ngIf="afa.user | async as u" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap=".5rem">
+                    <img [src]="u.photoURL" class="user-avatar">
+                    <span>{{u.displayName}}</span>
+                </div> -->
+                <a mat-raised-button color="warn" (click)="logout()">ログアウト</a>
+            </nav>
+        </header>
+        <main fxLayout="column" fxLayoutAlign="center center" >
+            <router-outlet #outlet="outlet"></router-outlet>
+            <footer class="copyright">&copy; Copyright negi All rights reserved.</footer>
+        </main>
+    </mat-sidenav-content>
+</mat-sidenav-container>
