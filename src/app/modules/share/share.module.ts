@@ -19,7 +19,7 @@ const m = [
   MatToolbarModule,
   MatCardModule,
   DragDropModule,
-  FlexLayoutModule
+  FlexLayoutModule,
 ]
 
 @NgModule({
