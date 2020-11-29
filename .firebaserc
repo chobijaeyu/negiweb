@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "kaihatu-1a93a"
+  },
+  "targets": {
+    "kaihatu-1a93a": {
+      "hosting": {
+        "negiweb": [
+          "kaihatu-1a93a"
+        ]
+      }
+    }
   }
 }
