@@ -1,0 +1,32 @@
+<negi-calendar-header [(view)]="view" [(viewDate)]="viewDate"></negi-calendar-header>
+
+<ng-template #customCellTemplate let-day="day" let-locale="locale">
+    <div class="cal-cell-top">
+        <span class="cal-day-badge" *ngIf="day.badgeTotal > 0">{{ day.badgeTotal }}</span>
+        <span class="cal-day-number">{{ day.date | calendarDate:'monthViewDayNumber':locale }}</span>
+    </div>
+    <li *ngFor="let ev of day.events" fxLayout="row" fxLayoutGap="1rem">
+        <span>{{ev.title}}</span>
+        <div *ngIf="ev.draggable" fxLayoutGap="1rem">
+            <span>{{ev.start | date:"HH:mm "}}</span>
+            <span *ngIf="ev.end">~</span>
+            <span *ngIf="ev.end">{{ev.end | date:"HH:mm"}}</span>
+        </div>
+    </li>
+</ng-template>
+
+<div [ngSwitch]="view">
+    <mwl-calendar-month-view *ngSwitchCase="CalendarView.Month" [viewDate]="viewDate" [events]="events"
+        [refresh]="refresh" [cellTemplate]="customCellTemplate" [activeDayIsOpen]="activeDayIsOpen"
+        (dayClicked)="dayClicked($event.day)" (eventTimesChanged)="eventTimesChanged($event)">
+    </mwl-calendar-month-view>
+    <mwl-calendar-week-view *ngSwitchCase="CalendarView.Week" [viewDate]="viewDate" [events]="events"
+        [refresh]="refresh" (eventTimesChanged)="eventTimesChanged($event)">
+    </mwl-calendar-week-view>
+    <mwl-calendar-day-view *ngSwitchCase="CalendarView.Day" [viewDate]="viewDate" [events]="events" [refresh]="refresh"
+        (eventTimesChanged)="eventTimesChanged($event)">
+    </mwl-calendar-day-view>
+</div>
+<button mat-fab (click)="onAddEvent($event)" type="button" class="fab-button">
+    <mat-icon>add</mat-icon>
+</button>

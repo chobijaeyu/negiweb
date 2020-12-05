@@ -1,0 +1,22 @@
+<div fxLayout="cloumn" fxLayoutAlign="space-around center" fxFill>
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="1rem">
+        <button mat-raised-button mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate"
+            (viewDateChange)="viewDateChange.next(viewDate)" color="primary">👈🏼</button>
+        <button mat-raised-button mwlCalendarToday [(viewDate)]="viewDate"
+            (viewDateChange)="viewDateChange.next(viewDate)" color="primary">🌞</button>
+        <button mat-raised-button mwlCalendarNextView [view]="view" [(viewDate)]="viewDate"
+            (viewDateChange)="viewDateChange.next(viewDate)" color="primary">👉🏼</button>
+    </div>
+    <div class="col-md-4">
+        <h3>{{ viewDate | calendarDate: view + 'ViewTitle':locale }}</h3>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="1rem">
+        <button mat-raised-button (click)="viewChange.emit(CalendarView.Month)"
+            [class.active]="view === CalendarView.Month" color="primary">月</button>
+        <button mat-raised-button (click)="viewChange.emit(CalendarView.Week)"
+            [class.active]="view === CalendarView.Week" color="primary">週</button>
+        <button mat-raised-button (click)="viewChange.emit(CalendarView.Day)" [class.active]="view === CalendarView.Day"
+            color="primary">日</button>
+    </div>
+</div>
+<br />
