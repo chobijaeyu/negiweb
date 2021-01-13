@@ -1,0 +1,28 @@
+<form [formGroup]="fieldForm">
+    <h1 fxLayout="row" fxLayoutAlign="center center">{{title}}</h1>
+
+    <div gdGap="1rem" gdAlignColumns="center center" gdGap.lt-md=".3rem" gdColumns="repeat(5, [col] auto)"
+        gdColumns.md="repeat(2, [col] auto)" gdColumns.lt-md="repeat(2, [col] calc(50% - 1rem))">
+
+        <mat-form-field appearance="outline" [hideRequiredMarker]="false">
+            <mat-icon matPrefix>stars</mat-icon>
+            <mat-label>field name</mat-label>
+            <input matInput formControlName='field_name' name='field_name' required>
+            <mat-error *ngIf="fieldForm.controls['field_name'].invalid">
+                {{fieldForm.controls['field_name']["errorMessage"]}}
+            </mat-error>
+            <mat-hint></mat-hint>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" [hideRequiredMarker]="false">
+            <mat-icon matPrefix>stars</mat-icon>
+            <mat-label>field group name</mat-label>
+            <input matInput formControlName='field_name' name='field_name' required>
+            <mat-error *ngIf="fieldForm.controls['field_name'].invalid">
+                {{fieldForm.controls['field_name']["errorMessage"]}}
+            </mat-error>
+            <mat-hint></mat-hint>
+        </mat-form-field>
+
+    </div>
+</form>
