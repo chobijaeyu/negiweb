@@ -13,6 +13,9 @@ export class calev implements CalendarEvent {
     title: string = "";
     color?: EventColor;
     actions?: EventAction[];
+    Operator?: string
+    Priority?: number
+    Completed?: boolean
     @prop()
     allDay?: boolean;
     @prop()

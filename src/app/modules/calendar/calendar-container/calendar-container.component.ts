@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { isSameDay, isSameMonth, } from 'date-fns';
-import { MatDialog } from '@angular/material/dialog/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { CalendarView, CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent } from 'angular-calendar';
 
 import { calev } from 'src/app/models/calendar.model';
