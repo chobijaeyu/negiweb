@@ -20,7 +20,7 @@ export class FieldContainerComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  openNewFieldDialog(fieldData: any){
+  openNewFieldDialog(){
     const dr = this.dialog.open(FieldAddComponent,{})
 
     dr.afterClosed().subscribe(field => {

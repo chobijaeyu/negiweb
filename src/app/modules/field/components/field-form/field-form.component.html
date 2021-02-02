@@ -17,12 +17,16 @@
         <mat-form-field appearance="outline" [hideRequiredMarker]="false">
             <mat-icon matPrefix>stars</mat-icon>
             <mat-label>field group name</mat-label>
-            <input matInput formControlName='field_name' name='field_name' required>
-            <mat-error *ngIf="fieldForm.controls['field_name'].invalid">
-                <!-- {{fieldForm.controls['field_name']["errorMessage"]}} -->
+            <input matInput formControlName='group_name' name='group_name' required>
+            <mat-error *ngIf="fieldForm.controls['group_name'].invalid">
+                <!-- {{fieldForm.controls['group_name']["errorMessage"]}} -->
             </mat-error>
             <mat-hint></mat-hint>
         </mat-form-field>
 
+    </div>
+
+    <div>
+        <button mat-raised-button color="primary" (click)="onSubmit()">提出</button>
     </div>
 </form>

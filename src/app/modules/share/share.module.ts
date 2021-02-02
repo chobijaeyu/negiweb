@@ -18,6 +18,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatInputModule } from '@angular/material/input';
 
 const m = [
   ReactiveFormsModule,
@@ -32,6 +33,7 @@ const m = [
   MatCardModule,
   MatDialogModule,
   MatFormFieldModule,
+  MatInputModule,
   MatDatepickerModule,
   MatSliderModule, 
   MatSlideToggleModule,
