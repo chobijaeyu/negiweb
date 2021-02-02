@@ -110,16 +110,16 @@ export class CalendarContainerComponent implements OnInit {
 
   }
 
-  onAddEvent(ev: Event) {
+  onAddEvent() {
     this._dialog.open(CalendarEventAddDialogComponent)
       .afterClosed()
       .subscribe((r: calev) => {
         if (r) {
           console.log(r)
           r.actions = this.actions
-          r.resizable = {}
-          r.resizable.afterEnd = true
-          r.resizable.beforeStart = true
+          // r.resizable = {}
+          // r.resizable.afterEnd = true
+          // r.resizable.beforeStart = true
           this.events.push(r)
           this.cdr.markForCheck();
           this.refresh.next()
@@ -136,9 +136,9 @@ export class CalendarContainerComponent implements OnInit {
         if (r) {
           console.log(r)
           r.actions = this.actions
-          r.resizable = {}
-          r.resizable.afterEnd = true
-          r.resizable.beforeStart = true
+          // r.resizable = {}
+          // r.resizable.afterEnd = true
+          // r.resizable.beforeStart = true
           evdata = r
           console.log(evdata)
           this.cdr.markForCheck();

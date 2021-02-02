@@ -13,15 +13,15 @@ export class calev implements CalendarEvent {
     title: string = "";
     color?: EventColor;
     actions?: EventAction[];
-    Operator?: string
-    Priority?: number
+    operator?: string
+    priority?: number
     Completed?: boolean
     @prop()
     allDay?: boolean;
     @prop()
     cssClass?: string;
-    @prop({ defaultValue: { beforeStart: true, afterEnd: true } })
-    resizable?: resizable = {};
+    // @prop({ defaultValue: { beforeStart: true, afterEnd: true } })
+    // resizable?: resizable = {};
     @prop({ defaultValue: true })
     draggable?: boolean;
 }
