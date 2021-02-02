@@ -21,10 +21,10 @@ export class neigiCalendarService extends EntityCollectionServiceBase<calev>{
   }
 
   updateCalEvent(calev: calev) {
-    return this.h.put(`${this.calendaerUrl}/${calev.id}`, calev)
+    return this.h.put(`${this.calendaerUrl}/${calev.ID}`, calev)
   }
 
   deleteCalEvent(calev: calev) {
-    return this.h.delete(`${this.calendaerUrl}/${calev.id}`)
+    return this.h.delete(`${this.calendaerUrl}/${calev.ID}`)
   }
 }

@@ -4,9 +4,9 @@ import { prop } from '@rxweb/reactive-form-validators';
 
 export class calev implements CalendarEvent {
     @prop()
-    id?: string | number;
+    ID?: any;
     @prop()
-    start: Date = new Date(20200101);
+    start!: Date; 
     @prop()
     end?: Date;
     @prop()

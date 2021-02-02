@@ -1,5 +1,6 @@
 import { EntityMetadataMap, EntityDataModuleConfig, DefaultDataServiceConfig } from '@ngrx/data';
 import { environment } from 'src/environments/environment';
+import { calev } from './models/calendar.model';
 import { negifield } from './models/field.model';
 
 const entityMetadata: EntityMetadataMap = {
@@ -7,7 +8,9 @@ const entityMetadata: EntityMetadataMap = {
    selectId:(f:negifield)=>f.ID,
    noChangeTracking:true
  } ,
- negiCalEvent:{}
+ negiCalEvent:{
+   selectId:(c:calev)=>c.ID,
+ }
 };
 
 const pluralNames = { 
