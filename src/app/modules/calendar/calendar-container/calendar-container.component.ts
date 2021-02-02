@@ -5,7 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { CalendarView, CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent } from 'angular-calendar';
 
 import { calev } from 'src/app/models/calendar.model';
-import { CalendarService } from 'src/app/services/calendar.service';
+import { neigiCalendarService } from 'src/app/services/calendar.service';
 import { CalendarEventAddDialogComponent } from '../components/calendar-event-add-dialog/calendar-event-add-dialog.component';
 import { CalendarEventEditDialogComponent } from '../components/calendar-event-edit-dialog/calendar-event-edit-dialog.component';
 
@@ -64,7 +64,8 @@ export class CalendarContainerComponent implements OnInit {
 
   constructor(
     public _dialog: MatDialog,
-    public calService: CalendarService,
+    // public calService: CalendarService,
+    private neigiCalEventService:neigiCalendarService,
     private cdr: ChangeDetectorRef
   ) { }
 
@@ -99,7 +100,8 @@ export class CalendarContainerComponent implements OnInit {
           end: newEnd,
         };
         console.log(_e)
-        this.calService.updateCalEvent(_e).subscribe(r => console.log(r))
+        // this.calService.updateCalEvent(_e).subscribe(r => console.log(r))
+        this.neigiCalEventService.update(_e)
         return _e
       }
       return iEvent;
@@ -121,7 +123,8 @@ export class CalendarContainerComponent implements OnInit {
           this.events.push(r)
           this.cdr.markForCheck();
           this.refresh.next()
-          this.calService.newCalEvent(r).subscribe(r => console.log(r))
+          // this.calService.newCalEvent(r).subscribe(r => console.log(r))
+          this.neigiCalEventService.add(r)
         }
       })
   }
@@ -140,14 +143,16 @@ export class CalendarContainerComponent implements OnInit {
           console.log(evdata)
           this.cdr.markForCheck();
           this.refresh.next()
-          this.calService.updateCalEvent(evdata).subscribe(r => console.log(r))
+          // this.calService.updateCalEvent(evdata).subscribe(r => console.log(r))
+          this.neigiCalEventService.update(r)
         }
       })
   }
 
   onDeleteEvent(eventToDelete: CalendarEvent) {
     this.events = this.events.filter((event) => event !== eventToDelete);
-    this.calService.deleteCalEvent(eventToDelete).subscribe(r => console.log(r))
+    // this.calService.deleteCalEvent(eventToDelete).subscribe(r => console.log(r))
+    this.neigiCalEventService.delete(eventToDelete)
   }
   
 }

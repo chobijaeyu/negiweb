@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { neigiCalendarService } from './calendar.service';
+import { NegifieldService } from './negifield.service';
 
-describe('CalendarService', () => {
-  let service: neigiCalendarService;
+describe('NegifieldService', () => {
+  let service: NegifieldService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(neigiCalendarService);
+    service = TestBed.inject(NegifieldService);
   });
 
   it('should be created', () => {

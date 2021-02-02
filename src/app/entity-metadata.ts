@@ -1,8 +1,14 @@
 import { EntityMetadataMap, EntityDataModuleConfig } from '@ngrx/data';
 
-const entityMetadata: EntityMetadataMap = {};
+const entityMetadata: EntityMetadataMap = {
+ negifield:{} ,
+ negiCalEvent:{}
+};
 
-const pluralNames = {  };
+const pluralNames = { 
+  negifield:"negifields",
+  negiCalEvent:"negiCalEvents"
+ };
 
 export const entityConfig: EntityDataModuleConfig = {
   entityMetadata,

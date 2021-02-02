@@ -1,1 +1,53 @@
-<p>calendar-event-form works!</p>
+<form [formGroup]="calEventForm">
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="1rem">
+        <mat-form-field appearance="outline" [hideRequiredMarker]="false">
+            <mat-icon matPrefix>stars</mat-icon>
+            <mat-label>タイトル</mat-label>
+            <input matInput formControlName='title' name='title' required>
+            <mat-error *ngIf="calEventForm.controls['title'].invalid">
+                <!-- {{calEventForm.controls['title']["errorMessage"]}} -->
+            </mat-error>
+            <mat-hint></mat-hint>
+        </mat-form-field>
+
+        <!-- <mat-form-field appearance="outline">
+            <mat-icon matPrefix>today</mat-icon>
+            <mat-label>開始日</mat-label>
+            <input matInput formControlName='start' name='start' [matDatepicker]="startpicker">
+            <mat-datepicker-toggle matSuffix [for]="startpicker"></mat-datepicker-toggle>
+            <mat-datepicker #startpicker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-icon matPrefix>today</mat-icon>
+            <mat-label>締切日</mat-label>
+            <input matInput formControlName='end' name='end' [matDatepicker]="endpicker">
+            <mat-datepicker-toggle matSuffix [for]="endpicker"></mat-datepicker-toggle>
+            <mat-datepicker #endpicker></mat-datepicker>
+        </mat-form-field> -->
+
+        <mat-form-field>
+            <mat-label>開始日</mat-label>
+            <input matInput [ngxMatDatetimePicker]="startpicker" placeholder="開始日" formControlName='start'>
+            <mat-datepicker-toggle matSuffix [for]="$any(startpicker)"></mat-datepicker-toggle>
+            <ngx-mat-datetime-picker #startpicker [showSpinners]="showSpinners" [showSeconds]="showSeconds"
+                [touchUi]="touchUi" [color]="color" [enableMeridian]="enableMeridian">
+            </ngx-mat-datetime-picker>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>締切日</mat-label>
+            <input matInput [ngxMatDatetimePicker]="endpicker" placeholder="締切日" formControlName='end'>
+            <mat-datepicker-toggle matSuffix [for]="$any(endpicker)"></mat-datepicker-toggle>
+            <ngx-mat-datetime-picker #endpicker [showSpinners]="showSpinners" [showSeconds]="showSeconds"
+                [touchUi]="touchUi" [color]="color" [enableMeridian]="enableMeridian">
+            </ngx-mat-datetime-picker>
+        </mat-form-field>
+
+        <mat-slide-toggle formControlName='allDay' name='allDay'>一日</mat-slide-toggle>
+        <mat-slide-toggle formControlName='draggable' name='draggable'>ドラッグ可</mat-slide-toggle>
+    </div>
+    <div>
+        <button mat-raised-button color="primary" (click)="onSubmit()">提出</button>
+    </div>
+</form>

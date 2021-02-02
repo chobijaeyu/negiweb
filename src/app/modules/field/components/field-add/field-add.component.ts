@@ -1,4 +1,6 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { negifield } from 'src/app/models/field.model';
 
 @Component({
   selector: 'negi-field-add',
@@ -8,9 +10,15 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 })
 export class FieldAddComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public dialogRef:MatDialogRef<FieldAddComponent>,
+    @Inject(MAT_DIALOG_DATA) public data:negifield
+  ) { }
 
   ngOnInit(): void {
   }
 
+  newField(field:negifield){
+    this.dialogRef.close(field)
+  }
 }

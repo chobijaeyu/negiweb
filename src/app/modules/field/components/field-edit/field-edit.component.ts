@@ -1,4 +1,6 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { negifield } from 'src/app/models/field.model';
 
 @Component({
   selector: 'negi-field-edit',
@@ -7,10 +9,16 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FieldEditComponent implements OnInit {
-
-  constructor() { }
+  title: string = "フィールドを編集"
+  constructor(
+    public dialogRef: MatDialogRef<FieldEditComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: negifield
+  ) { }
 
   ngOnInit(): void {
   }
 
+  editNegi(field: negifield) {
+    this.dialogRef.close(field)
+  }
 }

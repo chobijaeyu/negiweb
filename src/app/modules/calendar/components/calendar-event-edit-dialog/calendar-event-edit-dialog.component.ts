@@ -1,4 +1,6 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { calev } from 'src/app/models/calendar.model';
 
 @Component({
   selector: 'negi-calendar-event-edit-dialog',
@@ -8,9 +10,16 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 })
 export class CalendarEventEditDialogComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public dialogRef: MatDialogRef<CalendarEventEditDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public calevdata: calev,
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  onEditEvent(eventData: calev) {
+    this.dialogRef.close(eventData)
   }
 
 }

@@ -7,4 +7,6 @@ export class negifield {
     field_name: string = ""
     @prop()
     group_name: string = ""
+    @prop()
+    active:boolean = false
 }

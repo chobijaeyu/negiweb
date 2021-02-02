@@ -1,6 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import {
+  NgxMatDatetimePickerModule,
+  NgxMatNativeDateModule,
+  NgxMatTimepickerModule
+} from '@angular-material-components/datetime-picker';
+
 import { CalendarModule } from 'angular-calendar';
 import { NegiCalendarRoutingModule } from './calendar-routing.module';
 import { DateAdapter } from 'angular-calendar';
@@ -18,7 +24,8 @@ import { ShareModule } from '../share/share.module';
   declarations: [CalendarContainerComponent, CalendarHeaderComponent, CalendarCellComponent, CalendarEventAddDialogComponent, CalendarEventFormComponent, CalendarEventEditDialogComponent],
   imports: [
     CommonModule,
-    NegiCalendarRoutingModule,
+    NegiCalendarRoutingModule, 
+    NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateModule,
     CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
     ShareModule
   ]

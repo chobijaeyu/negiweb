@@ -15,6 +15,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 const m = [
   ReactiveFormsModule,
@@ -29,6 +32,9 @@ const m = [
   MatCardModule,
   MatDialogModule,
   MatFormFieldModule,
+  MatDatepickerModule,
+  MatSliderModule, 
+  MatSlideToggleModule,
 ]
 
 @NgModule({
