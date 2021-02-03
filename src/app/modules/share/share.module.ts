@@ -20,6 +20,8 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 const m = [
   ReactiveFormsModule,
@@ -39,6 +41,8 @@ const m = [
   MatSliderModule, 
   MatSlideToggleModule,
   MatSelectModule,
+  MatTableModule,
+  MatPaginatorModule,
 ]
 
 @NgModule({
