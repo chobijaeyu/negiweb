@@ -9,6 +9,7 @@ import { neigiCalendarService } from 'src/app/services/calendar.service';
 import { CalendarEventAddDialogComponent } from '../components/calendar-event-add-dialog/calendar-event-add-dialog.component';
 import { CalendarEventEditDialogComponent } from '../components/calendar-event-edit-dialog/calendar-event-edit-dialog.component';
 import { NegifieldService } from 'src/app/services/negifield.service';
+import { NewJourneyDialogComponent } from '../components/new-journey-dialog/new-journey-dialog.component';
 
 const colors: any = {
   red: {
@@ -66,13 +67,31 @@ export class CalendarContainerComponent implements OnInit {
   constructor(
     public _dialog: MatDialog,
     // public calService: CalendarService,
-    public negifieldservice:NegifieldService,
-    private neigiCalEventService:neigiCalendarService,
+    public negifieldservice: NegifieldService,
+    private neigiCalEventService: neigiCalendarService,
     private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
-    this.getAllField()
+    this.negifieldservice.getAll()
+    this.neigiCalEventService.getAll()
+    this.neigiCalEventService.entities$.subscribe(r => {
+      this.events = r.map(ev => {
+        let _e = {
+          ...ev,
+          actions: this.actions,
+          start: new Date(ev.start),
+        }
+        if (ev.end) {
+          _e = {
+            ..._e,
+            end: new Date(ev.end)
+          }
+        }
+        return _e
+      })
+
+    })
   }
 
 
@@ -131,7 +150,7 @@ export class CalendarContainerComponent implements OnInit {
         }
       })
   }
-  
+
 
   onEditEvent(evdata: CalendarEvent) {
     this._dialog.open(CalendarEventEditDialogComponent, { data: evdata })
@@ -153,18 +172,23 @@ export class CalendarContainerComponent implements OnInit {
       })
   }
 
-  onDeleteEvent(eventToDelete: CalendarEvent) {
+  onDeleteEvent(eventToDelete: calev) {
     this.events = this.events.filter((event) => event !== eventToDelete);
     // this.calService.deleteCalEvent(eventToDelete).subscribe(r => console.log(r))
     this.neigiCalEventService.delete(eventToDelete)
   }
 
-  getAllField(){
-    this.negifieldservice.getAll()
+  onNewJourney() {
+    this._dialog.open(NewJourneyDialogComponent,)
+      .afterClosed()
+      .subscribe((cs: calev[]) => {
+        console.log(cs)
+        if (cs) {
+          cs.forEach(cv => {
+            this.neigiCalEventService.add(cv)
+          });
+        }
+      })
   }
-  
-  onNewJourney(){
 
-  }
-  
 }

@@ -1,12 +1,13 @@
 import { CalendarEvent } from 'angular-calendar';
 import { EventColor, EventAction } from "calendar-utils";
 import { prop } from '@rxweb/reactive-form-validators';
+import { negifield } from './field.model';
 
 export class calev implements CalendarEvent {
     @prop()
     ID?: any;
     @prop()
-    start!: Date; 
+    start!: Date;
     @prop()
     end?: Date;
     @prop()
@@ -24,6 +25,8 @@ export class calev implements CalendarEvent {
     // resizable?: resizable = {};
     @prop({ defaultValue: true })
     draggable?: boolean;
+    @prop()
+    NegiFieldID?: any
 }
 
 export interface Holiday {

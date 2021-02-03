@@ -15,10 +15,11 @@ import { CalendarEventAddDialogComponent } from './components/calendar-event-add
 import { CalendarEventFormComponent } from './components/calendar-event-form/calendar-event-form.component';
 import { CalendarEventEditDialogComponent } from './components/calendar-event-edit-dialog/calendar-event-edit-dialog.component';
 import { ShareModule } from '../share/share.module';
+import { NewJourneyDialogComponent } from './components/new-journey-dialog/new-journey-dialog.component';
 
 
 @NgModule({
-  declarations: [CalendarContainerComponent, CalendarHeaderComponent, CalendarCellComponent, CalendarEventAddDialogComponent, CalendarEventFormComponent, CalendarEventEditDialogComponent],
+  declarations: [CalendarContainerComponent, CalendarHeaderComponent, CalendarCellComponent, CalendarEventAddDialogComponent, CalendarEventFormComponent, CalendarEventEditDialogComponent, NewJourneyDialogComponent],
   imports: [
     CommonModule,
     NegiCalendarRoutingModule, 

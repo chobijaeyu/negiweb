@@ -1,0 +1,15 @@
+<mat-card>
+    <mat-form-field appearance="fill">
+        <mat-label>Select an option</mat-label>
+        <mat-select [(value)]="selectedField">
+            <mat-option [value]="nf" *ngFor="let nf of nfields$ | async">{{nf.field_name}}|{{nf.group_name}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-card *ngIf="selectedField">
+        # {{selectedField.ID}} | {{selectedField.field_name}} | {{selectedField.group_name}} | {{selectedField.status}}
+    </mat-card>
+    <mat-card-actions>
+        <button mat-button (click)="onGoNewJourney()">OK</button>
+    </mat-card-actions>
+</mat-card>
