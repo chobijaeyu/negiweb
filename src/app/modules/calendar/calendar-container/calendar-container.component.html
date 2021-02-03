@@ -27,6 +27,11 @@
         (eventTimesChanged)="eventTimesChanged($event)">
     </mwl-calendar-day-view>
 </div>
-<button mat-fab (click)="onAddEvent()" type="button" class="fab-button">
+<button mat-raised-button (click)="onNewJourney()" type="button" color="primary" class="">
     <mat-icon>add</mat-icon>
+    start new journey
+</button>
+<button mat-raised-button (click)="onAddEvent()" type="button" color="accent" class="">
+    <mat-icon>add</mat-icon>
+    add one task
 </button>
