@@ -5,6 +5,7 @@ import { isSameDay, isSameMonth } from 'date-fns';
 import { Subject } from 'rxjs';
 import { calev } from 'src/app/models/calendar.model';
 import { negifield } from 'src/app/models/field.model';
+import { CalendarEventAddDialogComponent } from 'src/app/modules/calendar/components/calendar-event-add-dialog/calendar-event-add-dialog.component';
 import { CalendarEventEditDialogComponent } from 'src/app/modules/calendar/components/calendar-event-edit-dialog/calendar-event-edit-dialog.component';
 import { neigiCalendarService } from 'src/app/services/calendar.service';
 import { NegifieldService } from 'src/app/services/negifield.service';
@@ -149,13 +150,30 @@ export class FieldCalendarComponent implements OnInit {
   }
 
   eventClicked(ev: any) {
-    this._dialog.open(TaskDetailComponent, { data: ev }).afterClosed().subscribe(r => {
-
+    this._dialog.open(TaskDetailComponent, { data: ev }).afterClosed().subscribe((r: calev) => {
+      if (r) {
+        this.neigiCalEventService.update(r)
+      }
     })
   }
 
   onAddEvent() {
-
+    this._dialog.open(CalendarEventAddDialogComponent, { data: this.nf })
+      .afterClosed()
+      .subscribe((r: calev) => {
+        if (r) {
+          console.log(r)
+          r.actions = this.actions
+          // r.resizable = {}
+          // r.resizable.afterEnd = true
+          // r.resizable.beforeStart = true
+          this.events.push(r)
+          this.cdr.markForCheck();
+          this.refresh.next()
+          // this.calService.newCalEvent(r).subscribe(r => console.log(r))
+          this.neigiCalEventService.add(r)
+        }
+      })
   }
 
   onNewJourney() {

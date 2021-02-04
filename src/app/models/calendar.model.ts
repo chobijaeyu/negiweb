@@ -14,11 +14,14 @@ export class calev implements CalendarEvent {
     title: string = "";
     color?: EventColor;
     actions?: EventAction[];
-    operator?: string
-    priority?: number
-    Completed?: boolean
     @prop()
-    allDay?: boolean;
+    operator?: string
+    @prop()
+    priority?: number
+    @prop()
+    completed?: boolean
+    @prop()
+    allDay?: boolean = true;
     @prop()
     cssClass?: string;
     // @prop({ defaultValue: { beforeStart: true, afterEnd: true } })

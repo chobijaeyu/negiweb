@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { calev } from 'src/app/models/calendar.model';
+import { negifield } from 'src/app/models/field.model';
 
 @Component({
   selector: 'negi-task-detail',
@@ -12,6 +13,8 @@ export class TaskDetailComponent implements OnInit {
 
   scannerEnabled: boolean = false
 
+  isMatchFieldId: boolean = false
+
   constructor(
     public dialogRef: MatDialogRef<TaskDetailComponent>,
     @Inject(MAT_DIALOG_DATA) public data: calev
@@ -21,7 +24,9 @@ export class TaskDetailComponent implements OnInit {
   }
 
   scanSuccessHandler(e: string) {
-
+    let nf: negifield = JSON.parse(e)
+    this.isMatchFieldId = nf.ID === this.data.NegiFieldID
+    this.scannerEnabled = !this.scannerEnabled
   }
 
   scanErrorHandler(e: Error) {
@@ -44,5 +49,10 @@ export class TaskDetailComponent implements OnInit {
   camerasNotFoundHandler(e: any) {
     alert("カメラが見つかりません。\n" + "お使いの環境（ご使用端末、ブラウザにより）カメラ利用できない場合がございます。")
     // console.log(e)
+  }
+
+  onFinished() {
+    this.data.completed = !this.data.completed
+    this.dialogRef.close(this.data)
   }
 }

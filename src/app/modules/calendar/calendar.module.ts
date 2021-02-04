@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
 
 import { NegiCalendarRoutingModule } from './calendar-routing.module';
 import { CalendarModule } from 'angular-calendar';
@@ -23,8 +21,6 @@ import { NewJourneyDialogComponent } from './components/new-journey-dialog/new-j
   imports: [
     CommonModule,
     NegiCalendarRoutingModule, 
-    MatDatepickerModule,
-    MatNativeDateModule,
     CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
     ShareModule
   ]

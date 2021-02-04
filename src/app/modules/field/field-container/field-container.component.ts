@@ -97,9 +97,15 @@ export class FieldContainerComponent implements OnInit, AfterViewInit {
       pageMargins: pageMargins,
       content: [
         {
-          text: `neig field 【返還先】`
+          text: ``
         },
-        { qr: JSON.stringify(nf), foreground: 'red', background: 'yellow' },
+        {
+          
+          stack: [
+            { qr: JSON.stringify(nf), fit: 550,margin:20},
+          ],
+         
+        }
       ],
       eccLevel: "H",
     };

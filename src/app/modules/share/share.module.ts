@@ -16,6 +16,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatInputModule } from '@angular/material/input';
@@ -23,6 +24,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 const m = [
   ReactiveFormsModule,
@@ -39,12 +41,14 @@ const m = [
   MatFormFieldModule,
   MatInputModule,
   MatDatepickerModule,
-  MatSliderModule, 
+  MatSliderModule,
   MatSlideToggleModule,
   MatSelectModule,
   MatTableModule,
   MatPaginatorModule,
   MatSortModule,
+  MatAutocompleteModule,
+  MatNativeDateModule,
 ]
 
 @NgModule({

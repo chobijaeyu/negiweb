@@ -1,6 +1,7 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { Component, OnInit, ChangeDetectionStrategy, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { calev } from 'src/app/models/calendar.model';
+import { negifield } from 'src/app/models/field.model';
 
 @Component({
   selector: 'negi-calendar-event-add-dialog',
@@ -9,9 +10,10 @@ import { calev } from 'src/app/models/calendar.model';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CalendarEventAddDialogComponent implements OnInit {
-  
+
   constructor(
     public dialogRef: MatDialogRef<CalendarEventAddDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: negifield
   ) { }
 
   ngOnInit(): void {

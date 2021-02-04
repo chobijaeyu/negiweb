@@ -3,7 +3,12 @@
         <mat-form-field appearance="outline" [hideRequiredMarker]="false">
             <mat-icon matPrefix>stars</mat-icon>
             <mat-label>タイトル</mat-label>
-            <input matInput formControlName='title' name='title' required>
+            <input matInput formControlName='title' name='title' [matAutocomplete]="auto" required>
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                <mat-option *ngFor="let option of filteredOptions$ | async" [value]="option">
+                    {{option}}
+                </mat-option>
+            </mat-autocomplete>
             <mat-error *ngIf="calEventForm.controls['title'].invalid">
                 <!-- {{calEventForm.controls['title']["errorMessage"]}} -->
             </mat-error>
@@ -29,6 +34,17 @@
             <mat-hint align="end">this task belong to which field</mat-hint>
         </mat-form-field>
 
+        <mat-form-field appearance="outline" [hideRequiredMarker]="false">
+            <mat-icon matPrefix>category</mat-icon>
+            <mat-label>優先順位</mat-label>
+            <mat-select formControlName='priority' name='priority'>
+                <mat-option *ngFor="let prio of priorities" [value]="prio.value">
+                    {{prio.viewValue}}
+                </mat-option>
+            </mat-select>
+            <mat-hint></mat-hint>
+        </mat-form-field>
+
         <!-- 
         <mat-form-field>
             <mat-label>開始日</mat-label>
@@ -48,12 +64,10 @@
             </ngx-mat-datetime-picker>
         </mat-form-field> -->
 
-        <mat-slide-toggle formControlName='allDay' name='allDay'>All day</mat-slide-toggle>
+        <!-- <mat-slide-toggle formControlName='allDay' name='allDay'>All day</mat-slide-toggle> -->
         <!-- <mat-slide-toggle formControlName='draggable' name='draggable'>ドラッグ可</mat-slide-toggle> -->
     </div>
     <div>
         <button mat-raised-button color="primary" (click)="onSubmit()">提出</button>
     </div>
 </form>
-
-{{calEventForm.value|json}}
