@@ -24,6 +24,19 @@
             <mat-hint></mat-hint>
         </mat-form-field>
 
+
+        <mat-form-field appearance="outline" [hideRequiredMarker]="false">
+            <mat-icon matPrefix>stars</mat-icon>
+            <mat-label>adress</mat-label>
+            <input matInput formControlName='address' name='address' required>
+            <mat-error *ngIf="fieldForm.controls['address'].invalid">
+                <!-- {{fieldForm.controls['address']["errorMessage"]}} -->
+            </mat-error>
+            <mat-hint></mat-hint>
+        </mat-form-field>
+
+        <mat-slide-toggle formControlName='active' name='active'>active</mat-slide-toggle>
+
     </div>
 
     <div>

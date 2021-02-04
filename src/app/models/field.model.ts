@@ -8,5 +8,7 @@ export class negifield {
     @prop()
     group_name: string = ""
     @prop()
-    status:boolean = false
+    active:boolean = false
+    @prop()
+    address:string = ""
 }

@@ -6,7 +6,7 @@
         <span class="cal-day-number">{{ day.date | calendarDate:'monthViewDayNumber':locale }}</span>
     </div>
     <li *ngFor="let ev of day.events" fxLayout="row" fxLayoutGap="1rem">
-        <span>{{ev.title}}</span>
+        <span>{{ev.NegiFieldID}} | {{ev.title}}</span>
         <div *ngIf="ev.draggable" fxLayoutGap="1rem">
             <span>{{ev.start | date:"HH:mm "}}</span>
             <span *ngIf="ev.end">~</span>

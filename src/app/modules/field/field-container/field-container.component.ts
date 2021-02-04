@@ -1,9 +1,11 @@
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { negifield } from 'src/app/models/field.model';
+import { neigiCalendarService } from 'src/app/services/calendar.service';
 import { NegifieldService } from 'src/app/services/negifield.service';
 import { FieldAddComponent } from '../components/field-add/field-add.component';
 import { FieldEditComponent } from '../components/field-edit/field-edit.component';
@@ -11,30 +13,40 @@ import { FieldEditComponent } from '../components/field-edit/field-edit.componen
 @Component({
   selector: 'negi-field-container',
   templateUrl: './field-container.component.html',
-  styleUrls: ['./field-container.component.sass']
+  styleUrls: ['./field-container.component.sass'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({ height: '0px', minHeight: '0' })),
+      state('expanded', style({ height: '*' })),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
 export class FieldContainerComponent implements OnInit, AfterViewInit {
 
-  displayedColumns: string[] = ['field_name', 'group_name'];
+  displayedColumns: string[] = ['field_name', 'group_name', 'active', 'address'];
   dataSource!: MatTableDataSource<negifield>;
+  expandedElement!: negifield | null;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
     private nf: NegifieldService,
+    public nc:neigiCalendarService,
     private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
     this.nf.getAll()
+    // this.nc.getAll()
     this.nf.entities$.subscribe(r => {
       this.dataSource = new MatTableDataSource(r)
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
     })
   }
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;    
   }
 
   openNewFieldDialog() {

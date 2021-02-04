@@ -1,43 +1,34 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
-import { isSameDay, isSameMonth, } from 'date-fns';
+import { Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter, ChangeDetectorRef, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { CalendarView, CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent } from 'angular-calendar';
-
+import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView } from 'angular-calendar';
+import { isSameDay, isSameMonth } from 'date-fns';
+import { Subject } from 'rxjs';
 import { calev } from 'src/app/models/calendar.model';
+import { negifield } from 'src/app/models/field.model';
+import { CalendarEventEditDialogComponent } from 'src/app/modules/calendar/components/calendar-event-edit-dialog/calendar-event-edit-dialog.component';
 import { neigiCalendarService } from 'src/app/services/calendar.service';
-import { CalendarEventAddDialogComponent } from '../components/calendar-event-add-dialog/calendar-event-add-dialog.component';
-import { CalendarEventEditDialogComponent } from '../components/calendar-event-edit-dialog/calendar-event-edit-dialog.component';
 import { NegifieldService } from 'src/app/services/negifield.service';
-import { NewJourneyDialogComponent } from '../components/new-journey-dialog/new-journey-dialog.component';
-
-const colors: any = {
-  red: {
-    primary: '#ad2121',
-    secondary: '#FAE3E3',
-  },
-  blue: {
-    primary: '#1e90ff',
-    secondary: '#D1E8FF',
-  },
-  yellow: {
-    primary: '#e3bc08',
-    secondary: '#FDF1BA',
-  },
-};
+import { TaskDetailComponent } from '../task-detail/task-detail.component';
 
 @Component({
-  selector: 'negi-calendar-container',
-  templateUrl: './calendar-container.component.html',
-  styleUrls: ['./calendar-container.component.sass']
+  selector: 'negi-field-calendar',
+  templateUrl: './field-calendar.component.html',
+  styleUrls: ['./field-calendar.component.sass'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CalendarContainerComponent implements OnInit {
-
+export class FieldCalendarComponent implements OnInit {
   view: CalendarView = CalendarView.Month;
+
+  viewDate: Date = new Date();
+
+  locale: string = 'ja';
 
   CalendarView = CalendarView;
 
-  viewDate: Date = new Date();
+  @Input() nf!: negifield
+
+  @Output() viewChange = new EventEmitter<CalendarView>();
+  @Output() viewDateChange = new EventEmitter<Date>();
 
   actions: CalendarEventAction[] = [
     {
@@ -60,21 +51,19 @@ export class CalendarContainerComponent implements OnInit {
 
   refresh: Subject<any> = new Subject();
 
-  events: CalendarEvent[] = [];
+  events: calev[] = [];
 
   activeDayIsOpen: boolean = false;
 
   constructor(
     public _dialog: MatDialog,
-    // public calService: CalendarService,
-    public negifieldservice: NegifieldService,
-    private neigiCalEventService: neigiCalendarService,
-    private cdr: ChangeDetectorRef
+    public nfs: NegifieldService,
+    public neigiCalEventService: neigiCalendarService,
+    private cdr: ChangeDetectorRef,
   ) { }
 
   ngOnInit(): void {
-    this.negifieldservice.getAll()
-    this.neigiCalEventService.getAll()
+    this.neigiCalEventService.getWithQuery({ nfID: this.nf.ID })
     this.neigiCalEventService.entities$.subscribe(r => {
       this.events = r.map(ev => {
         let _e = {
@@ -90,7 +79,8 @@ export class CalendarContainerComponent implements OnInit {
         }
         return _e
       })
-
+      this.events = this.events.filter(v => v.NegiFieldID == this.nf.ID)
+      this.cdr.markForCheck()
     })
   }
 
@@ -130,24 +120,6 @@ export class CalendarContainerComponent implements OnInit {
     });
   }
 
-  onAddEvent() {
-    this._dialog.open(CalendarEventAddDialogComponent)
-      .afterClosed()
-      .subscribe((r: calev) => {
-        if (r) {
-          console.log(r)
-          r.actions = this.actions
-          // r.resizable = {}
-          // r.resizable.afterEnd = true
-          // r.resizable.beforeStart = true
-          this.events.push(r)
-          this.cdr.markForCheck();
-          this.refresh.next()
-          // this.calService.newCalEvent(r).subscribe(r => console.log(r))
-          this.neigiCalEventService.add(r)
-        }
-      })
-  }
 
 
   onEditEvent(evdata: CalendarEvent) {
@@ -165,7 +137,7 @@ export class CalendarContainerComponent implements OnInit {
           this.cdr.markForCheck();
           this.refresh.next()
           // this.calService.updateCalEvent(evdata).subscribe(r => console.log(r))
-          this.neigiCalEventService.update(r)
+          // this.neigiCalEventService.update(r)
         }
       })
   }
@@ -173,20 +145,20 @@ export class CalendarContainerComponent implements OnInit {
   onDeleteEvent(eventToDelete: calev) {
     this.events = this.events.filter((event) => event !== eventToDelete);
     // this.calService.deleteCalEvent(eventToDelete).subscribe(r => console.log(r))
-    this.neigiCalEventService.delete(eventToDelete)
+    // this.neigiCalEventService.delete(eventToDelete)
+  }
+
+  eventClicked(ev: calev) {
+    this._dialog.open(TaskDetailComponent, { data: ev }).afterClosed().subscribe(r => {
+
+    })
+  }
+
+  onAddEvent() {
+
   }
 
   onNewJourney() {
-    this._dialog.open(NewJourneyDialogComponent,)
-      .afterClosed()
-      .subscribe((cs: calev[]) => {
-        console.log(cs)
-        if (cs) {
-          cs.forEach(cv => {
-            this.neigiCalEventService.add(cv)
-          });
-        }
-      })
-  }
 
+  }
 }

@@ -4,8 +4,8 @@ import { CommonModule } from '@angular/common';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 
-import { CalendarModule } from 'angular-calendar';
 import { NegiCalendarRoutingModule } from './calendar-routing.module';
+import { CalendarModule } from 'angular-calendar';
 import { DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { CalendarContainerComponent } from './calendar-container/calendar-container.component';
