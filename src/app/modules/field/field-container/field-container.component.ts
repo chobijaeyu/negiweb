@@ -10,6 +10,12 @@ import { NegifieldService } from 'src/app/services/negifield.service';
 import { FieldAddComponent } from '../components/field-add/field-add.component';
 import { FieldEditComponent } from '../components/field-edit/field-edit.component';
 
+import * as pdfMake from 'pdfmake/build/pdfmake';
+import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+import { PageSize } from 'pdfmake/interfaces';
+
+// pdfMake.vfs  = pdfFonts.pdfMake.vfs;
+
 @Component({
   selector: 'negi-field-container',
   templateUrl: './field-container.component.html',
@@ -24,7 +30,7 @@ import { FieldEditComponent } from '../components/field-edit/field-edit.componen
 })
 export class FieldContainerComponent implements OnInit, AfterViewInit {
 
-  displayedColumns: string[] = ['field_name', 'group_name', 'active', 'address'];
+  displayedColumns: string[] = ['field_name', 'group_name', 'active', 'address', 'action'];
   dataSource!: MatTableDataSource<negifield>;
   expandedElement!: negifield | null;
 
@@ -33,7 +39,7 @@ export class FieldContainerComponent implements OnInit, AfterViewInit {
 
   constructor(
     private nf: NegifieldService,
-    public nc:neigiCalendarService,
+    public nc: neigiCalendarService,
     private dialog: MatDialog
   ) { }
 
@@ -82,4 +88,39 @@ export class FieldContainerComponent implements OnInit, AfterViewInit {
     }
   }
 
+  generatePdf(nf: negifield) {
+    let pageSize: PageSize = "A4"
+    let pageMargins: [number, number, number, number] = [5, 9, 6, 8]
+
+    const documentDefinition = {
+      pageSize: pageSize,
+      pageMargins: pageMargins,
+      content: [
+        {
+          text: `neig field 【返還先】`
+        },
+        { qr: JSON.stringify(nf), foreground: 'red', background: 'yellow' },
+      ],
+      eccLevel: "H",
+    };
+    pdfMake.createPdf(
+      documentDefinition,
+      {},
+      {
+        Roboto: {
+          normal: 'Roboto-Regular.ttf',
+          bold: 'Roboto-Medium.ttf',
+          italics: 'Roboto-Italic.ttf',
+          bolditalics: 'Roboto-Italic.ttf'
+        },
+        Helvetica: {
+          normal: 'Helvetica',
+          bold: 'Helvetica-Bold',
+          italics: 'Helvetica-Oblique',
+          bolditalics: 'Helvetica-BoldOblique'
+        },
+      },
+      pdfFonts.pdfMake.vfs
+    ).open();
+  }
 }

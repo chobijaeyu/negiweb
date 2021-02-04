@@ -148,7 +148,7 @@ export class FieldCalendarComponent implements OnInit {
     // this.neigiCalEventService.delete(eventToDelete)
   }
 
-  eventClicked(ev: calev) {
+  eventClicked(ev: any) {
     this._dialog.open(TaskDetailComponent, { data: ev }).afterClosed().subscribe(r => {
 
     })
