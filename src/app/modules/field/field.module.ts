@@ -5,6 +5,8 @@ import { CalendarModule } from 'angular-calendar';
 import { DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
+
 import { FieldRoutingModule } from './field-routing.module';
 import { FieldContainerComponent } from './field-container/field-container.component';
 import { ShareModule } from '../share/share.module';
@@ -20,6 +22,7 @@ import { TaskDetailComponent } from './components/task-detail/task-detail.compon
   imports: [
     CommonModule,
     ShareModule,
+    ZXingScannerModule,
     FieldRoutingModule,
     CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
   ]
