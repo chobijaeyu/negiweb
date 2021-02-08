@@ -17,7 +17,7 @@ export class calev implements CalendarEvent {
     @prop()
     operator?: string
     @prop()
-    priority?: number
+    priority?: number = 3
     @prop()
     completed?: boolean
     @prop()

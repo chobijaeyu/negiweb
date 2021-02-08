@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { calev } from 'src/app/models/calendar.model';
-import { negifield } from 'src/app/models/field.model';
+import { negifield, priorities } from 'src/app/models/field.model';
 
 @Component({
   selector: 'negi-task-detail',
@@ -14,6 +14,7 @@ export class TaskDetailComponent implements OnInit {
   scannerEnabled: boolean = false
 
   isMatchFieldId: boolean = false
+  priorities = priorities
 
   constructor(
     public dialogRef: MatDialogRef<TaskDetailComponent>,

@@ -150,7 +150,7 @@ export class FieldCalendarComponent implements OnInit {
   }
 
   eventClicked(ev: any) {
-    this._dialog.open(TaskDetailComponent, { data: ev }).afterClosed().subscribe((r: calev) => {
+    this._dialog.open(TaskDetailComponent, { data: ev.event }).afterClosed().subscribe((r: calev) => {
       if (r) {
         this.neigiCalEventService.update(r)
       }

@@ -5,7 +5,7 @@ import { RxFormBuilder } from '@rxweb/reactive-form-validators';
 import { Observable, of } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { calev } from 'src/app/models/calendar.model';
-import { negifield } from 'src/app/models/field.model';
+import { negifield, priorities } from 'src/app/models/field.model';
 import { NegifieldService } from 'src/app/services/negifield.service';
 
 @Component({
@@ -28,11 +28,7 @@ export class CalendarEventFormComponent implements OnInit {
   touchUi = false;
   enableMeridian = false;
   color: ThemePalette = 'primary';
-  priorities = [
-    { value: 1, viewValue: '緊急' },
-    { value: 2, viewValue: '重要' },
-    { value: 3, viewValue: '一般' },
-  ]
+  priorities = priorities
   titleOptions = [
     "[定植] ゴーゴーサン ",
     "[肥料] スミカエース10号",
