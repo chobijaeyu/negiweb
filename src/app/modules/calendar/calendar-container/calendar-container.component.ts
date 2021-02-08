@@ -10,6 +10,7 @@ import { CalendarEventAddDialogComponent } from '../components/calendar-event-ad
 import { CalendarEventEditDialogComponent } from '../components/calendar-event-edit-dialog/calendar-event-edit-dialog.component';
 import { NegifieldService } from 'src/app/services/negifield.service';
 import { NewJourneyDialogComponent } from '../components/new-journey-dialog/new-journey-dialog.component';
+import { ConfirmDialogComponent } from '../../share/components/confirm-dialog/confirm-dialog.component';
 
 const colors: any = {
   red: {
@@ -155,15 +156,15 @@ export class CalendarContainerComponent implements OnInit {
       .afterClosed()
       .subscribe((r: calev) => {
         if (r) {
-          console.log(r)
           r.actions = this.actions
+          console.log(r)
           // r.resizable = {}
           // r.resizable.afterEnd = true
           // r.resizable.beforeStart = true
-          evdata = r
-          console.log(evdata)
-          this.cdr.markForCheck();
-          this.refresh.next()
+          // evdata = r
+          // console.log(evdata)
+          // this.cdr.markForCheck();
+          // this.refresh.next()
           // this.calService.updateCalEvent(evdata).subscribe(r => console.log(r))
           this.neigiCalEventService.update(r)
         }
@@ -171,9 +172,14 @@ export class CalendarContainerComponent implements OnInit {
   }
 
   onDeleteEvent(eventToDelete: calev) {
-    this.events = this.events.filter((event) => event !== eventToDelete);
+    // this.events = this.events.filter((event) => event !== eventToDelete);
     // this.calService.deleteCalEvent(eventToDelete).subscribe(r => console.log(r))
-    this.neigiCalEventService.delete(eventToDelete)
+    // this.neigiCalEventService.delete(eventToDelete)
+    this._dialog.open(ConfirmDialogComponent, { data: { title: "タスクを削除する" } }).afterClosed().subscribe(r => {
+      if (r) {
+        this.neigiCalEventService.delete(eventToDelete)
+      }
+    })
   }
 
   onNewJourney() {

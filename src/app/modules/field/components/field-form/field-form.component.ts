@@ -14,6 +14,7 @@ export class FieldFormComponent implements OnInit {
   fieldForm: FormGroup = new FormGroup({})
 
   @Input() title: string = ""
+  @Input() nf!: negifield 
 
   @Output() negifieldData: EventEmitter<negifield> = new EventEmitter()
 
@@ -23,6 +24,10 @@ export class FieldFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.fieldForm = this.fb.formGroup(this.negifield)
+
+    if (this.nf) {
+      this.fieldForm.patchValue(this.nf)
+    }
   }
 
   onSubmit() {

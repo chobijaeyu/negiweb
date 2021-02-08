@@ -13,6 +13,7 @@ import { FieldEditComponent } from '../components/field-edit/field-edit.componen
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import { PageSize } from 'pdfmake/interfaces';
+import { ConfirmDialogComponent } from '../../share/components/confirm-dialog/confirm-dialog.component';
 
 // pdfMake.vfs  = pdfFonts.pdfMake.vfs;
 
@@ -67,8 +68,9 @@ export class FieldContainerComponent implements OnInit, AfterViewInit {
     )
   }
 
-  openEditDialog() {
-    const dr = this.dialog.open(FieldEditComponent, {})
+  onEdit(nf: negifield, ev: MouseEvent) {
+    ev.stopPropagation()
+    const dr = this.dialog.open(FieldEditComponent, { data: nf })
 
     dr.afterClosed().subscribe(field => {
       if (field) {
@@ -78,6 +80,14 @@ export class FieldContainerComponent implements OnInit, AfterViewInit {
     })
   }
 
+  onDelete(nf: negifield, ev: MouseEvent) {
+    ev.stopPropagation()
+    this.dialog.open(ConfirmDialogComponent, { data: { title: "フィールドを削除する" } }).afterClosed().subscribe(r => {
+      if (r) {
+        this.nf.delete(nf)
+      }
+    })
+  }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -88,7 +98,8 @@ export class FieldContainerComponent implements OnInit, AfterViewInit {
     }
   }
 
-  generatePdf(nf: negifield) {
+  generatePdf(nf: negifield, ev: MouseEvent) {
+    ev.stopPropagation()
     let pageSize: PageSize = "A4"
     let pageMargins: [number, number, number, number] = [5, 9, 6, 8]
 
@@ -100,11 +111,11 @@ export class FieldContainerComponent implements OnInit, AfterViewInit {
           text: ``
         },
         {
-          
+
           stack: [
-            { qr: JSON.stringify(nf), fit: 550,margin:20},
+            { qr: JSON.stringify(nf), fit: 550, margin: 20 },
           ],
-         
+
         }
       ],
       eccLevel: "H",

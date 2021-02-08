@@ -32,9 +32,9 @@
         <ng-container matColumnDef="action">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> action </th>
             <td mat-cell *matCellDef="let row">
-                <mat-icon>mode_edit</mat-icon>
-                <mat-icon>delete</mat-icon>
-                <mat-icon (click)="generatePdf(row)">qr_code_2</mat-icon>
+                <mat-icon (click)="onEdit(row,$event)">mode_edit</mat-icon>
+                <mat-icon (click)="onDelete(row,$event)">delete</mat-icon>
+                <mat-icon (click)="generatePdf(row,$event)">qr_code_2</mat-icon>
             </td>
         </ng-container>
 

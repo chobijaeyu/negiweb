@@ -25,6 +25,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 
 const m = [
   ReactiveFormsModule,
@@ -52,7 +53,7 @@ const m = [
 ]
 
 @NgModule({
-  declarations: [],
+  declarations: [ConfirmDialogComponent],
   imports: [
     CommonModule,
     m,
