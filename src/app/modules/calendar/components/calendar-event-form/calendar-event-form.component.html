@@ -1,0 +1,73 @@
+<form [formGroup]="calEventForm">
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="1rem">
+        <mat-form-field appearance="outline" [hideRequiredMarker]="false">
+            <mat-icon matPrefix>stars</mat-icon>
+            <mat-label>タイトル</mat-label>
+            <input matInput formControlName='title' name='title' [matAutocomplete]="auto" required>
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                <mat-option *ngFor="let option of filteredOptions$ | async" [value]="option">
+                    {{option}}
+                </mat-option>
+            </mat-autocomplete>
+            <mat-error *ngIf="calEventForm.controls['title'].invalid">
+                <!-- {{calEventForm.controls['title']["errorMessage"]}} -->
+            </mat-error>
+            <mat-hint></mat-hint>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>期間を入力下さい。</mat-label>
+            <mat-date-range-input [rangePicker]="picker">
+                <input matStartDate placeholder="開始日" formControlName='start'>
+                <input matEndDate placeholder="締切日" formControlName='end'>
+            </mat-date-range-input>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>field</mat-label>
+            <mat-select formControlName='NegiFieldID' name='NegiFieldID'>
+                <mat-option [value]="nf.ID" *ngFor="let nf of nfields$ | async">{{nf.field_name}}|{{nf.group_name}}
+                </mat-option>
+            </mat-select>
+            <mat-hint align="end">this task belong to which field</mat-hint>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" [hideRequiredMarker]="false">
+            <mat-icon matPrefix>category</mat-icon>
+            <mat-label>優先順位</mat-label>
+            <mat-select formControlName='priority' name='priority'>
+                <mat-option *ngFor="let prio of priorities" [value]="prio.value">
+                    {{prio.viewValue}}
+                </mat-option>
+            </mat-select>
+            <mat-hint></mat-hint>
+        </mat-form-field>
+
+        <!-- 
+        <mat-form-field>
+            <mat-label>開始日</mat-label>
+            <input matInput [ngxMatDatetimePicker]="startpicker" placeholder="開始日" formControlName='start'>
+            <mat-datepicker-toggle matSuffix [for]="$any(startpicker)"></mat-datepicker-toggle>
+            <ngx-mat-datetime-picker #startpicker [showSpinners]="showSpinners" [showSeconds]="showSeconds"
+                [touchUi]="touchUi" [color]="color" [enableMeridian]="enableMeridian">
+            </ngx-mat-datetime-picker>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>締切日</mat-label>
+            <input matInput [ngxMatDatetimePicker]="endpicker" placeholder="締切日" formControlName='end'>
+            <mat-datepicker-toggle matSuffix [for]="$any(endpicker)"></mat-datepicker-toggle>
+            <ngx-mat-datetime-picker #endpicker [showSpinners]="showSpinners" [showSeconds]="showSeconds"
+                [touchUi]="touchUi" [color]="color" [enableMeridian]="enableMeridian">
+            </ngx-mat-datetime-picker>
+        </mat-form-field> -->
+
+        <!-- <mat-slide-toggle formControlName='allDay' name='allDay'>All day</mat-slide-toggle> -->
+        <!-- <mat-slide-toggle formControlName='draggable' name='draggable'>ドラッグ可</mat-slide-toggle> -->
+    </div>
+    <div>
+        <button mat-raised-button color="primary" (click)="onSubmit()">完成する</button>
+    </div>
+</form>

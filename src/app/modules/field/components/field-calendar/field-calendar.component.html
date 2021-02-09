@@ -1,0 +1,57 @@
+<div fxLayout="cloumn" fxLayoutAlign="space-around center">
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="1rem">
+        <button mat-raised-button mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate"
+            (viewDateChange)="viewDateChange.next(viewDate)" color="primary">👈🏼</button>
+        <button mat-raised-button mwlCalendarToday [(viewDate)]="viewDate"
+            (viewDateChange)="viewDateChange.next(viewDate)" color="primary">🌞</button>
+        <button mat-raised-button mwlCalendarNextView [view]="view" [(viewDate)]="viewDate"
+            (viewDateChange)="viewDateChange.next(viewDate)" color="primary">👉🏼</button>
+    </div>
+    <div class="col-md-4">
+        <h3>{{ viewDate | calendarDate: view + 'ViewTitle':locale }}</h3>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="1rem">
+        <button mat-raised-button (click)="viewChange.emit(CalendarView.Month)"
+            [class.active]="view === CalendarView.Month" color="primary">月</button>
+        <!-- <button mat-raised-button (click)="viewChange.emit(CalendarView.Week)"
+            [class.active]="view === CalendarView.Week" color="primary">週</button>
+        <button mat-raised-button (click)="viewChange.emit(CalendarView.Day)" [class.active]="view === CalendarView.Day"
+            color="primary">日</button> -->
+    </div>
+</div>
+
+<ng-template #customCellTemplate let-day="day" let-locale="locale">
+    <div class="cal-cell-top">
+        <span class="cal-day-badge" *ngIf="day.badgeTotal > 0">{{ day.badgeTotal }}</span>
+        <span class="cal-day-number">{{ day.date | calendarDate:'monthViewDayNumber':locale }}</span>
+    </div>
+    <li *ngFor="let ev of day.events" fxLayout="row" fxLayoutGap="1rem">
+        <span>{{ev.title}}</span>
+        <div *ngIf="ev.draggable" fxLayoutGap="1rem">
+            <span>{{ev.start | date:"HH:mm "}}</span>
+            <span *ngIf="ev.end">~</span>
+            <span *ngIf="ev.end">{{ev.end | date:"HH:mm"}}</span>
+        </div>
+    </li>
+</ng-template>
+
+<div [ngSwitch]="view">
+    <mwl-calendar-month-view *ngSwitchCase="CalendarView.Month" [viewDate]="viewDate" [events]="events"
+        [refresh]="refresh" [cellTemplate]="customCellTemplate" [activeDayIsOpen]="activeDayIsOpen"
+        (dayClicked)="dayClicked($event.day)" (eventTimesChanged)="eventTimesChanged($event)" (eventClicked)="eventClicked($event)">
+    </mwl-calendar-month-view>
+    <!-- <mwl-calendar-week-view *ngSwitchCase="CalendarView.Week" [viewDate]="viewDate" [events]="events"
+        [refresh]="refresh" (eventTimesChanged)="eventTimesChanged($event)">
+    </mwl-calendar-week-view>
+    <mwl-calendar-day-view *ngSwitchCase="CalendarView.Day" [viewDate]="viewDate" [events]="events" [refresh]="refresh"
+        (eventTimesChanged)="eventTimesChanged($event)">
+    </mwl-calendar-day-view> -->
+</div>
+<button mat-raised-button (click)="onNewJourney()" type="button" color="primary" class="">
+    <mat-icon>add</mat-icon>
+    start new journey
+</button>
+<button mat-raised-button (click)="onAddEvent()" type="button" color="accent" class="">
+    <mat-icon>add</mat-icon>
+    add one task
+</button>

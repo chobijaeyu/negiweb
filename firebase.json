@@ -1,6 +1,5 @@
 {
   "hosting": {
-    "site": "negionline",
     "public": "dist/negiweb",
     "ignore": [
       "firebase.json",
