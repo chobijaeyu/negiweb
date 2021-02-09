@@ -1,12 +1,12 @@
 {
   "projects": {
-    "default": "kaihatu-1a93a"
+    "default": "negi-304307"
   },
   "targets": {
-    "kaihatu-1a93a": {
+    "negi-304307": {
       "hosting": {
         "negiweb": [
-          "kaihatu-1a93a"
+          "negi-304307"
         ]
       }
     }
