@@ -128,25 +128,16 @@ export class FieldCalendarComponent implements OnInit {
       .afterClosed()
       .subscribe((r: calev) => {
         if (r) {
-          console.log(r)
-          r.actions = this.actions
-          // r.resizable = {}
-          // r.resizable.afterEnd = true
-          // r.resizable.beforeStart = true
-          evdata = r
-          console.log(evdata)
-          this.cdr.markForCheck();
-          this.refresh.next()
           // this.calService.updateCalEvent(evdata).subscribe(r => console.log(r))
-          // this.neigiCalEventService.update(r)
+          this.neigiCalEventService.update(r)
         }
       })
   }
 
   onDeleteEvent(eventToDelete: calev) {
-    this.events = this.events.filter((event) => event !== eventToDelete);
+    // this.events = this.events.filter((event) => event !== eventToDelete);
     // this.calService.deleteCalEvent(eventToDelete).subscribe(r => console.log(r))
-    // this.neigiCalEventService.delete(eventToDelete)
+    this.neigiCalEventService.delete(eventToDelete)
   }
 
   eventClicked(ev: any) {

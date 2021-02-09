@@ -11,6 +11,7 @@ import { CalendarEventEditDialogComponent } from '../components/calendar-event-e
 import { NegifieldService } from 'src/app/services/negifield.service';
 import { NewJourneyDialogComponent } from '../components/new-journey-dialog/new-journey-dialog.component';
 import { ConfirmDialogComponent } from '../../share/components/confirm-dialog/confirm-dialog.component';
+import { TaskDetailComponent } from '../../field/components/task-detail/task-detail.component';
 
 const colors: any = {
   red: {
@@ -129,6 +130,14 @@ export class CalendarContainerComponent implements OnInit {
       }
       return iEvent;
     });
+  }
+
+  eventClicked(ev: any) {
+    this._dialog.open(TaskDetailComponent, { data: ev.event }).afterClosed().subscribe((r: calev) => {
+      if (r) {
+        this.neigiCalEventService.update(r)
+      }
+    })
   }
 
   onAddEvent() {
