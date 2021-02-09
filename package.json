@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -38,7 +38,6 @@
     "angular-calendar": "^0.28.22",
     "date-fns": "^2.16.1",
     "firebase": "^7.0.0 || ^8.0.0",
-    "ngx-auth-firebaseui": "^5.0.0",
     "pdfmake": "^0.1.70",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
