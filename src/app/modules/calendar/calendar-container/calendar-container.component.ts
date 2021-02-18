@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit, TemplateRef } from '@angular/core';
 import { Subject } from 'rxjs';
 import { isSameDay, isSameMonth, } from 'date-fns';
 import { MatDialog } from '@angular/material/dialog';
@@ -66,6 +66,11 @@ export class CalendarContainerComponent implements OnInit {
 
   activeDayIsOpen: boolean = false;
 
+  @Input() locale!: string;
+  @Input() date!: Date;
+  @Input() eventActionsTemplate!: TemplateRef<any>;
+  @Input() eventTitleTemplate!: TemplateRef<any>;
+
   constructor(
     public _dialog: MatDialog,
     // public calService: CalendarService,
@@ -83,6 +88,7 @@ export class CalendarContainerComponent implements OnInit {
           ...ev,
           actions: this.actions,
           start: new Date(ev.start),
+          
         }
         if (ev.end) {
           _e = {
