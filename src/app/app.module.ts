@@ -14,6 +14,7 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { HttpClientModule } from '@angular/common/http';
 import { registerLocaleData } from '@angular/common';
+import { AngularFireModule } from '@angular/fire';
 
 registerLocaleData(localeJa)
 
@@ -25,6 +26,7 @@ registerLocaleData(localeJa)
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    AngularFireModule.initializeApp(environment.firebase),
     StoreModule.forRoot({}, {}),
     EffectsModule.forRoot([]),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),

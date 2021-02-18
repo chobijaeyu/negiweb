@@ -1,0 +1,45 @@
+<mat-card class="login-card" [formGroup]="loginForm">
+    <div class="logo">
+        <mat-icon class="logo-icon" color="primary">account_circle</mat-icon>
+    </div>
+    <div class="login-content">
+        <h3><b>サインイン</b></h3>
+
+        <div *ngIf="af.user | async as user; else showLogin">
+            <h1>Hello {{ user.displayName }}!</h1>
+        </div>
+        <ng-template #showLogin>
+            <p>Please login.</p>
+            <button mat-raised-button (click)="lineLogin()">
+                <mat-icon svgIcon="auth-line"></mat-icon>
+                sign in with line
+            </button>
+        </ng-template>
+
+        <!-- </div>
+    <div>
+        <mat-form-field>
+            <mat-label class="placeholder">ユーザー</mat-label>
+            <input type="text" matInput formControlName="username" name="username" placeholder="ユーザーID" required>
+        </mat-form-field>
+    </div>
+    <div>
+        <mat-form-field>
+            <mat-label class="placeholder">パスワード</mat-label>
+            <input type="password" matInput formControlName="password" name="password" placeholder="パスワード" required>
+        </mat-form-field>
+    </div>
+    <div>
+        <button mat-raised-button [disabled]="!loginForm.valid" color="primary" (click)="onSubmit()">ログイン</button>
+    </div>
+    <div class="errmsg" *ngIf="error$ | async as loginErr">
+        <span>
+            {{loginErr.error.err}}
+        </span>
+        <span>ユーザーIDまたはパスワードが違います...</span>-->
+    </div>
+</mat-card>
+
+<!-- <div class="loading-shade" *ngIf="isLoading$ | async">
+    <mat-spinner *ngIf="isLoading$ | async"></mat-spinner>
+</div> -->
