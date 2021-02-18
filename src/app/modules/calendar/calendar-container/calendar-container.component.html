@@ -6,8 +6,9 @@
         <span class="cal-day-number">{{ day.date | calendarDate:'monthViewDayNumber':locale }}</span>
     </div>
     <li *ngFor="let ev of day.events" fxLayout="row" fxLayoutGap="1rem"
-        [ngClass]="{'emergency': ev.priority === 1,'important':ev.priority===2,'normal':ev.priority===3,'completed':ev.completed}">
-        <span> | {{ev.title}}</span>
+        [ngClass]="{'emergency': ev.priority === 1,'important':ev.priority===2,'normal':ev.priority===3,'completed':ev.completed}"
+        >
+        <span>{{ev.ID}} | {{ev.title}}</span>
         <div *ngIf="ev.draggable" fxLayoutGap="1rem">
             <span>{{ev.start | date:"HH:mm "}}</span>
             <span *ngIf="ev.end">~</span>

@@ -1,0 +1,18 @@
+$breakpoint: 960px
+
+@media screen and (max-width: $breakpoint)
+    div.cal-cell-top  ~ li
+        font-size: xx-small
+        padding: .1rem .5rem
+
+.emergency
+    color: red
+.important
+    color: yellow
+.normal
+    color: black
+.completed
+    text-decoration-line: line-through
+    opacity: .5
+    background-color: rgba(0,0,0,0.3)
+    filter: blur(1px)

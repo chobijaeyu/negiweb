@@ -1,5 +1,12 @@
+$breakpoint: 960px
+
 \:host
     width: 100%
+
+@media screen and (max-width: $breakpoint)
+    div.cal-cell-top  ~ li
+        font-size: xx-small
+        padding: .1rem .5rem
 
 .emergency
     color: red
@@ -11,8 +18,4 @@
     text-decoration-line: line-through
     opacity: .5
     background-color: rgba(0,0,0,0.3)
-    -webkit-filter: blur(2px)
-    -moz-filter: blur(2px)
-    -ms-filter: blur(2px)
-    -o-filter: blur(2px)
-    filter: blur(2px)
+    filter: blur(1px)

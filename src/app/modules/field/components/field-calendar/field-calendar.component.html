@@ -25,8 +25,9 @@
         <span class="cal-day-badge" *ngIf="day.badgeTotal > 0">{{ day.badgeTotal }}</span>
         <span class="cal-day-number">{{ day.date | calendarDate:'monthViewDayNumber':locale }}</span>
     </div>
-    <li *ngFor="let ev of day.events" fxLayout="row" fxLayoutGap="1rem">
-        <span>{{ev.title}}</span>
+    <li *ngFor="let ev of day.events" fxLayout="row" fxLayoutGap="1rem"
+        [ngClass]="{'emergency': ev.priority === 1,'important':ev.priority===2,'normal':ev.priority===3,'completed':ev.completed}">
+        <span>{{ev.ID}} | {{ev.title}}</span>
         <div *ngIf="ev.draggable" fxLayoutGap="1rem">
             <span>{{ev.start | date:"HH:mm "}}</span>
             <span *ngIf="ev.end">~</span>
@@ -35,10 +36,19 @@
     </li>
 </ng-template>
 
+<ng-template #caltitleTemplate let-event="event" let-view="view">
+    {{event.ID}}
+    <span class="cal-event-title" [innerHTML]="event.title | calendarEventTitle: view:event"
+        [attr.aria-hidden]="{} | calendarA11y: 'hideEventTitle'"
+        [ngClass]="{'emergency': event.priority === 1,'important':event.priority===2,'normal':event.priority===3,'completed':event.completed}">
+    </span>
+</ng-template>
+
 <div [ngSwitch]="view">
     <mwl-calendar-month-view *ngSwitchCase="CalendarView.Month" [viewDate]="viewDate" [events]="events"
-        [refresh]="refresh" [cellTemplate]="customCellTemplate" [activeDayIsOpen]="activeDayIsOpen"
-        (dayClicked)="dayClicked($event.day)" (eventTimesChanged)="eventTimesChanged($event)" (eventClicked)="eventClicked($event)">
+        [refresh]="refresh" [cellTemplate]="customCellTemplate" [eventTitleTemplate]="caltitleTemplate"
+        [activeDayIsOpen]="activeDayIsOpen" (dayClicked)="dayClicked($event.day)"
+        (eventTimesChanged)="eventTimesChanged($event)" (eventClicked)="eventClicked($event)">
     </mwl-calendar-month-view>
     <!-- <mwl-calendar-week-view *ngSwitchCase="CalendarView.Week" [viewDate]="viewDate" [events]="events"
         [refresh]="refresh" (eventTimesChanged)="eventTimesChanged($event)">
