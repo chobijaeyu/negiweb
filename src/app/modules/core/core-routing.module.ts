@@ -1,6 +1,13 @@
 import { NgModule } from '@angular/core';
+import { AngularFireAuthGuard, customClaims, hasCustomClaim } from '@angular/fire/auth-guard';
 import { Routes, RouterModule } from '@angular/router';
+import { pipe } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { memberRoles } from 'src/app/models/User.model';
 import { MainComponent } from './main/main.component';
+
+const memberOnly = () => hasCustomClaim('role');
+const adminOnly = () => pipe(customClaims, map(claims => claims.role === memberRoles.admin || claims.role === memberRoles.owner));
 
 const routes: Routes = [
   {
@@ -10,7 +17,8 @@ const routes: Routes = [
       { path: 'task', loadChildren: () => import('../calendar/calendar.module').then(m => m.NegiCalendarModule) },
       // { path: 'task', loadChildren: () => import('../task/task.module').then(m => m.TaskModule) },
       { path: 'field', loadChildren: () => import('../field/field.module').then(m => m.FieldModule) },
-    ]
+      { path: 'members', loadChildren: () => import('../members/members.module').then(m => m.MembersModule), canActivate: [AngularFireAuthGuard], data: { authGuardPipe: adminOnly, animation: 'members' } }
+    ], canActivate: [AngularFireAuthGuard], data: { authGuardPipe: memberOnly }
   }
 ];
 

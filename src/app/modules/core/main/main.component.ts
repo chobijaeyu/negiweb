@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { RouterOutlet, Router } from '@angular/router';
 @Component({
   selector: 'negi-main',
@@ -7,14 +8,19 @@ import { RouterOutlet, Router } from '@angular/router';
 })
 export class MainComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public afa: AngularFireAuth,
+    public router: Router,
+  ) { }
 
   ngOnInit(): void {
   }
   prepareRoute(outlet: RouterOutlet) {
     return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation'];
   }
-  logout(){
-
+  logout() {
+    this.afa.signOut().finally(() => {
+      this.router.navigateByUrl("/auth")
+    })
   }
 }

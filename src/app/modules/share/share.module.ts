@@ -25,6 +25,9 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 
 const m = [
@@ -50,6 +53,8 @@ const m = [
   MatSortModule,
   MatAutocompleteModule,
   MatNativeDateModule,
+  MatExpansionModule,
+  MatSnackBarModule,
 ]
 
 @NgModule({
