@@ -13,7 +13,7 @@ export const environment = {
   },
 
   nonce: "09876xyz",
-  redirect_uri: "http://localhost:3999/auth/callback",
+  redirect_uri: "https://negi-304307.web.app/auth/callback",
   LineLoginChannelID: "1655653188",
   LineLoginChannelSecret: "dc75693ad26f8604e3180917e661279c",
   firebaseLineFuncURL: "https://asia-northeast2-negi-304307.cloudfunctions.net/negiLineLogin",
