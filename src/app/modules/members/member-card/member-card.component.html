@@ -1,0 +1,72 @@
+<mat-accordion>
+    <mat-expansion-panel hideToggle class="member-card">
+        <mat-expansion-panel-header collapsedHeight="10rem" expandedHeight="10rem">
+            <mat-panel-title>
+                <img class="member-avator" *ngIf="Member.photoUrl" [src]="Member.photoUrl">
+            </mat-panel-title>
+            <mat-panel-description>
+
+                <div class="desc">
+                    <div class="desc-row">
+                        <span>お名前：</span>
+                        <span>{{Member.displayName}}</span>
+                    </div>
+                    <div class="desc-row">
+                        <span>👩🏼‍💻 役職：</span>
+                        <span>{{Member.role ? roles[Member.role] : "🔰なし"}}</span>
+                    </div>
+                    <div class="desc-row">
+                        <span>🈺 利用状況：</span>
+                        <span>{{Member.disabled ? "禁止された": "利用中"}}</span>
+                    </div>
+                </div>
+
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <form [formGroup]="_memberForm" class="memberform">
+
+            <mat-form-field appearance="outline" [hideRequiredMarker]="false">
+                <mat-icon matPrefix>stars</mat-icon>
+                <mat-label>お名前</mat-label>
+                <input matInput formControlName='displayName' name='displayName' required>
+                <mat-error *ngIf="_memberForm.controls['displayName'].invalid">
+                    {{_memberForm.controls['displayName'].get('errorMessage')}}
+                </mat-error>
+                <mat-hint></mat-hint>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" [hideRequiredMarker]="false">
+                <mat-icon matPrefix>stars</mat-icon>
+                <mat-label>写真</mat-label>
+                <input matInput formControlName='photoUrl' name='photoUrl' required>
+                <mat-error *ngIf="_memberForm.controls['photoUrl'].invalid">
+                    {{_memberForm.controls['photoUrl'].get('errorMessage')}}
+                </mat-error>
+                <mat-hint></mat-hint>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" [hideRequiredMarker]="false">
+                <mat-icon matPrefix>stars</mat-icon>
+                <mat-label>role</mat-label>
+                <mat-select formControlName='role' name='role'>
+                    <mat-option *ngFor="let role of _roles" [value]="role.value">
+                        {{role.viewValue}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="_memberForm.controls['role'].invalid">
+                    {{_memberForm.controls['role'].get('errorMessage')}}
+                </mat-error>
+                <mat-hint></mat-hint>
+            </mat-form-field>
+
+            <div class="lilte-wrap">
+                <mat-slide-toggle formControlName='disabled' name='disabled'>禁止する</mat-slide-toggle>
+
+                <button mat-raised-button color="primary" (click)="onUpdateMember()">提出</button>
+            </div>
+
+        </form>
+
+    </mat-expansion-panel>
+</mat-accordion>

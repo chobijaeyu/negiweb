@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CallbackComponent } from './auth-components/callback/callback.component';
 import { LoginComponent } from './auth-components/login/login.component';
-import { RegisterComponent } from './auth-components/register/register.component';
 
 const routes: Routes = [
   { path: "", component: LoginComponent },

@@ -4,6 +4,7 @@
             <a (click)="sidenav.toggle()" mat-list-item>Close</a>
             <a mat-raised-button color="accent" [routerLink]="[ '/task' ]">タスクリスト</a>
             <a mat-raised-button color="accent" [routerLink]="[ '/field' ]">フィールド管理</a>
+            <a mat-raised-button color="accent" [routerLink]="[ '/members' ]" fxHide.lt-md>メンバー管理</a>
         </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content fxLayout="column" fxFill>
@@ -15,6 +16,7 @@
                 <a mat-raised-button color="primary" [routerLink]="[ '/' ]">NEGI</a>
                 <a mat-raised-button color="accent" [routerLink]="[ '/task' ]" fxHide.lt-md>タスクリスト</a>
                 <a mat-raised-button color="accent" [routerLink]="[ '/field' ]" fxHide.lt-md>フィールド管理</a>
+                <a mat-raised-button color="accent" [routerLink]="[ '/members' ]" fxHide.lt-md>メンバー管理</a>
                 <div class="flex-spacer"></div>
                 <!-- <div *ngIf="afa.user | async as u" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap=".5rem">
                     <img [src]="u.photoURL" class="user-avatar">
@@ -23,7 +25,7 @@
                 <a mat-raised-button color="warn" (click)="logout()">ログアウト</a>
             </nav>
         </header>
-        <main  fxLayoutAlign="center center" >
+        <main fxLayoutAlign="center center">
             <router-outlet #outlet="outlet"></router-outlet>
             <footer class="copyright">&copy; Copyright negi All rights reserved.</footer>
         </main>

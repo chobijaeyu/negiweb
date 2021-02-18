@@ -15,6 +15,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { HttpClientModule } from '@angular/common/http';
 import { registerLocaleData } from '@angular/common';
 import { AngularFireModule } from '@angular/fire';
+import { httpInterceptorProviders } from './services/auth.interceptor';
 
 registerLocaleData(localeJa)
 
@@ -35,6 +36,7 @@ registerLocaleData(localeJa)
     EntityDataModule.forRoot(entityConfig),
   ],
   providers: [
+    httpInterceptorProviders,
     { provide: LOCALE_ID, useValue: 'ja-JP' },
     { provide: DefaultDataServiceConfig, useValue: defaultDataServiceConfig },
   ],
