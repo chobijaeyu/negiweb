@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Inject } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { calev } from 'src/app/models/calendar.model';
 import { negifield, priorities } from 'src/app/models/field.model';
@@ -17,6 +18,7 @@ export class TaskDetailComponent implements OnInit {
   priorities = priorities
 
   constructor(
+    private afa: AngularFireAuth,
     public dialogRef: MatDialogRef<TaskDetailComponent>,
     @Inject(MAT_DIALOG_DATA) public data: calev
   ) { }
@@ -54,6 +56,10 @@ export class TaskDetailComponent implements OnInit {
 
   onFinished() {
     this.data.completed = !this.data.completed
-    this.dialogRef.close(this.data)
+    this.afa.currentUser.then(u => {
+      this.data.operator = u?.displayName as string
+      this.dialogRef.close(this.data)
+    })
+   
   }
 }

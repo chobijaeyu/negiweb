@@ -42,6 +42,7 @@
         [attr.aria-hidden]="{} | calendarA11y: 'hideEventTitle'"
         [ngClass]="{'emergency': event.priority === 1,'important':event.priority===2,'normal':event.priority===3,'completed':event.completed}">
     </span>
+    <span *ngIf="event.operator">|操作員:{{event.operator}}</span>
 </ng-template>
 
 <div [ngSwitch]="view">

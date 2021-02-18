@@ -6,8 +6,7 @@
         <span class="cal-day-number">{{ day.date | calendarDate:'monthViewDayNumber':locale }}</span>
     </div>
     <li *ngFor="let ev of day.events" fxLayout="row" fxLayoutGap="1rem"
-        [ngClass]="{'emergency': ev.priority === 1,'important':ev.priority===2,'normal':ev.priority===3,'completed':ev.completed}"
-        >
+        [ngClass]="{'emergency': ev.priority === 1,'important':ev.priority===2,'normal':ev.priority===3,'completed':ev.completed}">
         <span>{{ev.ID}} | {{ev.title}}</span>
         <div *ngIf="ev.draggable" fxLayoutGap="1rem">
             <span>{{ev.start | date:"HH:mm "}}</span>
@@ -20,8 +19,10 @@
 <ng-template #caltitleTemplate let-event="event" let-view="view">
     {{event.ID}}
     <span class="cal-event-title" [innerHTML]="event.title | calendarEventTitle: view:event"
-        [attr.aria-hidden]="{} | calendarA11y: 'hideEventTitle'"  [ngClass]="{'emergency': event.priority === 1,'important':event.priority===2,'normal':event.priority===3,'completed':event.completed}">
+        [attr.aria-hidden]="{} | calendarA11y: 'hideEventTitle'"
+        [ngClass]="{'emergency': event.priority === 1,'important':event.priority===2,'normal':event.priority===3,'completed':event.completed}">
     </span>
+    <span *ngIf="event.operator">|操作員:{{event.operator}}</span>
 </ng-template>
 
 <div [ngSwitch]="view">
