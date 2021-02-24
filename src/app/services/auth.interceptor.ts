@@ -21,7 +21,7 @@ export class AuthInterceptor implements HttpInterceptor {
     return this.afa.user.pipe(
       take(1),
       switchMap(u => {
-        console.log("take interceptor from user token.")
+        // console.log("take interceptor from user token.")
         if (u) {
           return from(u.getIdToken())
         }

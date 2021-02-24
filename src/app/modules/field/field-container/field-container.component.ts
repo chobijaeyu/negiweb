@@ -31,7 +31,7 @@ import { ConfirmDialogComponent } from '../../share/components/confirm-dialog/co
 })
 export class FieldContainerComponent implements OnInit, AfterViewInit {
 
-  displayedColumns: string[] = ['field_name', 'group_name', 'active', 'address', 'action'];
+  displayedColumns: string[] = ['field_name', 'group_name', 'active', 'address', 'action','img'];
   dataSource!: MatTableDataSource<negifield>;
   expandedElement!: negifield | null;
 
