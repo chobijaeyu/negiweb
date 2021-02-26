@@ -1,0 +1,31 @@
+.form-uploader
+    button
+        width: 100%
+
+.camera-area,.img-area
+    background: linear-gradient(344.05deg, rgb(255, 255, 255) 0%, rgb(230, 237, 252) 100%)
+    border: none
+    border-radius: 5px
+    box-shadow: rgb(217 225 242) 20px 20px 40px, rgb(255 255 255 / 50%) -20px -20px 40px, rgb(211 221 240) 10px 10px 20px, rgb(255 255 255 / 50%) -10px -10px 20px, rgb(255 255 255) 2px 2px 4px inset, rgb(211 221 240) -2px -2px 4px inset
+    cursor: pointer
+    display: flex
+    flex-direction: column
+    align-items: center
+    outline: none
+    margin: 1rem
+    padding: 1rem
+    position: relative
+    transition: all 0.2s ease-in-out 0s
+
+    &:hover
+        background: linear-gradient(344.05deg, rgb(255, 255, 255) 0%, rgb(230, 237, 252) 100%)
+        box-shadow: rgb(217 225 242) 20px 20px 40px, rgb(255 255 255 / 50%) -20px -20px 40px, rgb(186 200 228) 20px 20px 60px, rgb(255 255 255 / 50%) -10px -10px 20px, rgb(255 255 255) 2px 2px 4px inset, rgb(211 221 240) -2px -2px 4px inset
+
+.img-area
+    .form-uploader
+        margin: 1rem
+    img
+        z-index: 10
+        transition: all 0.3s ease-in-out
+        &:hover
+            transform: scale(2)

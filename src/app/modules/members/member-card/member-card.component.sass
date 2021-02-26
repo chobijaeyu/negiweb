@@ -1,3 +1,5 @@
+$breakpoint: 960px
+
 .member-card
     width: 35rem
     background-color: #fff
@@ -40,3 +42,10 @@ div.desc
 
     button
         margin-left: 3rem
+
+@media screen and (max-width: $breakpoint)
+    .member-card
+        width: 20rem
+        margin: .5rem
+    .member-avator
+        width: 2rem
