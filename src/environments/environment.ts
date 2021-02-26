@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   baseUrl: "http://localhost:8080",
+  imgUrl:"https://storage.googleapis.com/negiimg/",
   
   firebase: {
     apiKey: "AIzaSyC8KmZ5V6wrA09h2KUkUYUDBP6ZEUjPkLo",

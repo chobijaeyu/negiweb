@@ -14,6 +14,7 @@ import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import { PageSize } from 'pdfmake/interfaces';
 import { ConfirmDialogComponent } from '../../share/components/confirm-dialog/confirm-dialog.component';
+import { environment } from 'src/environments/environment';
 
 // pdfMake.vfs  = pdfFonts.pdfMake.vfs;
 
@@ -34,6 +35,8 @@ export class FieldContainerComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['field_name', 'group_name', 'active', 'address', 'img', 'action'];
   dataSource!: MatTableDataSource<negifield>;
   expandedElement!: negifield | null;
+
+  imgUrl: string = environment.imgUrl
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
