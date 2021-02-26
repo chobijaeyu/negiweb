@@ -1,8 +1,11 @@
-import { Component, OnInit, ChangeDetectionStrategy, Inject } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Inject, ChangeDetectorRef } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { NgxImageCompressService } from 'ngx-image-compress';
 import { calev } from 'src/app/models/calendar.model';
 import { negifield, priorities } from 'src/app/models/field.model';
+import { ImgService } from 'src/app/services/img.service';
 
 @Component({
   selector: 'negi-task-detail',
@@ -15,10 +18,16 @@ export class TaskDetailComponent implements OnInit {
   scannerEnabled: boolean = false
 
   isMatchFieldId: boolean = false
+  imagePreview!: string;
+  selecetdFile!: File;
   priorities = priorities
 
   constructor(
     private afa: AngularFireAuth,
+    private CDR: ChangeDetectorRef,
+    private snackbar: MatSnackBar,
+    private imgService: ImgService,
+    private imageCompress: NgxImageCompressService,
     public dialogRef: MatDialogRef<TaskDetailComponent>,
     @Inject(MAT_DIALOG_DATA) public data: calev
   ) { }
@@ -45,13 +54,13 @@ export class TaskDetailComponent implements OnInit {
     e.forEach((i: any) => {
       onCamerasFoundMsg = onCamerasFoundMsg + i.label + "\n"
     })
-    alert("以下のカメラを見つかりました。\n" + onCamerasFoundMsg)
+    this.snackbar.open("以下のカメラを見つかりました。\n" + onCamerasFoundMsg, "X", { duration: 1000 })
     console.debug(e)
   }
 
   camerasNotFoundHandler(e: any) {
-    alert("カメラが見つかりません。\n" + "お使いの環境（ご使用端末、ブラウザにより）カメラ利用できない場合がございます。")
-    // console.log(e)
+    this.snackbar.open("カメラが見つかりません。\n" + "お使いの環境（ご使用端末、ブラウザにより）カメラ利用できない場合がございます。", "X", { duration: 3000 })
+    console.error(e)
   }
 
   onFinished() {
@@ -60,6 +69,46 @@ export class TaskDetailComponent implements OnInit {
       this.data.operator = u?.displayName as string
       this.dialogRef.close(this.data)
     })
-   
+
+  }
+
+  // onFile(event: any) {
+  //   this.selecetdFile = event.target.files[0];
+  //   const reader = new FileReader();
+  //   reader.readAsDataURL(this.selecetdFile);
+  //   reader.onload = () => {
+  //     this.imagePreview = reader.result;
+  //     this.CDR.markForCheck();
+  //   };
+  // }
+
+  onCompress() {
+    this.imageCompress.uploadFile().then(({ image, orientation }) => {
+      console.warn('Size in bytes was:', this.imageCompress.byteCount(image));
+      this.imageCompress.compressFile(image, orientation, 50, 30).then(
+        result => {
+          this.imagePreview = result;
+          this.CDR.markForCheck();
+          console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
+        }
+      );
+
+    });
+  }
+
+  onUploadImg() {
+    this.urltoFile(this.imagePreview, this.data.NegiFieldID, 'text/plain').then((imgfile) => {
+      console.log(imgfile)
+      this.imgService.uploadFile(imgfile, this.data.NegiFieldID).subscribe(r=>{
+        console.log(r)
+      })
+    })
+  }
+
+  urltoFile(url: string, filename: string, mimeType: string) {
+    return (fetch(url)
+      .then(function (res) { return res.arrayBuffer(); })
+      .then(function (buf) { return new File([buf], filename, { type: mimeType }); })
+    );
   }
 }
