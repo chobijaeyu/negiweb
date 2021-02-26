@@ -1,6 +1,7 @@
 export const environment = {
   production: true,
   baseUrl: "https://negigo-karamzsfua-an.a.run.app",
+  imgUrl: "https://storage.googleapis.com/negiimg/",
 
   firebase: {
     apiKey: "AIzaSyC8KmZ5V6wrA09h2KUkUYUDBP6ZEUjPkLo",
