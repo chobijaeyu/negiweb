@@ -88,7 +88,7 @@ export class CalendarContainerComponent implements OnInit {
           ...ev,
           actions: this.actions,
           start: new Date(ev.start),
-          
+          color: ev.priority === 1 ? colors.red : {}
         }
         if (ev.end) {
           _e = {

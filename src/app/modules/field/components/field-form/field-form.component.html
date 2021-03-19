@@ -6,7 +6,7 @@
 
         <mat-form-field appearance="outline" [hideRequiredMarker]="false">
             <mat-icon matPrefix>stars</mat-icon>
-            <mat-label>field name</mat-label>
+            <mat-label>畑の名前</mat-label>
             <input matInput formControlName='field_name' name='field_name' required>
             <mat-error *ngIf="fieldForm.controls['field_name'].invalid">
                 <!-- {{fieldForm.controls['field_name']["errorMessage"]}} -->
@@ -16,7 +16,7 @@
 
         <mat-form-field appearance="outline" [hideRequiredMarker]="false">
             <mat-icon matPrefix>stars</mat-icon>
-            <mat-label>field group name</mat-label>
+            <mat-label>地域の名前</mat-label>
             <input matInput formControlName='group_name' name='group_name' required>
             <mat-error *ngIf="fieldForm.controls['group_name'].invalid">
                 <!-- {{fieldForm.controls['group_name']["errorMessage"]}} -->
@@ -27,7 +27,7 @@
 
         <mat-form-field appearance="outline" [hideRequiredMarker]="false">
             <mat-icon matPrefix>stars</mat-icon>
-            <mat-label>adress</mat-label>
+            <mat-label>住所</mat-label>
             <input matInput formControlName='address' name='address' required>
             <mat-error *ngIf="fieldForm.controls['address'].invalid">
                 <!-- {{fieldForm.controls['address']["errorMessage"]}} -->
@@ -35,7 +35,7 @@
             <mat-hint></mat-hint>
         </mat-form-field>
 
-        <mat-slide-toggle formControlName='active' name='active'>active</mat-slide-toggle>
+        <mat-slide-toggle formControlName='active' name='active'>状況</mat-slide-toggle>
 
     </div>
 
