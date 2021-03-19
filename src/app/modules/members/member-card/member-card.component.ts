@@ -16,9 +16,9 @@ export class MemberCardComponent implements OnInit {
   roles = memberRoles
   _roles = [
     { value: 1, viewValue: '開発' },
-    { value: 2, viewValue: 'オーナー' },
-    { value: 3, viewValue: 'マネジャー' },
-    { value: 4, viewValue: '正社員' },
+    { value: 2, viewValue: '社長' },
+    { value: 3, viewValue: '管理者' },
+    { value: 4, viewValue: '社員' },
     { value: 5, viewValue: 'バイト' },
   ]
   _member!: member

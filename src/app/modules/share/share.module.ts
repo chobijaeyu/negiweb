@@ -5,7 +5,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RxReactiveFormsModule } from '@rxweb/reactive-form-validators';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { DragDropModule } from '@angular/cdk/drag-drop';
 
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
@@ -33,7 +32,6 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
 const m = [
   ReactiveFormsModule,
   RxReactiveFormsModule,
-  DragDropModule,
   FlexLayoutModule,
   MatSidenavModule,
   MatListModule,

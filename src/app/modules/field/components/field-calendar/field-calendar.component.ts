@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView } from 'angular-calendar';
 import { isSameDay, isSameMonth } from 'date-fns';
 import { Subject } from 'rxjs';
-import { calev } from 'src/app/models/calendar.model';
+import { calev, colors } from 'src/app/models/calendar.model';
 import { negifield } from 'src/app/models/field.model';
 import { CalendarEventAddDialogComponent } from 'src/app/modules/calendar/components/calendar-event-add-dialog/calendar-event-add-dialog.component';
 import { CalendarEventEditDialogComponent } from 'src/app/modules/calendar/components/calendar-event-edit-dialog/calendar-event-edit-dialog.component';
@@ -71,6 +71,7 @@ export class FieldCalendarComponent implements OnInit {
           ...ev,
           actions: this.actions,
           start: new Date(ev.start),
+          color: ev.priority === 1 ? colors.red : {}
         }
         if (ev.end) {
           _e = {

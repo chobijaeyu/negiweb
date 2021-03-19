@@ -1,11 +1,11 @@
 <div fxLayout="cloumn" fxLayoutAlign="space-around center">
     <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="1rem">
         <button mat-raised-button mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate"
-            (viewDateChange)="viewDateChange.next(viewDate)" color="primary">👈🏼</button>
+            (viewDateChange)="viewDateChange.next(viewDate)" color="primary">先月</button>
         <button mat-raised-button mwlCalendarToday [(viewDate)]="viewDate"
-            (viewDateChange)="viewDateChange.next(viewDate)" color="primary">🌞</button>
+            (viewDateChange)="viewDateChange.next(viewDate)" color="primary">今月</button>
         <button mat-raised-button mwlCalendarNextView [view]="view" [(viewDate)]="viewDate"
-            (viewDateChange)="viewDateChange.next(viewDate)" color="primary">👉🏼</button>
+            (viewDateChange)="viewDateChange.next(viewDate)" color="primary">来月</button>
     </div>
     <div class="col-md-4">
         <h3>{{ viewDate | calendarDate: view + 'ViewTitle':locale }}</h3>
@@ -42,12 +42,12 @@
         [attr.aria-hidden]="{} | calendarA11y: 'hideEventTitle'"
         [ngClass]="{'emergency': event.priority === 1,'important':event.priority===2,'normal':event.priority===3,'completed':event.completed}">
     </span>
-    <span *ngIf="event.operator">|操作員:{{event.operator}}</span>
+    <span *ngIf="event.operator">-操作員:{{event.operator}}</span>
 </ng-template>
 
 <div [ngSwitch]="view">
     <mwl-calendar-month-view *ngSwitchCase="CalendarView.Month" [viewDate]="viewDate" [events]="events"
-        [refresh]="refresh" [cellTemplate]="customCellTemplate" [eventTitleTemplate]="caltitleTemplate"
+        [refresh]="refresh" [eventTitleTemplate]="caltitleTemplate"
         [activeDayIsOpen]="activeDayIsOpen" (dayClicked)="dayClicked($event.day)"
         (eventTimesChanged)="eventTimesChanged($event)" (eventClicked)="eventClicked($event)">
     </mwl-calendar-month-view>
@@ -60,9 +60,9 @@
 </div>
 <button mat-raised-button (click)="onNewJourney()" type="button" color="primary" class="">
     <mat-icon>add</mat-icon>
-    start new journey
+    標準タスクを追加する
 </button>
 <button mat-raised-button (click)="onAddEvent()" type="button" color="accent" class="">
     <mat-icon>add</mat-icon>
-    add one task
+    オーダータスクを追加する
 </button>

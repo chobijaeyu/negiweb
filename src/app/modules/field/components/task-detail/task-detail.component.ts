@@ -99,9 +99,13 @@ export class TaskDetailComponent implements OnInit {
   onUploadImg() {
     this.urltoFile(this.imagePreview, this.data.NegiFieldID, 'text/plain').then((imgfile) => {
       console.log(imgfile)
-      this.imgService.uploadFile(imgfile, this.data.NegiFieldID).subscribe(r=>{
-        console.log(r)
-      })
+      this.imgService.uploadFile(imgfile, this.data.NegiFieldID).subscribe(r => {
+        this.snackbar.open("アップロード完了しました。", "X", { duration: 3000 })
+      },
+        err => {
+          console.error(err)
+          this.snackbar.open("アップロード失敗しました。", "X", { duration: 3000 })
+        })
     })
   }
 

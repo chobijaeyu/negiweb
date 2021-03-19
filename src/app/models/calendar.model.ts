@@ -29,6 +29,8 @@ export class calev implements CalendarEvent {
     @prop({ defaultValue: true })
     draggable?: boolean;
     @prop()
+    confirmed?: boolean = false
+    @prop()
     NegiFieldID?: any
 }
 
@@ -41,3 +43,18 @@ interface resizable {
     beforeStart?: boolean;
     afterEnd?: boolean;
 }
+
+export const colors: any = {
+    red: {
+        primary: '#ff0000',
+        secondary: '#FAE3E3',
+    },
+    blue: {
+        primary: '#1e90ff',
+        secondary: '#D1E8FF',
+    },
+    yellow: {
+        primary: '#e3bc08',
+        secondary: '#FDF1BA',
+    },
+};

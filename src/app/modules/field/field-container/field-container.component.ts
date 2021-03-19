@@ -15,6 +15,7 @@ import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import { PageSize } from 'pdfmake/interfaces';
 import { ConfirmDialogComponent } from '../../share/components/confirm-dialog/confirm-dialog.component';
 import { environment } from 'src/environments/environment';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 // pdfMake.vfs  = pdfFonts.pdfMake.vfs;
 
@@ -32,7 +33,7 @@ import { environment } from 'src/environments/environment';
 })
 export class FieldContainerComponent implements OnInit, AfterViewInit {
 
-  displayedColumns: string[] = ['field_name', 'group_name', 'active', 'address', 'img', 'action'];
+  displayedColumns: string[] = ['field_name', 'group_name', 'img', 'action', 'address', 'active'];
   dataSource!: MatTableDataSource<negifield>;
   expandedElement!: negifield | null;
 
@@ -41,10 +42,13 @@ export class FieldContainerComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
+  isAdmin: boolean = false
+
   constructor(
     private nf: NegifieldService,
     public nc: neigiCalendarService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    public afa: AngularFireAuth,
   ) { }
 
   ngOnInit(): void {
@@ -54,6 +58,9 @@ export class FieldContainerComponent implements OnInit, AfterViewInit {
       this.dataSource = new MatTableDataSource(r)
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
+    })
+    this.afa.idTokenResult.subscribe(r => {
+      this.isAdmin = r?.claims.role <= 3
     })
   }
   ngAfterViewInit() {
