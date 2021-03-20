@@ -18,6 +18,6 @@ export class MembersService {
   }
 
   updateMember(m: member) {
-    return this.H.post(`${this.memberUrl}/${m.uid}`, m)
+    return this.H.put(`${this.memberUrl}/${m.uid}`, m)
   }
 }

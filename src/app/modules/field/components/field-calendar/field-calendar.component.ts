@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView } from 'angular-calendar';
 import { isSameDay, isSameMonth } from 'date-fns';
 import { Subject } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { calev, colors } from 'src/app/models/calendar.model';
 import { negifield } from 'src/app/models/field.model';
 import { CalendarEventAddDialogComponent } from 'src/app/modules/calendar/components/calendar-event-add-dialog/calendar-event-add-dialog.component';
@@ -65,7 +66,9 @@ export class FieldCalendarComponent implements OnInit {
 
   ngOnInit(): void {
     this.neigiCalEventService.getWithQuery({ nfID: this.nf.ID })
-    this.neigiCalEventService.entities$.subscribe(r => {
+    this.neigiCalEventService.entities$.pipe(
+      map(entities => entities.filter(v => v.confirmed === true))
+    ).subscribe(r => {
       this.events = r.map(ev => {
         let _e = {
           ...ev,
