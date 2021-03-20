@@ -22,6 +22,7 @@ export const environment = {
   LineLoginChannelID: "1655653188",
   LineLoginChannelSecret: "dc75693ad26f8604e3180917e661279c",
   firebaseLineFuncURL: "https://asia-northeast2-negi-304307.cloudfunctions.net/negiLineLogin",
+  operatinglogpath : "samurainegi/log/operatelog",
 };
 
 /*

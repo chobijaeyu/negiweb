@@ -12,6 +12,8 @@ import { NegifieldService } from 'src/app/services/negifield.service';
 import { NewJourneyDialogComponent } from '../components/new-journey-dialog/new-journey-dialog.component';
 import { ConfirmDialogComponent } from '../../share/components/confirm-dialog/confirm-dialog.component';
 import { TaskDetailComponent } from '../../field/components/task-detail/task-detail.component';
+import { map } from 'rxjs/operators';
+import { member } from 'src/app/models/User.model';
 
 const colors: any = {
   red: {
@@ -71,6 +73,7 @@ export class CalendarContainerComponent implements OnInit {
   @Input() eventActionsTemplate!: TemplateRef<any>;
   @Input() eventTitleTemplate!: TemplateRef<any>;
 
+  currentUser: member = new member
   constructor(
     public _dialog: MatDialog,
     // public calService: CalendarService,
@@ -81,8 +84,10 @@ export class CalendarContainerComponent implements OnInit {
 
   ngOnInit(): void {
     this.negifieldservice.getAll()
-    this.neigiCalEventService.getAll()
-    this.neigiCalEventService.entities$.subscribe(r => {
+    this.neigiCalEventService.getWithQuery({ confirmed: "true" })
+    this.neigiCalEventService.entities$.pipe(
+      map(entities => entities.filter(v => v.confirmed === true))
+    ).subscribe(r => {
       this.events = r.map(ev => {
         let _e = {
           ...ev,

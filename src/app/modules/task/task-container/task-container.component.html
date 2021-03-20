@@ -1,5 +1,18 @@
-<mat-selection-list #shoes>
-    <mat-list-option *ngFor="let shoe of ">
-        {{shoe}}
+<mat-selection-list #tasks class="toConfirmList">
+    <h1>確認待ちリスト</h1>
+    <mat-list-option *ngFor="let task of toConfirmTasks$ |async" [value]="task">
+        <div fxLayout="row">
+            <span>
+                内容：{{task.title}}
+            </span>
+            <span>
+                操作員：{{task.operator}}
+            </span>
+        </div>
     </mat-list-option>
+    <button mat-raised-button (click)="onConfirm(tasks.selectedOptions.selected)">確認する</button>
 </mat-selection-list>
+<mat-list class="operatinglogList">
+    <h1>操作記録</h1>
+    <mat-list-item *ngFor="let ol of operatingLogs$ | async">{{ ol.when | date }}に{{ol.who}}は{{ol.what}}を{{ol.did}}しました。 </mat-list-item>
+</mat-list>
