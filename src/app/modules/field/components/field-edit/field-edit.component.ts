@@ -9,7 +9,7 @@ import { negifield } from 'src/app/models/field.model';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FieldEditComponent implements OnInit {
-  title: string = "フィールドを編集"
+  title: string = "圃場を編集"
   constructor(
     public dialogRef: MatDialogRef<FieldEditComponent>,
     @Inject(MAT_DIALOG_DATA) public data: negifield
