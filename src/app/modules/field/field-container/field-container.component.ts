@@ -16,6 +16,7 @@ import { PageSize } from 'pdfmake/interfaces';
 import { ConfirmDialogComponent } from '../../share/components/confirm-dialog/confirm-dialog.component';
 import { environment } from 'src/environments/environment';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 // pdfMake.vfs  = pdfFonts.pdfMake.vfs;
 
@@ -48,6 +49,7 @@ export class FieldContainerComponent implements OnInit, AfterViewInit {
     private nf: NegifieldService,
     public nc: neigiCalendarService,
     private dialog: MatDialog,
+    public snackbar: MatSnackBar,
     public afa: AngularFireAuth,
   ) { }
 
@@ -72,7 +74,13 @@ export class FieldContainerComponent implements OnInit, AfterViewInit {
     dr.afterClosed().subscribe(field => {
       if (field) {
         //ng data add new field to server
-        this.nf.add(field)
+        this.nf.add(field).subscribe(r => {
+          this.snackbar.open(`${r.field_name}>>${r.group_name}登録しました`, "X", { duration: 5000 })
+        },
+          err => {
+            console.error(err)
+            this.snackbar.open("登録失敗", "X", { duration: 5000 })
+          })
       }
     }
     )
@@ -85,7 +93,13 @@ export class FieldContainerComponent implements OnInit, AfterViewInit {
     dr.afterClosed().subscribe(field => {
       if (field) {
         //ng data edit field to server
-        this.nf.update(field)
+        this.nf.update(field).subscribe(r => {
+          this.snackbar.open(`${r.field_name}>>${r.group_name}更新しました`, "X", { duration: 5000 })
+        },
+          err => {
+            console.error(err)
+            this.snackbar.open("更新失敗", "X", { duration: 5000 })
+          })
       }
     })
   }
@@ -94,7 +108,13 @@ export class FieldContainerComponent implements OnInit, AfterViewInit {
     ev.stopPropagation()
     this.dialog.open(ConfirmDialogComponent, { data: { title: "フィールドを削除する" } }).afterClosed().subscribe(r => {
       if (r) {
-        this.nf.delete(nf)
+        this.nf.delete(nf).subscribe(r => {
+          this.snackbar.open(`${r}削除しました`, "X", { duration: 5000 })
+        },
+          err => {
+            console.error(err)
+            this.snackbar.open("削除失敗", "X", { duration: 5000 })
+          })
       }
     })
   }
