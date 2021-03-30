@@ -4,19 +4,23 @@ import { calev } from './models/calendar.model';
 import { negifield } from './models/field.model';
 
 const entityMetadata: EntityMetadataMap = {
- negifield:{
-   selectId:(f:negifield)=>f.ID,
-   noChangeTracking:true
- } ,
- negiCalEvent:{
-   selectId:(c:calev)=>c.ID,
- }
+  negifield: {
+    selectId: (f: negifield) => f.ID,
+    noChangeTracking: true
+  },
+  negiCalEvent: {
+    selectId: (c: calev) => c.ID,
+  },
+  negiCustomTaskTitleOption: {
+
+  }
 };
 
-const pluralNames = { 
-  negifield:"negifields",
-  negiCalEvent:"negiCalEvents"
- };
+const pluralNames = {
+  negifield: "negifields",
+  negiCalEvent: "negiCalEvents",
+  negiCustomTaskTitleOption: "negiCustomTaskTitleOptions"
+};
 
 export const entityConfig: EntityDataModuleConfig = {
   entityMetadata,
