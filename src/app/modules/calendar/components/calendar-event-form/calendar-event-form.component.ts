@@ -6,6 +6,8 @@ import { Observable, of } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { calev } from 'src/app/models/calendar.model';
 import { negifield, priorities } from 'src/app/models/field.model';
+import { titleOption } from 'src/app/models/title-options.model';
+import { CustomTaskTitleOptionService } from 'src/app/services/custom-task.service';
 import { NegifieldService } from 'src/app/services/negifield.service';
 
 @Component({
@@ -29,17 +31,17 @@ export class CalendarEventFormComponent implements OnInit {
   enableMeridian = false;
   color: ThemePalette = 'primary';
   priorities = priorities
-  titleOptions = [
-    "[定植] ゴーゴーサン ",
-    "[肥料] スミカエース10号",
-    "[防除] スミチオン",
-    "[防除] ダイアジノン",
-    "[防除] ダコニール",
-    "[防除] あらびっく",
-    "[防除] ミックスパワー",
-    "[除草] ロロックス",
-    "[散布] ゴーゴーサン",
-    "[散布] トレファノ",
+  titleOptions: titleOption[] = [
+    // "[定植] ゴーゴーサン ",
+    // "[肥料] スミカエース10号",
+    // "[防除] スミチオン",
+    // "[防除] ダイアジノン",
+    // "[防除] ダコニール",
+    // "[防除] あらびっく",
+    // "[防除] ミックスパワー",
+    // "[除草] ロロックス",
+    // "[散布] ゴーゴーサン",
+    // "[散布] トレファノ",
   ]
 
   filteredOptions$!: Observable<string[]>;
@@ -50,6 +52,7 @@ export class CalendarEventFormComponent implements OnInit {
     public fb: RxFormBuilder,
     // public uuid: UuidGeneratorService,
     public fs: NegifieldService,
+    public taskTitleOptionService: CustomTaskTitleOptionService,
   ) { }
 
   ngOnInit(): void {
@@ -74,6 +77,10 @@ export class CalendarEventFormComponent implements OnInit {
       startWith(''),
       map(value => this._filter(value))
     );
+
+    this.taskTitleOptionService.entities$.subscribe(to=>{
+      this.titleOptions = to
+    })
   }
 
   onSubmit() {
@@ -83,6 +90,6 @@ export class CalendarEventFormComponent implements OnInit {
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
 
-    return this.titleOptions.filter(option => option.toLowerCase().includes(filterValue));
+    return this.titleOptions.filter(option => option.title.toLowerCase().includes(filterValue)).map(titleOption => titleOption.title);
   }
 }
