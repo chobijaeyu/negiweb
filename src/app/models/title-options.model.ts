@@ -2,7 +2,7 @@ import { prop } from "@rxweb/reactive-form-validators";
 
 export class titleOption {
     @prop()
-    id?: any
+    ID?: any
     @prop()
     title: string = ""
 }

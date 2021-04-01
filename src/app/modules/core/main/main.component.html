@@ -5,6 +5,7 @@
             <a mat-raised-button color="accent" [routerLink]="[ '/task' ]">タスクリスト</a>
             <a mat-raised-button color="accent" [routerLink]="[ '/field' ]">圃場管理</a>
             <a mat-raised-button color="accent" [routerLink]="[ '/members' ]" *ngIf="isAdmin">メンバー管理</a>
+            <a mat-raised-button color="accent" [routerLink]="[ '/titleoption' ]" *ngIf="isAdmin">タスクタイトル管理</a>
         </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content fxLayout="column" fxFill>
@@ -16,7 +17,10 @@
                 <a mat-raised-button color="primary" [routerLink]="[ '/' ]">NEGI</a>
                 <a mat-raised-button color="accent" [routerLink]="[ '/task' ]" fxHide.lt-md>タスクリスト</a>
                 <a mat-raised-button color="accent" [routerLink]="[ '/field' ]" fxHide.lt-md>圃場管理</a>
-                <a mat-raised-button color="accent" [routerLink]="[ '/members' ]" fxHide.lt-md>メンバー管理</a>
+                <a mat-raised-button color="accent" [routerLink]="[ '/members' ]" fxHide.lt-md
+                    *ngIf="isAdmin">メンバー管理</a>
+                <a mat-raised-button color="accent" [routerLink]="[ '/titleoption' ]" fxHide.lt-md
+                    *ngIf="isAdmin">タスクタイトル管理</a>
                 <div class="flex-spacer"></div>
                 <div *ngIf="afa.user | async as u" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap=".5rem">
                     <span>{{u.displayName}}</span>

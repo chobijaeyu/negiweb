@@ -17,6 +17,7 @@ const routes: Routes = [
       { path: 'task', loadChildren: () => import('../calendar/calendar.module').then(m => m.NegiCalendarModule) },
       // { path: 'task', loadChildren: () => import('../task/task.module').then(m => m.TaskModule) },
       { path: 'field', loadChildren: () => import('../field/field.module').then(m => m.FieldModule) },
+      { path: 'titleoption', loadChildren: () => import('../custom-task-title-options/custom-task-title-options.module').then(m => m.CustomTaskTitleOptionsModule), canActivate: [AngularFireAuthGuard], data: { authGuardPipe: adminOnly, animation: 'titleoption' } },
       { path: 'members', loadChildren: () => import('../members/members.module').then(m => m.MembersModule), canActivate: [AngularFireAuthGuard], data: { authGuardPipe: adminOnly, animation: 'members' } }
     ], canActivate: [AngularFireAuthGuard], data: { authGuardPipe: memberOnly }
   }

@@ -23,14 +23,14 @@ export class TitleFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.titleOptionForm = this.fb.formGroup(new titleOption)
-
+    console.log(this.titleOption)
     if (this.titleOption) {
       this.titleOptionForm.patchValue(this.titleOption)
     }
 
   }
-  
-  onSubmit(){
+
+  onSubmit() {
     this.TitleOptionData.emit(this.titleOptionForm.value)
   }
 }

@@ -4,6 +4,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { of } from 'rxjs';
+import { switchMap, tap } from 'rxjs/operators';
 import { titleOption } from 'src/app/models/title-options.model';
 import { CustomTaskTitleOptionService } from 'src/app/services/custom-task.service';
 import { ConfirmDialogComponent } from '../../share/components/confirm-dialog/confirm-dialog.component';
@@ -47,50 +49,46 @@ export class TitleOptionsContainerComponent implements OnInit, AfterViewInit {
 
   onAddTitleOption() {
     const dr = this.dialog.open(AddTitleDialogComponent, {})
-    dr.afterClosed().subscribe(titleOption => {
-      if (titleOption) {
-        this.titleOptionsService.add(titleOption).subscribe(r => {
-          this.snackbar.open(titleOption.title + ">>> 登録しました", "X", { duration: 5000 })
-        },
-          err => {
-            console.error(err)
-            this.snackbar.open("登録失敗", "X", { duration: 5000 })
-          })
-      }
-    })
+    dr.afterClosed().pipe(switchMap(to => {
+      return this.titleOptionsService.add(to).pipe(tap(r => {
+        this.snackbar.open(r.title + ">>> 登録しました", "X", { duration: 5000 })
+      },
+        err => {
+          console.error(err)
+          this.snackbar.open("登録失敗", "X", { duration: 5000 })
+        }))
+    })).subscribe()
   }
 
   onEditTitleOption(titleOption: titleOption, ev: MouseEvent) {
     ev.stopPropagation()
     const dr = this.dialog.open(EditTitleDialogComponent, { data: titleOption })
 
-    dr.afterClosed().subscribe(to => {
-      if (to) {
-        this.titleOptionsService.update(to).subscribe(r => {
-          this.snackbar.open(to.title + ">>> 更新しました", "X", { duration: 5000 })
-        },
-          err => {
-            console.error(err)
-            this.snackbar.open("更新失敗", "X", { duration: 5000 })
-          }
-        )
-      }
-    })
+    dr.afterClosed().pipe(switchMap(to => {
+      return this.titleOptionsService.update(to).pipe(tap(r => {
+        this.snackbar.open(to.title + ">>> 更新しました", "X", { duration: 5000 })
+      },
+        err => {
+          console.error(err)
+          this.snackbar.open("更新失敗", "X", { duration: 5000 })
+        }))
+    })).subscribe()
   }
 
   onDelete(titleOption: titleOption, ev: MouseEvent) {
     ev.stopPropagation()
-    this.dialog.open(ConfirmDialogComponent, { data: { title: "タスクタイトルを削除する" } }).afterClosed().subscribe(r => {
-      if (r) {
-        this.titleOptionsService.delete(titleOption).subscribe(r => {
-          this.snackbar.open(`${r}削除しました`, "X", { duration: 5000 })
+    this.dialog.open(ConfirmDialogComponent, { data: { title: "タスクタイトルを削除する" } }).afterClosed().pipe(switchMap(r=>{
+      if (r){
+        return this.titleOptionsService.delete(titleOption).pipe(tap(result => {
+          this.snackbar.open(`${result}削除しました`, "X", { duration: 5000 })
         },
           err => {
             console.error(err)
             this.snackbar.open("削除失敗", "X", { duration: 5000 })
-          })
+          }))
       }
-    })
+      return of()
+    })).subscribe()
   }
 
   applyFilter(event: Event) {

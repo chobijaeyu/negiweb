@@ -2,6 +2,7 @@ import { EntityMetadataMap, EntityDataModuleConfig, DefaultDataServiceConfig } f
 import { environment } from 'src/environments/environment';
 import { calev } from './models/calendar.model';
 import { negifield } from './models/field.model';
+import { titleOption } from './models/title-options.model';
 
 const entityMetadata: EntityMetadataMap = {
   negifield: {
@@ -12,7 +13,7 @@ const entityMetadata: EntityMetadataMap = {
     selectId: (c: calev) => c.ID,
   },
   negiCustomTaskTitleOption: {
-
+    selectId: (to: titleOption) => to.ID
   }
 };
 

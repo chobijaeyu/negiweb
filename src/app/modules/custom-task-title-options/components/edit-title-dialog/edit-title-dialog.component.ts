@@ -16,10 +16,12 @@ export class EditTitleDialogComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log(this.data);
+
   }
 
-  editTitleOption(titleOption: titleOption) {
-    this.dialogRef.close(this.data)
+  editTitleOption(to: titleOption) {
+    this.dialogRef.close(to)
   }
 
 }

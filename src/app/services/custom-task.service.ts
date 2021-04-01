@@ -8,6 +8,6 @@ import { titleOption } from '../models/title-options.model';
 export class CustomTaskTitleOptionService extends EntityCollectionServiceBase<titleOption> {
 
   constructor(serviceElementsFactory:EntityCollectionServiceElementsFactory) {
-    super("negicustomtasktitleoptions", serviceElementsFactory)
+    super("negiCustomTaskTitleOption", serviceElementsFactory)
    }
 }
