@@ -87,7 +87,7 @@ export class TitleOptionsContainerComponent implements OnInit, AfterViewInit {
             this.snackbar.open("削除失敗", "X", { duration: 5000 })
           }))
       }
-      return of()
+      return of({})
     })).subscribe()
   }
 

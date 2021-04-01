@@ -17,6 +17,8 @@ import { ConfirmDialogComponent } from '../../share/components/confirm-dialog/co
 import { environment } from 'src/environments/environment';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { switchMap, tap } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 // pdfMake.vfs  = pdfFonts.pdfMake.vfs;
 
@@ -71,52 +73,46 @@ export class FieldContainerComponent implements OnInit, AfterViewInit {
   openNewFieldDialog() {
     const dr = this.dialog.open(FieldAddComponent, {})
 
-    dr.afterClosed().subscribe(field => {
-      if (field) {
-        //ng data add new field to server
-        this.nf.add(field).subscribe(r => {
-          this.snackbar.open(`${r.field_name}>>${r.group_name}登録しました`, "X", { duration: 5000 })
-        },
-          err => {
-            console.error(err)
-            this.snackbar.open("登録失敗", "X", { duration: 5000 })
-          })
-      }
-    }
-    )
+    dr.afterClosed().pipe(switchMap(field => {
+      return this.nf.add(field).pipe(tap(r => {
+        this.snackbar.open(`${r.field_name}>>${r.group_name}登録しました`, "X", { duration: 5000 })
+      },
+        err => {
+          console.error(err)
+          this.snackbar.open("登録失敗", "X", { duration: 5000 })
+        }))
+    })).subscribe()
   }
 
   onEdit(nf: negifield, ev: MouseEvent) {
     ev.stopPropagation()
     const dr = this.dialog.open(FieldEditComponent, { data: nf })
 
-    dr.afterClosed().subscribe(field => {
-      if (field) {
-        //ng data edit field to server
-        this.nf.update(field).subscribe(r => {
-          this.snackbar.open(`${r.field_name}>>${r.group_name}更新しました`, "X", { duration: 5000 })
-        },
-          err => {
-            console.error(err)
-            this.snackbar.open("更新失敗", "X", { duration: 5000 })
-          })
-      }
-    })
+    dr.afterClosed().pipe(switchMap(field => {
+      return this.nf.update(field).pipe(tap(r => {
+        this.snackbar.open(`${r.field_name}>>${r.group_name}更新しました`, "X", { duration: 5000 })
+      },
+        err => {
+          console.error(err)
+          this.snackbar.open("更新失敗", "X", { duration: 5000 })
+        }))
+    })).subscribe()
   }
 
   onDelete(nf: negifield, ev: MouseEvent) {
     ev.stopPropagation()
-    this.dialog.open(ConfirmDialogComponent, { data: { title: "フィールドを削除する" } }).afterClosed().subscribe(r => {
-      if (r) {
-        this.nf.delete(nf).subscribe(r => {
+    this.dialog.open(ConfirmDialogComponent, { data: { title: "フィールドを削除する" } }).afterClosed().pipe(switchMap(confirmed => {
+      if (confirmed) {
+        return this.nf.delete(nf).pipe(tap(r => {
           this.snackbar.open(`${r}削除しました`, "X", { duration: 5000 })
         },
           err => {
             console.error(err)
             this.snackbar.open("削除失敗", "X", { duration: 5000 })
-          })
+          }))
       }
-    })
+      return of({})
+    })).subscribe()
   }
 
   applyFilter(event: Event) {
