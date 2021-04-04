@@ -2,7 +2,7 @@ import { EntityMetadataMap, EntityDataModuleConfig, DefaultDataServiceConfig } f
 import { environment } from 'src/environments/environment';
 import { calev } from './models/calendar.model';
 import { negifield } from './models/field.model';
-import { titleOption } from './models/task-options.model';
+import { seriesTaskOption, titleOption } from './models/task-options.model';
 
 const entityMetadata: EntityMetadataMap = {
   negifield: {
@@ -15,8 +15,8 @@ const entityMetadata: EntityMetadataMap = {
   negiCustomTaskTitleOption: {
     selectId: (to: titleOption) => to.ID
   },
-  negiCustomSeriesTaskOption:{
-    
+  negiCustomSeriesTaskOption: {
+    selectId: (sto: seriesTaskOption) => sto.ID
   }
 };
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, AfterViewInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -31,6 +31,7 @@ export class TitleOptionContainerComponent implements OnInit, AfterViewInit {
   constructor(
     public dialog: MatDialog,
     public snackbar: MatSnackBar,
+    public CDR: ChangeDetectorRef,
     public titleOptionsService: CustomTaskTitleOptionService,
   ) {
   }
@@ -38,6 +39,7 @@ export class TitleOptionContainerComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.titleOptionsService.getAll()
     this.titleOptionsService.entities$.subscribe(titleOptions => {
+      this.CDR.markForCheck()
       this.dataSource = new MatTableDataSource(titleOptions);
     })
   }

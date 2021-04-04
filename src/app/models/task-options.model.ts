@@ -1,5 +1,4 @@
 import { prop, propArray } from "@rxweb/reactive-form-validators";
-import { calev } from "./calendar.model";
 
 export class titleOption {
     @prop()
@@ -8,11 +7,23 @@ export class titleOption {
     title: string = ""
 }
 
-export class seriesTaskOption {
-    @prop()
-    id?: string
+export class seriesTaskSingleTask {
     @prop()
     title: string = ""
-    @propArray(calev)
-    tasklist: calev[] = []
+    @prop()
+    allDay: boolean = true
+    @prop()
+    start: number = 0
+    @prop()
+    end: number = 0
+    @prop()
+    priority?: number = 3
+}
+export class seriesTaskOption {
+    @prop()
+    ID?: any
+    @prop()
+    title: string = ""
+    @propArray(seriesTaskSingleTask)
+    tasklist: seriesTaskSingleTask[] = []
 }

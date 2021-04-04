@@ -10,19 +10,30 @@
                 </mat-option>
             </mat-autocomplete>
             <mat-error *ngIf="SingleTaskForm.controls['title'].invalid">
-                <!-- {{calEventForm.controls['title']["errorMessage"]}} -->
+                必須です
             </mat-error>
             <mat-hint></mat-hint>
         </mat-form-field>
 
-        <mat-form-field appearance="outline">
-            <mat-label>期間を入力下さい。</mat-label>
-            <mat-date-range-input [rangePicker]="picker">
-                <input matStartDate placeholder="開始日" formControlName='start'>
-                <input matEndDate placeholder="締切日" formControlName='end'>
-            </mat-date-range-input>
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-date-range-picker #picker></mat-date-range-picker>
+        <mat-form-field appearance="outline" [hideRequiredMarker]="false">
+            <mat-label>はじめ時点を入力下さい。</mat-label>
+            <input matInput type="number" placeholder="開始日" formControlName='start' name="start" required>
+            <span matSuffix>日</span>
+            <mat-hint>今日から何日スタート</mat-hint>
+            <mat-error *ngIf="SingleTaskForm.controls['start'].invalid">
+                必須です
+                <!-- {{calEventForm.controls['title']["errorMessage"]}} -->
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" [hideRequiredMarker]="false">
+            <mat-label>終わり時点を入力下さい。</mat-label>
+            <input matInput type="number" placeholder="締切日" formControlName='end' name="end" required>
+            <span matSuffix>日</span>
+            <mat-hint>今日から何日エンド</mat-hint>
+            <mat-error *ngIf="SingleTaskForm.controls['end'].invalid">
+                必須です
+                <!-- {{calEventForm.controls['title']["errorMessage"]}} -->
+            </mat-error>
         </mat-form-field>
 
 

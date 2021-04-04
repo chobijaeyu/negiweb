@@ -14,7 +14,8 @@
     </div>
 
     <ng-container formArrayName="tasklist">
-        <div class="form-row form-group" *ngFor="let task of tasklist.controls ; let i = index">
+        <div class="form-row form-group" *ngFor="let task of tasklist.controls ; let i = index" fxLayout="row"
+            fxLayoutAlign="center center" fxLayoutGap="1rem" fxLayout.lt-lg="column">
             {{i+1}}
             <negi-series-task-single-task-form [SingleTaskForm]="getFormGroupAt(task)">
             </negi-series-task-single-task-form>
@@ -23,6 +24,8 @@
         </div>
     </ng-container>
 
-
+    <div>
+        <button mat-raised-button color="primary" (click)="onSubmit()">完成する</button>
+    </div>
 
 </form>

@@ -1,10 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter, Input } from '@angular/core';
 import { AbstractControl, FormArray, FormGroup } from '@angular/forms';
 import { RxFormBuilder, RxFormGroup } from '@rxweb/reactive-form-validators';
-import { Observable } from 'rxjs';
-import { calev } from 'src/app/models/calendar.model';
-import { priorities } from 'src/app/models/field.model';
-import { seriesTaskOption } from 'src/app/models/task-options.model';
+import { seriesTaskOption, seriesTaskSingleTask } from 'src/app/models/task-options.model';
 import { CustomSeriesTaskOptionService } from 'src/app/services/custom-task.service';
 
 @Component({
@@ -28,14 +25,14 @@ export class SeriesTaskFormComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.st.tasklist = new Array<calev>()
-    this.st.tasklist.push(new calev())
+    this.st.tasklist = new Array<seriesTaskSingleTask>()
+    this.st.tasklist.push(new seriesTaskSingleTask())
     this.seriesTaskForm = this.fb.formGroup(this.st)
 
     if (this.seriestaskData) {
       if (this.seriestaskData.tasklist) {
         for (let index = 0; index < this.seriestaskData.tasklist.length - 1; index++) {
-          this.st.tasklist.push(new calev())
+          this.st.tasklist.push(new seriesTaskSingleTask())
         }
       }
       this.seriesTaskForm.patchValue(this.seriestaskData)
@@ -52,7 +49,7 @@ export class SeriesTaskFormComponent implements OnInit {
   }
 
   onAddSingleTask() {
-    this.st.tasklist.push(new calev())
+    this.st.tasklist.push(new seriesTaskSingleTask())
   }
 
   onDeleteSingleTask(i: number) {
@@ -63,7 +60,7 @@ export class SeriesTaskFormComponent implements OnInit {
       return
     }
 
-    this.st.tasklist.splice(i,1)
+    this.st.tasklist.splice(i, 1)
 
 
     console.log(this.st.tasklist);

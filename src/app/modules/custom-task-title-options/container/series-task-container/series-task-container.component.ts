@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -29,12 +29,13 @@ export class SeriesTaskContainerComponent implements OnInit, AfterViewInit {
   constructor(
     public dialog: MatDialog,
     public snackbar: MatSnackBar,
+    public CDR: ChangeDetectorRef,
     public stos: CustomSeriesTaskOptionService,
   ) { }
 
   ngOnInit(): void {
     this.stos.getAll()
-    this.stos.entities$.pipe(map(seriestaskop => { this.dataSource = new MatTableDataSource(seriestaskop) })).subscribe()
+    this.stos.entities$.pipe(map(seriestaskop => { this.dataSource = new MatTableDataSource(seriestaskop), this.CDR.markForCheck() })).subscribe()
   }
 
   ngAfterViewInit() {
