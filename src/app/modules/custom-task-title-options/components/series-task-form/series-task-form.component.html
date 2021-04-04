@@ -13,7 +13,7 @@
 
     </div>
 
-    <ng-container formArrayName="tasklist">
+    <section class="tasklistsection" formArrayName="tasklist">
         <div class="form-row form-group" *ngFor="let task of tasklist.controls ; let i = index" fxLayout="row"
             fxLayoutAlign="center center" fxLayoutGap="1rem" fxLayout.lt-lg="column">
             {{i+1}}
@@ -22,7 +22,7 @@
             <mat-icon (click)="onAddSingleTask()">add</mat-icon>
             <mat-icon (click)="onDeleteSingleTask(i)"> delete_forever</mat-icon>
         </div>
-    </ng-container>
+    </section>
 
     <div>
         <button mat-raised-button color="primary" (click)="onSubmit()">完成する</button>

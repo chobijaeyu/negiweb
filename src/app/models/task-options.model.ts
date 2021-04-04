@@ -9,6 +9,8 @@ export class titleOption {
 
 export class seriesTaskSingleTask {
     @prop()
+    ID?: any
+    @prop()
     title: string = ""
     @prop()
     start: number = 0

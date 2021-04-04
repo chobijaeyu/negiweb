@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter, Input
 import { AbstractControl, FormArray, FormGroup } from '@angular/forms';
 import { RxFormBuilder, RxFormGroup } from '@rxweb/reactive-form-validators';
 import { seriesTaskOption, seriesTaskSingleTask } from 'src/app/models/task-options.model';
-import { CustomSeriesTaskOptionService } from 'src/app/services/custom-task.service';
+import { CustomSeriesTaskOptionService, seriesTaskSingleTaskService } from 'src/app/services/custom-task.service';
 
 @Component({
   selector: 'negi-series-task-form',
@@ -21,6 +21,7 @@ export class SeriesTaskFormComponent implements OnInit {
 
   constructor(
     public fb: RxFormBuilder,
+    public singletaskService: seriesTaskSingleTaskService,
     public sts: CustomSeriesTaskOptionService,
   ) { }
 
@@ -31,6 +32,7 @@ export class SeriesTaskFormComponent implements OnInit {
 
     if (this.seriestaskData) {
       if (this.seriestaskData.tasklist) {
+        console.log(this.seriestaskData)
         for (let index = 0; index < this.seriestaskData.tasklist.length - 1; index++) {
           this.st.tasklist.push(new seriesTaskSingleTask())
         }
@@ -53,17 +55,21 @@ export class SeriesTaskFormComponent implements OnInit {
   }
 
   onDeleteSingleTask(i: number) {
-    console.log(i);
-    console.log(this.st.tasklist);
-
     if (this.st.tasklist.length <= 1) {
       return
     }
 
     this.st.tasklist.splice(i, 1)
 
+    if (this.st.tasklist[i].ID) {
+      this.singletaskService.deleteSingleTaskOption(this.st.tasklist[i]).subscribe(r => {
+        console.log(r);
+      },
+        err => {
+          console.error(err);
 
-    console.log(this.st.tasklist);
+        })
+    }
   }
 
   onSubmit() {
