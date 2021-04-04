@@ -11,11 +11,9 @@ export class seriesTaskSingleTask {
     @prop()
     title: string = ""
     @prop()
-    allDay: boolean = true
-    @prop()
     start: number = 0
     @prop()
-    end: number = 0
+    end!: number 
     @prop()
     priority?: number = 3
 }
