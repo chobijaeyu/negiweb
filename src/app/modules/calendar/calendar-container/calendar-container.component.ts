@@ -12,8 +12,9 @@ import { NegifieldService } from 'src/app/services/negifield.service';
 import { NewJourneyDialogComponent } from '../components/new-journey-dialog/new-journey-dialog.component';
 import { ConfirmDialogComponent } from '../../share/components/confirm-dialog/confirm-dialog.component';
 import { TaskDetailComponent } from '../../field/components/task-detail/task-detail.component';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { member } from 'src/app/models/User.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 const colors: any = {
   red: {
@@ -78,6 +79,7 @@ export class CalendarContainerComponent implements OnInit {
     public _dialog: MatDialog,
     // public calService: CalendarService,
     public negifieldservice: NegifieldService,
+    public snackbar: MatSnackBar,
     private neigiCalEventService: neigiCalendarService,
     private cdr: ChangeDetectorRef
   ) { }
@@ -161,13 +163,19 @@ export class CalendarContainerComponent implements OnInit {
           // r.resizable = {}
           // r.resizable.afterEnd = true
           // r.resizable.beforeStart = true
+          // this.calService.newCalEvent(r).subscribe(r => console.log(r))
+          this.neigiCalEventService.add(r)
           this.events.push(r)
           this.cdr.markForCheck();
           this.refresh.next()
-          // this.calService.newCalEvent(r).subscribe(r => console.log(r))
-          this.neigiCalEventService.add(r)
+          this.snackbar.open(r.title + ">>> 登録しました", "X", { duration: 5000 })
         }
-      })
+      },
+        err => {
+          console.error(err)
+          this.snackbar.open("登録失敗", "X", { duration: 5000 })
+        }
+      )
   }
 
 
@@ -206,10 +214,16 @@ export class CalendarContainerComponent implements OnInit {
     this._dialog.open(NewJourneyDialogComponent,)
       .afterClosed()
       .subscribe((cs: calev[]) => {
-        console.log(cs)
         if (cs) {
           cs.forEach(cv => {
-            this.neigiCalEventService.add(cv)
+            this.neigiCalEventService.add(cv).pipe(tap(
+              r => {
+                this.snackbar.open(r.title + ">>> 登録しました", "X", { duration: 5000 })
+              },
+              err => {
+                console.error(err)
+                this.snackbar.open("登録失敗", "X", { duration: 5000 })
+              }))
           });
         }
       })

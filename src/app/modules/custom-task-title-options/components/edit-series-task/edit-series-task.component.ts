@@ -18,8 +18,8 @@ export class EditSeriesTaskComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  editSeriesTask(seriestask:seriesTaskOption){
-    
+  editSeriesTask(seriestask: seriesTaskOption) {
+    this.dialogRef.close(seriestask)
   }
 
 }

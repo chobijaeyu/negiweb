@@ -1,15 +1,37 @@
-<mat-card>
+<h1>シリーズタスクを追加</h1>
+<mat-card fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="1rem">
     <mat-form-field appearance="fill">
-        <mat-label>Select an option</mat-label>
+        <mat-label>圃場を選択して下さい</mat-label>
         <mat-select [(value)]="selectedField">
-            <mat-option [value]="nf" *ngFor="let nf of nfields$ | async">{{nf.field_name}}|{{nf.group_name}}
+            <mat-option [value]="nf" *ngFor="let nf of nfields$ | async">
+                <span class="fieldspan">圃場番号 : {{nf.field_name}}</span>
+                <span class="fieldspan">地域 : {{nf.group_name}}</span>
             </mat-option>
         </mat-select>
     </mat-form-field>
+
     <mat-card *ngIf="selectedField">
-        # {{selectedField.ID}} | {{selectedField.field_name}} | {{selectedField.group_name}} | {{selectedField.active}}
+        <span class="fieldspan">ID : {{selectedField.ID}}</span>
+        <span class="fieldspan">圃場番号 : {{selectedField.field_name}}</span>
+        <span class="fieldspan">地域 : {{selectedField.group_name}}</span>
+    </mat-card>
+
+    <mat-form-field appearance="fill">
+        <mat-label>シリーズタスクオプションを選択して下さい</mat-label>
+        <mat-select [(value)]="selectedSeriesTaskOption">
+            <mat-option [value]="seriestaskoption" *ngFor="let seriestaskoption of seriestaskservice.entities$| async">
+                <span class="fieldspan">シリーズタスク : {{seriestaskoption.title}}</span>
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-card *ngIf="selectedSeriesTaskOption">
+        <span class="fieldspan">ID : {{selectedSeriesTaskOption.ID}}</span>
+        <span class="fieldspan">シリーズタスクオプションタイトル : {{selectedSeriesTaskOption.title}}</span>
+        <span class="fieldspan">タスク数 : {{selectedSeriesTaskOption.tasklist.length}}</span>
     </mat-card>
     <mat-card-actions>
-        <button mat-button (click)="onGoNewJourney()">OK</button>
+        <button mat-raised-button color="primary" (click)="onGoNewJourney(selectedSeriesTaskOption)"
+            [disabled]="selectedSeriesTaskOption === undefined|| selectedField === undefined ">OK</button>
     </mat-card-actions>
 </mat-card>

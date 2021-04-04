@@ -25,9 +25,9 @@
                 <!-- {{calEventForm.controls['title']["errorMessage"]}} -->
             </mat-error>
         </mat-form-field>
-        <mat-form-field appearance="outline" [hideRequiredMarker]="false">
+        <mat-form-field appearance="outline">
             <mat-label>終わり時点を入力下さい。</mat-label>
-            <input matInput type="number" placeholder="締切日" formControlName='end' name="end" required>
+            <input matInput type="number" placeholder="締切日" formControlName='end' name="end" >
             <span matSuffix>日</span>
             <mat-hint>今日から何日エンド</mat-hint>
             <mat-error *ngIf="SingleTaskForm.controls['end'].invalid">

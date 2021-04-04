@@ -1,8 +1,11 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { Component, OnInit, ChangeDetectionStrategy, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { calev } from 'src/app/models/calendar.model';
 import { negifield } from 'src/app/models/field.model';
+import { seriesTaskOption, seriesTaskSingleTask } from 'src/app/models/task-options.model';
+import { CustomSeriesTaskOptionService } from 'src/app/services/custom-task.service';
 import { NegifieldService } from 'src/app/services/negifield.service';
 
 @Component({
@@ -14,73 +17,47 @@ import { NegifieldService } from 'src/app/services/negifield.service';
 export class NewJourneyDialogComponent implements OnInit {
 
   selectedField!: negifield
+  selectedSeriesTaskOption!: seriesTaskOption
   nfields$!: Observable<negifield[]>;
-
   calevs: calev[] = []
 
   constructor(
     public fs: NegifieldService,
-    public dialogRef:MatDialogRef<NewJourneyDialogComponent>,
+    public seriestaskservice: CustomSeriesTaskOptionService,
+    public dialogRef: MatDialogRef<NewJourneyDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: negifield
   ) { }
 
   ngOnInit(): void {
-    this.nfields$ = this.fs.entities$
+    this.seriestaskservice.getAll()
+    this.nfields$ = this.fs.entities$.pipe(map(nfs => nfs.filter(nf => nf.active)))
+
+    if (this.data) {
+      this.selectedField = this.data
+    }
   }
 
-  genCalEv() {
-    let ev1 = new calev()
-    let ev2 = new calev()
-    let ev3 = new calev()
-    let ev4 = new calev()
-    let ev5 = new calev()
-    let today = new Date()
-    ev1.title = "[定植] ゴーゴーサン | 目安 10cm"
-    ev1.allDay = true
-    ev1.NegiFieldID = this.selectedField.ID
-    ev1.start = today
-    this.calevs.push(ev1)
+  genCalEv(seriestasklist: seriesTaskSingleTask[]) {
+    seriestasklist.forEach(task => {
+      let ev = new calev()
+      let startDay = new Date()
+      ev.title = task.title
+      ev.allDay = true
+      ev.NegiFieldID = this.selectedField.ID
+      startDay.setDate(startDay.getDate() + task.start)
+      ev.start = startDay
+      if (task.end) {
+        let endDay = new Date()
+        endDay.setDate(endDay.getDate() + task.end)
+        ev.end = endDay
+      }
+      this.calevs.push(ev)
 
-    ev2.title = "[肥料] スミカエース10号 | 目安 緑色付き"
-    ev2.allDay = true
-    ev2.NegiFieldID = this.selectedField.ID
-    today.setDate(today.getDate() + 14)
-    ev2.start = today
-    this.calevs.push(ev2)
-
-    ev3.title = "[防除] スミチオン　ダイアジノン　ダコニール　あらびっく　ミックスパワー | 目安 15~20cm"
-    ev3.allDay = true
-    ev3.NegiFieldID = this.selectedField.ID
-    today = new Date()
-    today.setDate(today.getDate() + 14)
-    ev3.start = today
-    today = new Date()
-    today.setDate(today.getDate() + 20)
-    ev3.end = today
-    this.calevs.push(ev3)
-
-    ev4.title = "[除草] ロロックス | 目安 20cm前後"
-    ev4.allDay = true
-    ev4.NegiFieldID = this.selectedField.ID
-    today = new Date()
-    today.setDate(today.getDate() + 20)
-    ev4.start = today
-    today = new Date()
-    today.setDate(today.getDate() + 25)
-    ev4.end = today
-    this.calevs.push(ev4)
-
-    ev5.title = "[散布] ゴーゴーサンorトレファノ | 目安 20cm前後"
-    ev5.allDay = true
-    ev5.NegiFieldID = this.selectedField.ID
-    today = new Date()
-    today.setDate(today.getDate() + 25)
-    ev5.start = today
-    this.calevs.push(ev5)
-    
+    });
   }
 
-  onGoNewJourney(){
-    this.genCalEv()
+  onGoNewJourney(seriestaskopition: seriesTaskOption) {
+    this.genCalEv(seriestaskopition.tasklist)
     this.dialogRef.close(this.calevs)
   }
 
