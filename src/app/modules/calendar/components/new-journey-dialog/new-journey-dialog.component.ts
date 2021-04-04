@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Inject } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -21,8 +22,11 @@ export class NewJourneyDialogComponent implements OnInit {
   nfields$!: Observable<negifield[]>;
   calevs: calev[] = []
 
+  user: any
+
   constructor(
     public fs: NegifieldService,
+    public afa: AngularFireAuth,
     public seriestaskservice: CustomSeriesTaskOptionService,
     public dialogRef: MatDialogRef<NewJourneyDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: negifield
@@ -30,6 +34,10 @@ export class NewJourneyDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.seriestaskservice.getAll()
+    this.afa.currentUser.then(user => {
+      this.user = user
+    })
+
     this.nfields$ = this.fs.entities$.pipe(map(nfs => nfs.filter(nf => nf.active)))
 
     if (this.data) {
@@ -51,6 +59,7 @@ export class NewJourneyDialogComponent implements OnInit {
         endDay.setDate(endDay.getDate() + task.end)
         ev.end = endDay
       }
+      ev.operator = this.user.displayName
       this.calevs.push(ev)
 
     });

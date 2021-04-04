@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { FormGroup } from '@angular/forms';
 import { ThemePalette } from '@angular/material/core';
 import { RxFormBuilder } from '@rxweb/reactive-form-validators';
@@ -31,31 +32,26 @@ export class CalendarEventFormComponent implements OnInit {
   enableMeridian = false;
   color: ThemePalette = 'primary';
   priorities = priorities
-  titleOptions: titleOption[] = [
-    // "[定植] ゴーゴーサン ",
-    // "[肥料] スミカエース10号",
-    // "[防除] スミチオン",
-    // "[防除] ダイアジノン",
-    // "[防除] ダコニール",
-    // "[防除] あらびっく",
-    // "[防除] ミックスパワー",
-    // "[除草] ロロックス",
-    // "[散布] ゴーゴーサン",
-    // "[散布] トレファノ",
-  ]
+  titleOptions: titleOption[] = []
 
   filteredOptions$!: Observable<string[]>;
 
   nfields$!: Observable<negifield[]>;
 
+  user: any
+
   constructor(
     public fb: RxFormBuilder,
     // public uuid: UuidGeneratorService,
     public fs: NegifieldService,
+    public afa: AngularFireAuth,
     public taskTitleOptionService: CustomTaskTitleOptionService,
   ) { }
 
   ngOnInit(): void {
+    this.afa.currentUser.then(user => {
+      this.user = user
+    })
     this.cv = new calev()
     this.calEventForm = this.fb.formGroup(this.cv)
 
@@ -78,13 +74,14 @@ export class CalendarEventFormComponent implements OnInit {
       map(value => this._filter(value))
     );
 
-    this.taskTitleOptionService.entities$.subscribe(to=>{
+    this.taskTitleOptionService.entities$.subscribe(to => {
       this.titleOptions = to
     })
   }
 
   onSubmit() {
-    this.calEventFormData.emit(this.calEventForm.value)
+    this.cv.operator = this.user.displayName
+      this.calEventFormData.emit(this.calEventForm.value)
   }
 
   private _filter(value: string): string[] {
