@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { titleOption } from 'src/app/models/title-options.model';
+import { titleOption } from 'src/app/models/task-options.model';
 
 @Component({
   selector: 'negi-add-title-dialog',

@@ -2,11 +2,11 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter
 import { FormGroup } from '@angular/forms';
 import { ThemePalette } from '@angular/material/core';
 import { RxFormBuilder } from '@rxweb/reactive-form-validators';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { calev } from 'src/app/models/calendar.model';
 import { negifield, priorities } from 'src/app/models/field.model';
-import { titleOption } from 'src/app/models/title-options.model';
+import { titleOption } from 'src/app/models/task-options.model';
 import { CustomTaskTitleOptionService } from 'src/app/services/custom-task.service';
 import { NegifieldService } from 'src/app/services/negifield.service';
 

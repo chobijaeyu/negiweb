@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { RxFormBuilder } from '@rxweb/reactive-form-validators';
-import { titleOption } from 'src/app/models/title-options.model';
+import { titleOption } from 'src/app/models/task-options.model';
 
 @Component({
   selector: 'negi-title-form',

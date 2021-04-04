@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TitleOptionsContainerComponent } from './container/container.component';
+import { TaskOptionsContainerComponent } from './container/task-container.component';
 
 const routes: Routes = [
-  { path: "", component: TitleOptionsContainerComponent }
+  { path: "", component: TaskOptionsContainerComponent }
 ];
 
 @NgModule({

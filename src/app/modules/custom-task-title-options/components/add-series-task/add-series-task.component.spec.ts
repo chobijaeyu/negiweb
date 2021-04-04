@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TitleOptionsContainerComponent } from './container.component';
+import { AddSeriesTaskComponent } from './add-series-task.component';
 
-describe('ContainerComponent', () => {
-  let component: TitleOptionsContainerComponent;
-  let fixture: ComponentFixture<TitleOptionsContainerComponent>;
+describe('AddSeriesTaskComponent', () => {
+  let component: AddSeriesTaskComponent;
+  let fixture: ComponentFixture<AddSeriesTaskComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TitleOptionsContainerComponent ]
+      declarations: [ AddSeriesTaskComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TitleOptionsContainerComponent);
+    fixture = TestBed.createComponent(AddSeriesTaskComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

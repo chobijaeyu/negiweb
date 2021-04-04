@@ -1,0 +1,28 @@
+<form action="onSubmit" [formGroup]="seriesTaskForm">
+    <h1 fxLayout="row" fxLayoutAlign="center center">{{title}}</h1>
+
+    <div>
+
+        <mat-form-field appearance="outline" [hideRequiredMarker]="false">
+            <mat-icon matPrefix>star</mat-icon>
+            <mat-label>シリーズタスク配置タイトル</mat-label>
+            <input matInput formControlName='title' name='title' required>
+
+            <mat-hint></mat-hint>
+        </mat-form-field>
+
+    </div>
+
+    <ng-container formArrayName="tasklist">
+        <div class="form-row form-group" *ngFor="let task of tasklist.controls ; let i = index">
+            {{i+1}}
+            <negi-series-task-single-task-form [SingleTaskForm]="getFormGroupAt(task)">
+            </negi-series-task-single-task-form>
+            <mat-icon (click)="onAddSingleTask()">add</mat-icon>
+            <mat-icon (click)="onDeleteSingleTask(i)"> delete_forever</mat-icon>
+        </div>
+    </ng-container>
+
+
+
+</form>
