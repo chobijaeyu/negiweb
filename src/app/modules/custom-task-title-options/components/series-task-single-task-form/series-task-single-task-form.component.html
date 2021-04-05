@@ -1,0 +1,53 @@
+<ng-container [formGroup]="SingleTaskForm">
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="1rem" fxLayout.lt-lg="column">
+        <mat-form-field appearance="outline" [hideRequiredMarker]="false">
+            <mat-icon matPrefix>stars</mat-icon>
+            <mat-label>タイトル</mat-label>
+            <input matInput formControlName='title' name='title' [matAutocomplete]="auto" required>
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                <mat-option *ngFor="let option of filteredOptions$ | async" [value]="option">
+                    {{option}}
+                </mat-option>
+            </mat-autocomplete>
+            <mat-error *ngIf="SingleTaskForm.controls['title'].invalid">
+                必須です
+            </mat-error>
+            <mat-hint></mat-hint>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" [hideRequiredMarker]="false">
+            <mat-label>はじめ時点を入力下さい。</mat-label>
+            <input matInput type="number" placeholder="開始日" formControlName='start' name="start" required>
+            <span matSuffix>日</span>
+            <mat-hint>今日から何日スタート</mat-hint>
+            <mat-error *ngIf="SingleTaskForm.controls['start'].invalid">
+                必須です
+                <!-- {{calEventForm.controls['title']["errorMessage"]}} -->
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>終わり時点を入力下さい。</mat-label>
+            <input matInput type="number" placeholder="締切日" formControlName='end' name="end" >
+            <span matSuffix>日</span>
+            <mat-hint>今日から何日エンド</mat-hint>
+            <mat-error *ngIf="SingleTaskForm.controls['end'].invalid">
+                必須です
+                <!-- {{calEventForm.controls['title']["errorMessage"]}} -->
+            </mat-error>
+        </mat-form-field>
+
+
+
+        <mat-form-field appearance="outline" [hideRequiredMarker]="false">
+            <mat-icon matPrefix>category</mat-icon>
+            <mat-label>優先順位</mat-label>
+            <mat-select formControlName='priority' name='priority'>
+                <mat-option *ngFor="let prio of priorities" [value]="prio.value">
+                    {{prio.viewValue}}
+                </mat-option>
+            </mat-select>
+            <mat-hint></mat-hint>
+        </mat-form-field>
+
+    </div>
+</ng-container>

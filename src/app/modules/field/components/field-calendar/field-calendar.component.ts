@@ -1,13 +1,15 @@
 import { Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter, ChangeDetectorRef, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView } from 'angular-calendar';
 import { isSameDay, isSameMonth } from 'date-fns';
 import { Subject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { calev, colors } from 'src/app/models/calendar.model';
 import { negifield } from 'src/app/models/field.model';
 import { CalendarEventAddDialogComponent } from 'src/app/modules/calendar/components/calendar-event-add-dialog/calendar-event-add-dialog.component';
 import { CalendarEventEditDialogComponent } from 'src/app/modules/calendar/components/calendar-event-edit-dialog/calendar-event-edit-dialog.component';
+import { NewJourneyDialogComponent } from 'src/app/modules/calendar/components/new-journey-dialog/new-journey-dialog.component';
 import { neigiCalendarService } from 'src/app/services/calendar.service';
 import { NegifieldService } from 'src/app/services/negifield.service';
 import { TaskDetailComponent } from '../task-detail/task-detail.component';
@@ -59,6 +61,7 @@ export class FieldCalendarComponent implements OnInit {
 
   constructor(
     public _dialog: MatDialog,
+    public snackbar: MatSnackBar,
     public nfs: NegifieldService,
     public neigiCalEventService: neigiCalendarService,
     private cdr: ChangeDetectorRef,
@@ -172,6 +175,22 @@ export class FieldCalendarComponent implements OnInit {
   }
 
   onNewJourney() {
-
+    this._dialog.open(NewJourneyDialogComponent, { data: this.nf })
+      .afterClosed()
+      .subscribe((cs: calev[]) => {
+        if (cs) {
+          cs.forEach(cv => {
+            this.neigiCalEventService.add(cv).pipe(tap(
+              r => {
+                this.snackbar.open(r.title + ">>> 登録しました", "X", { duration: 5000 })
+              },
+              err => {
+                console.error(err)
+                this.snackbar.open("登録失敗", "X", { duration: 5000 })
+              }))
+          });
+        }
+      })
   }
+
 }

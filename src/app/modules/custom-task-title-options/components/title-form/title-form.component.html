@@ -1,0 +1,22 @@
+<form [formGroup]="titleOptionForm">
+    <h1 fxLayout="row" fxLayoutAlign="center center">{{title}}</h1>
+
+    <div gdGap="1rem" gdAlignColumns="center center" gdGap.lt-md=".3rem" gdColumns="repeat(5, [col] auto)"
+        gdColumns.md="repeat(2, [col] auto)" gdColumns.lt-md="repeat(2, [col] calc(50% - 1rem))">
+
+        <mat-form-field appearance="outline" [hideRequiredMarker]="false">
+            <mat-icon matPrefix>stars</mat-icon>
+            <mat-label>タイトル</mat-label>
+            <input matInput formControlName='title' name='title' required>
+            <mat-error *ngIf="titleOptionForm.controls['title'].invalid">
+                <!-- {{titleOptionForm.controls['title']["errorMessage"]}} -->
+            </mat-error>
+            <mat-hint></mat-hint>
+        </mat-form-field>
+
+    </div>
+
+    <div>
+        <button mat-raised-button color="primary" (click)="onSubmit()">提出</button>
+    </div>
+</form>

@@ -29,7 +29,7 @@ export class TaskContainerComponent implements OnInit {
       map(entities => entities.filter(v => v.confirmed === false))
     )
 
-    this.operatingLogs$ = this.afs.collection<operatingLog>(environment.operatinglogpath).valueChanges()
+    this.operatingLogs$ = this.afs.collection<operatingLog>(environment.operatinglogpath, ref => ref.limit(10).orderBy("when", 'desc')).valueChanges()
   }
 
   onConfirm(tasks: MatListOption[]) {
