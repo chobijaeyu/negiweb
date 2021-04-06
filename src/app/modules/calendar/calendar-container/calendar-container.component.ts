@@ -229,4 +229,9 @@ export class CalendarContainerComponent implements OnInit {
       })
   }
 
+
+  onRefresh() {
+    this.neigiCalEventService.getWithQuery({ confirmed: "true" })
+  }
+
 }
