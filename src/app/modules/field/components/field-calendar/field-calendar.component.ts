@@ -68,7 +68,7 @@ export class FieldCalendarComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.neigiCalEventService.getWithQuery({ nfID: this.nf.ID })
+    this.neigiCalEventService.getWithQuery({ nfID: this.nf.ID, confirmed: "true" })
     this.neigiCalEventService.entities$.pipe(
       map(entities => entities.filter(v => v.confirmed === true))
     ).subscribe(r => {
@@ -191,6 +191,10 @@ export class FieldCalendarComponent implements OnInit {
           });
         }
       })
+  }
+
+  onRefresh(){
+    this.neigiCalEventService.getWithQuery({ nfID: this.nf.ID, confirmed: "true" })
   }
 
 }

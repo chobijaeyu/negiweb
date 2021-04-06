@@ -2,13 +2,14 @@
     <mat-selection-list #tasks class="toConfirmList">
         <h1>新規タスク確認待ちリスト</h1>
         <mat-list-option *ngFor="let task of toConfirmTasks$ |async" [value]="task">
-            <div fxLayout="row">
+            <div fxLayout="row" fxLayoutGap="1rem" fxLayoutAlign="space-between center">
                 <span>
                     内容：{{task.title}}
                 </span>
                 <span>
                     操作員：{{task.operator}}
                 </span>
+                <span>時間：{{task.CreatedAt|date:"medium"}}</span>
             </div>
         </mat-list-option>
         <button mat-raised-button (click)="onConfirm(tasks.selectedOptions.selected)">確認する</button>

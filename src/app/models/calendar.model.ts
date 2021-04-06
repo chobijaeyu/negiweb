@@ -32,6 +32,7 @@ export class calev implements CalendarEvent {
     confirmed?: boolean = false
     @prop()
     NegiFieldID?: any
+    CreatedAt?: Date
 }
 
 export interface Holiday {

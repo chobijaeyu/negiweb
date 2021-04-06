@@ -74,6 +74,9 @@ export class FieldContainerComponent implements OnInit, AfterViewInit {
     const dr = this.dialog.open(FieldAddComponent, {})
 
     dr.afterClosed().pipe(switchMap(field => {
+      if (!field){
+        return of()
+      }
       return this.nf.add(field).pipe(tap(r => {
         this.snackbar.open(`${r.field_name}>>${r.group_name}登録しました`, "X", { duration: 5000 })
       },
@@ -89,6 +92,9 @@ export class FieldContainerComponent implements OnInit, AfterViewInit {
     const dr = this.dialog.open(FieldEditComponent, { data: nf })
 
     dr.afterClosed().pipe(switchMap(field => {
+      if (!field){
+        return of()
+      }
       return this.nf.update(field).pipe(tap(r => {
         this.snackbar.open(`${r.field_name}>>${r.group_name}更新しました`, "X", { duration: 5000 })
       },
