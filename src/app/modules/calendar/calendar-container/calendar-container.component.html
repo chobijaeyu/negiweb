@@ -1,4 +1,4 @@
-<negi-calendar-header [(view)]="view" [(viewDate)]="viewDate"></negi-calendar-header>
+<negi-calendar-header [(view)]="view" [(viewDate)]="viewDate" (_onRefresh)="onRefresh()"></negi-calendar-header>
 
 <ng-template #customCellTemplate let-day="day" let-locale="locale">
     <div class="cal-cell-top">

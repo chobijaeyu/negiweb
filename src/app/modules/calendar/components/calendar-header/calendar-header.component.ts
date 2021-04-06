@@ -17,10 +17,15 @@ export class CalendarHeaderComponent implements OnInit {
 
   @Output() viewDateChange = new EventEmitter<Date>();
 
+  @Output() _onRefresh = new EventEmitter()
+
   CalendarView = CalendarView;
   constructor() { }
 
   ngOnInit(): void {
+  }
+  onRefresh() {
+    this._onRefresh.emit()
   }
 
 }

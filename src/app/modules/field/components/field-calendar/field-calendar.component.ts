@@ -193,4 +193,8 @@ export class FieldCalendarComponent implements OnInit {
       })
   }
 
+  onRefresh(){
+    this.neigiCalEventService.getWithQuery({ nfID: this.nf.ID, confirmed: "true" })
+  }
+
 }

@@ -11,12 +11,13 @@
         <h3>{{ viewDate | calendarDate: view + 'ViewTitle':locale }}</h3>
     </div>
     <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="1rem">
-        <button mat-raised-button (click)="viewChange.emit(CalendarView.Month)"
-            [class.active]="view === CalendarView.Month" color="primary">月</button>
+        <!-- <button mat-raised-button (click)="viewChange.emit(CalendarView.Month)"
+            [class.active]="view === CalendarView.Month" color="primary">月</button> -->
         <!-- <button mat-raised-button (click)="viewChange.emit(CalendarView.Week)"
             [class.active]="view === CalendarView.Week" color="primary">週</button>
         <button mat-raised-button (click)="viewChange.emit(CalendarView.Day)" [class.active]="view === CalendarView.Day"
             color="primary">日</button> -->
+        <button mat-raised-button color="primary" (click)="onRefresh()">データを更新する</button>
     </div>
 </div>
 
@@ -47,9 +48,9 @@
 
 <div [ngSwitch]="view">
     <mwl-calendar-month-view *ngSwitchCase="CalendarView.Month" [viewDate]="viewDate" [events]="events"
-        [refresh]="refresh" [eventTitleTemplate]="caltitleTemplate"
-        [activeDayIsOpen]="activeDayIsOpen" (dayClicked)="dayClicked($event.day)"
-        (eventTimesChanged)="eventTimesChanged($event)" (eventClicked)="eventClicked($event)">
+        [refresh]="refresh" [eventTitleTemplate]="caltitleTemplate" [activeDayIsOpen]="activeDayIsOpen"
+        (dayClicked)="dayClicked($event.day)" (eventTimesChanged)="eventTimesChanged($event)"
+        (eventClicked)="eventClicked($event)">
     </mwl-calendar-month-view>
     <!-- <mwl-calendar-week-view *ngSwitchCase="CalendarView.Week" [viewDate]="viewDate" [events]="events"
         [refresh]="refresh" (eventTimesChanged)="eventTimesChanged($event)">
