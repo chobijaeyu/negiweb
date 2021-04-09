@@ -5,7 +5,7 @@
     </mat-card-header>
     <mat-card-content>
         <div class="camera-area">
-            <button mat-raised-button color="primary" (click)="scannerEnabled = !scannerEnabled">カメラ</button>
+            <button mat-raised-button color="primary" (click)="scannerEnabled = !scannerEnabled">カメラを開く</button>
             <zxing-scanner [enable]="scannerEnabled" (camerasFound)="camerasFoundHandler($event)"
                 (camerasNotFound)="camerasNotFoundHandler($event)" (scanSuccess)="scanSuccessHandler($event)"
                 (scanError)="scanErrorHandler($event)"></zxing-scanner>
@@ -24,6 +24,6 @@
     </mat-card-content>
     <mat-card-actions>
         <!-- <button mat-raised-button color="primary" (click)="onFinished()">Ok only for dev</button> -->
-        <button mat-raised-button color="primary" *ngIf="isMatchFieldId" (click)="onFinished()">タスクを完成する</button>
+        <button mat-raised-button color="primary" (click)="onFinished()">タスクを完成する</button>
     </mat-card-actions>
 </mat-card>
