@@ -1,4 +1,4 @@
-<h1>シリーズタスクを追加</h1>
+<h1>標準タスクを追加する</h1>
 <mat-card fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="1rem">
     <mat-form-field appearance="fill">
         <mat-label>圃場を選択して下さい</mat-label>
@@ -17,17 +17,17 @@
     </mat-card>
 
     <mat-form-field appearance="fill">
-        <mat-label>シリーズタスクオプションを選択して下さい</mat-label>
+        <mat-label>標準タスクオプションを選択して下さい</mat-label>
         <mat-select [(value)]="selectedSeriesTaskOption">
             <mat-option [value]="seriestaskoption" *ngFor="let seriestaskoption of seriestaskservice.entities$| async">
-                <span class="fieldspan">シリーズタスク : {{seriestaskoption.title}}</span>
+                <span class="fieldspan">標準タスク : {{seriestaskoption.title}}</span>
             </mat-option>
         </mat-select>
     </mat-form-field>
 
     <mat-card *ngIf="selectedSeriesTaskOption">
         <span class="fieldspan">ID : {{selectedSeriesTaskOption.ID}}</span>
-        <span class="fieldspan">シリーズタスクオプションタイトル : {{selectedSeriesTaskOption.title}}</span>
+        <span class="fieldspan">標準タスクオプションタイトル : {{selectedSeriesTaskOption.title}}</span>
         <span class="fieldspan">タスク数 : {{selectedSeriesTaskOption.tasklist.length}}</span>
     </mat-card>
     <mat-card-actions>
