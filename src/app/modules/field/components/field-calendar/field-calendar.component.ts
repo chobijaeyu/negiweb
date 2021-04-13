@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter, ChangeDetectorRef, Input } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView } from 'angular-calendar';
@@ -53,21 +54,29 @@ export class FieldCalendarComponent implements OnInit {
     },
   ];
 
-  refresh: Subject<any> = new Subject();
-
   events: calev[] = [];
 
   activeDayIsOpen: boolean = false;
 
+  user: any
+  isAdmin: boolean = false
+
   constructor(
     public _dialog: MatDialog,
     public snackbar: MatSnackBar,
+    public afa: AngularFireAuth,
     public nfs: NegifieldService,
     public neigiCalEventService: neigiCalendarService,
     private cdr: ChangeDetectorRef,
   ) { }
 
   ngOnInit(): void {
+    this.afa.idTokenResult.subscribe(r => {
+      this.isAdmin = r?.claims.role <= 3
+    })
+    this.afa.currentUser.then(user => {
+      this.user = user
+    })
     this.neigiCalEventService.getWithQuery({ nfID: this.nf.ID, confirmed: "true" })
     this.neigiCalEventService.entities$.pipe(
       map(entities => entities.filter(v => v.confirmed === true))
@@ -135,6 +144,7 @@ export class FieldCalendarComponent implements OnInit {
       .afterClosed()
       .subscribe((r: calev) => {
         if (r) {
+          r.operator = this.user.displayName
           // this.calService.updateCalEvent(evdata).subscribe(r => console.log(r))
           this.neigiCalEventService.update(r)
         }
@@ -162,14 +172,19 @@ export class FieldCalendarComponent implements OnInit {
         if (r) {
           console.log(r)
           r.actions = this.actions
+          r.operator = this.user.displayName
+          if (this.isAdmin) {
+            r.confirmed = true
+          }
           // r.resizable = {}
           // r.resizable.afterEnd = true
           // r.resizable.beforeStart = true
-          this.events.push(r)
-          this.cdr.markForCheck();
-          this.refresh.next()
-          // this.calService.newCalEvent(r).subscribe(r => console.log(r))
           this.neigiCalEventService.add(r)
+          this.cdr.markForCheck();
+          if(!this.isAdmin){
+            window.alert("タスクを新規追加する場合、担当者の確認が必要です。")
+          }
+          this.snackbar.open(r.title + " を登録しました", "X", { duration: 5000 })
         }
       })
   }
@@ -193,7 +208,7 @@ export class FieldCalendarComponent implements OnInit {
       })
   }
 
-  onRefresh(){
+  onRefresh() {
     this.neigiCalEventService.getWithQuery({ nfID: this.nf.ID, confirmed: "true" })
   }
 
