@@ -17,7 +17,8 @@
 
         <mat-form-field appearance="outline" [hideRequiredMarker]="false">
             <mat-label>はじめ時点を入力下さい。</mat-label>
-            <input matInput type="number" placeholder="開始日" formControlName='start' name="start" required>
+            <input matInput type="number" min="0" step="1" placeholder="開始日" formControlName='start' name="start"
+                required>
             <span matSuffix>日</span>
             <mat-hint>今日から何日スタート</mat-hint>
             <mat-error *ngIf="SingleTaskForm.controls['start'].invalid">
@@ -27,7 +28,7 @@
         </mat-form-field>
         <mat-form-field appearance="outline">
             <mat-label>終わり時点を入力下さい。</mat-label>
-            <input matInput type="number" placeholder="締切日" formControlName='end' name="end" >
+            <input matInput type="number" min="0" step="1" placeholder="締切日" formControlName='end' name="end">
             <span matSuffix>日</span>
             <mat-hint>今日から何日エンド</mat-hint>
             <mat-error *ngIf="SingleTaskForm.controls['end'].invalid">
