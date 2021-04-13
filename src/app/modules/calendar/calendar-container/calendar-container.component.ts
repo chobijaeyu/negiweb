@@ -15,6 +15,7 @@ import { TaskDetailComponent } from '../../field/components/task-detail/task-det
 import { map, tap } from 'rxjs/operators';
 import { member } from 'src/app/models/User.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 const colors: any = {
   red: {
@@ -63,7 +64,6 @@ export class CalendarContainerComponent implements OnInit {
     },
   ];
 
-  refresh: Subject<any> = new Subject();
 
   events: CalendarEvent[] = [];
 
@@ -74,10 +74,13 @@ export class CalendarContainerComponent implements OnInit {
   @Input() eventActionsTemplate!: TemplateRef<any>;
   @Input() eventTitleTemplate!: TemplateRef<any>;
 
-  currentUser: member = new member
+  currentUser: any
+  isAdmin: boolean = false
+
   constructor(
     public _dialog: MatDialog,
     // public calService: CalendarService,
+    public afa: AngularFireAuth,
     public negifieldservice: NegifieldService,
     public snackbar: MatSnackBar,
     private neigiCalEventService: neigiCalendarService,
@@ -86,6 +89,12 @@ export class CalendarContainerComponent implements OnInit {
 
   ngOnInit(): void {
     this.negifieldservice.getAll()
+    this.afa.idTokenResult.subscribe(r => {
+      this.isAdmin = r?.claims.role <= 3
+    })
+    this.afa.currentUser.then(user => {
+      this.currentUser = user
+    })
     this.neigiCalEventService.getWithQuery({ confirmed: "true" })
     this.neigiCalEventService.entities$.pipe(
       map(entities => entities.filter(v => v.confirmed === true))
@@ -158,16 +167,20 @@ export class CalendarContainerComponent implements OnInit {
       .afterClosed()
       .subscribe((r: calev) => {
         if (r) {
-          console.log(r)
           r.actions = this.actions
+          r.operator = this.currentUser.displayName
+          if (this.isAdmin) {
+            r.confirmed = true
+          }
           // r.resizable = {}
           // r.resizable.afterEnd = true
           // r.resizable.beforeStart = true
           // this.calService.newCalEvent(r).subscribe(r => console.log(r))
           this.neigiCalEventService.add(r)
-          this.events.push(r)
           this.cdr.markForCheck();
-          this.refresh.next()
+          if (!this.isAdmin) {
+            window.alert("タスクを新規追加する場合、担当者の確認が必要です。")
+          }
           this.snackbar.open(r.title + ">>> 登録しました", "X", { duration: 5000 })
         }
       },
@@ -185,7 +198,7 @@ export class CalendarContainerComponent implements OnInit {
       .subscribe((r: calev) => {
         if (r) {
           r.actions = this.actions
-          console.log(r)
+          r.operator = this.currentUser.displayName
           // r.resizable = {}
           // r.resizable.afterEnd = true
           // r.resizable.beforeStart = true
@@ -218,7 +231,7 @@ export class CalendarContainerComponent implements OnInit {
           cs.forEach(cv => {
             this.neigiCalEventService.add(cv).pipe(tap(
               r => {
-                this.snackbar.open(r.title + ">>> 登録しました", "X", { duration: 5000 })
+                this.snackbar.open(r.title + " >>> 登録しました", "X", { duration: 5000 })
               },
               err => {
                 console.error(err)
