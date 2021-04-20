@@ -9,30 +9,97 @@
 // Be sure that you only ever include this mixin once!
 @include mat-core();
 
+$md-negiPrimary: (
+    50 : #e4eeeb,
+    100 : #bcd4ce,
+    200 : #8fb7ae,
+    300 : #629a8d,
+    400 : #408574,
+    500 : #1e6f5c,
+    600 : #1a6754,
+    700 : #165c4a,
+    800 : #125241,
+    900 : #0a4030,
+    A100 : #78ffd2,
+    A200 : #45ffc1,
+    A400 : #12ffb0,
+    A700 : #00f7a5,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+$md-negiSecondary: (
+    50 : #f7faf6,
+    100 : #ebf2e9,
+    200 : #dee9db,
+    300 : #d1e0cc,
+    400 : #c7d9c1,
+    500 : #bdd2b6,
+    600 : #b7cdaf,
+    700 : #aec7a6,
+    800 : #a6c19e,
+    900 : #98b68e,
+    A100 : #ffffff,
+    A200 : #ffffff,
+    A400 : #edffe6,
+    A700 : #daffcd,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #000000,
+        600 : #000000,
+        700 : #000000,
+        800 : #000000,
+        900 : #000000,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$negiweb-primary: mat-palette($mat-indigo);
-$negiweb-accent: mat-palette($mat-pink, A200, A100, A400);
+$animationsvg-primary: mat-palette($md-negiPrimary);
+$animationsvg-accent: mat-palette($md-negiSecondary,A500,A200,A700);
 
 // The warn palette is optional (defaults to red).
-$negiweb-warn: mat-palette($mat-red);
+$animationsvg-warn: mat-palette($mat-red);
 
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".
-$negiweb-theme: mat-light-theme((
+$animationsvg-theme: mat-light-theme((
   color: (
-    primary: $negiweb-primary,
-    accent: $negiweb-accent,
-    warn: $negiweb-warn,
+    primary: $animationsvg-primary,
+    accent: $animationsvg-accent,
+    warn: $animationsvg-warn,
   )
 ));
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
-@include angular-material-theme($negiweb-theme);
+@include angular-material-theme($animationsvg-theme);
 
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
