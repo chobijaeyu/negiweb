@@ -15,6 +15,7 @@ export class AppComponent implements OnInit{
     private domSanitizer: DomSanitizer,
   ) {
     this._registry("auth-line", "../assets/svg/line.svg")
+    this._registry("negi-logo", "../assets/svg/logo.svg")
   }
 
   ngOnInit(){

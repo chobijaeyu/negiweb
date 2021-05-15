@@ -1,37 +1,37 @@
-<mat-sidenav-container fxFlexFill fullscreen>
-    <mat-sidenav #sidenav>
-        <mat-nav-list fxLayout="column" fxLayoutGap="1rem">
-            <a (click)="sidenav.toggle()" mat-list-item>Close</a>
-            <a mat-raised-button color="accent" [routerLink]="[ '/task' ]">タスクリスト</a>
-            <a mat-raised-button color="accent" [routerLink]="[ '/field' ]">圃場管理</a>
-            <a mat-raised-button color="accent" [routerLink]="[ '/members' ]" *ngIf="isAdmin">メンバー管理</a>
-            <a mat-raised-button color="accent" [routerLink]="[ '/titleoption' ]" *ngIf="isAdmin">タスクタイトル管理</a>
-        </mat-nav-list>
-    </mat-sidenav>
-    <mat-sidenav-content fxLayout="column" fxFill>
-        <header>
-            <nav fxLayout="row">
-                <button mat-icon-button (click)="sidenav.toggle()" fxShow="true" fxHide.gt-sm>
-                    <mat-icon>menu</mat-icon>
-                </button>
-                <a mat-raised-button color="primary" [routerLink]="[ '/' ]">NEGI</a>
-                <a mat-raised-button color="accent" [routerLink]="[ '/task' ]" fxHide.lt-md>タスクリスト</a>
-                <a mat-raised-button color="accent" [routerLink]="[ '/field' ]" fxHide.lt-md>圃場管理</a>
-                <a mat-raised-button color="accent" [routerLink]="[ '/members' ]" fxHide.lt-md
-                    *ngIf="isAdmin">メンバー管理</a>
-                <a mat-raised-button color="accent" [routerLink]="[ '/titleoption' ]" fxHide.lt-md
-                    *ngIf="isAdmin">タスクタイトル管理</a>
-                <div class="flex-spacer"></div>
-                <div *ngIf="afa.user | async as u" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap=".5rem">
-                    <span>{{u.displayName}}</span>
-                    <img [src]="u.photoURL" class="user-avatar">
-                </div>
-                <a mat-raised-button color="warn" (click)="logout()">ログアウト</a>
-            </nav>
-        </header>
-        <main fxLayoutAlign="center center">
-            <router-outlet #outlet="outlet"></router-outlet>
-            <!-- <footer class="copyright">&copy; Copyright yujun All rights reserved.</footer> -->
-        </main>
-    </mat-sidenav-content>
-</mat-sidenav-container>
+<header>
+    <nav fxLayout="row" fxLayoutAlign="center center">
+        <a [routerLink]="[ '/' ]">
+            <mat-icon svgIcon="negi-logo" id="logo"></mat-icon>
+        </a>
+        <div class="sider" fxLayout="row" fxLayoutAlign="center center">
+            <a [routerLink]="[ '/task' ]" routerLinkActive="active" fxHide.lt-md>
+                <mat-icon>inventory</mat-icon>
+                <span>タスクリスト</span>
+            </a>
+            <a [routerLink]="[ '/field' ]" routerLinkActive="active" fxHide.lt-md>
+                <mat-icon>dashboard</mat-icon>
+                圃場管理
+            </a>
+            <a [routerLink]="[ '/members' ]" routerLinkActive="active" fxHide.lt-md *ngIf="isAdmin">
+                <mat-icon>supervisor_account</mat-icon>
+                メンバー管理
+            </a>
+            <a [routerLink]="[ '/titleoption' ]" routerLinkActive="active" fxHide.lt-md *ngIf="isAdmin">
+                <mat-icon>ballot</mat-icon>
+                タスクタイトル管理
+            </a>
+        </div>
+        <div class="flex-spacer"></div>
+        <div *ngIf="afa.user | async as u" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap=".5rem">
+            <img [src]="u.photoURL" class="user-avatar">
+            <span>{{u.displayName}}</span>
+        </div>
+        <a class="logout" (click)="logout()">
+            <mat-icon>power_settings_new</mat-icon>
+        </a>
+    </nav>
+</header>
+<main fxLayoutAlign="center center">
+    <router-outlet #outlet="outlet"></router-outlet>
+    <!-- <footer class="copyright">&copy; Copyright yujun All rights reserved.</footer> -->
+</main>
