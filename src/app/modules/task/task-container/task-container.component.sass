@@ -10,6 +10,19 @@
     align-items: center
     justify-content: space-evenly
 
+@media screen and ( max-width: 768px )
+    \:host
+        flex-direction: column
+
+mat-card
+    height: 80vh
+    overflow: scroll
+.confirmList
+    flex: 3
+    margin: 1rem
+.logList
+    margin-right: 1rem
+
 .toConfirmList,.operatinglogList
     flex: 1
     flex-direction: column

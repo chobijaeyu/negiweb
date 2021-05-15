@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card class="confirmList">
     <mat-selection-list #tasks class="toConfirmList">
         <h1>新規タスク確認待ちリスト</h1>
         <mat-list-option *ngFor="let task of toConfirmTasks$ |async" [value]="task">
@@ -15,7 +15,7 @@
         <button mat-raised-button (click)="onConfirm(tasks.selectedOptions.selected)">確認する</button>
     </mat-selection-list>
 </mat-card>
-<mat-card>
+<mat-card class="logList">
     <mat-list class="operatinglogList">
         <h1>操作記録</h1>
         <mat-list-item *ngFor="let ol of operatingLogs$ | async">
