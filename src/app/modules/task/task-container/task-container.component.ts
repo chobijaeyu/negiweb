@@ -21,7 +21,10 @@ export class TaskContainerComponent implements OnInit {
   dataSource = new MatTableDataSource<calev>();
   selection = new SelectionModel<calev>(true, []);
 
+  logdataSource = new MatTableDataSource<operatingLog>();
+
   displayedColumns: string[] = ['select', 'title', 'operator', 'CreatedAt'];
+  logdisplayedColumns: string[]= ['log','time']
 
   constructor(
     public negiCalendarService: neigiCalendarService,
@@ -36,7 +39,11 @@ export class TaskContainerComponent implements OnInit {
       this.dataSource = r
     })
 
-    this.operatingLogs$ = this.afs.collection<operatingLog>(environment.operatinglogpath, ref => ref.limit(10).orderBy("when", 'desc')).valueChanges()
+    this.afs.collection<operatingLog>(environment.operatinglogpath, ref => ref.limit(10).orderBy("when", 'desc')).valueChanges().subscribe(
+      r => {
+        this.logdataSource = new MatTableDataSource<operatingLog>(r)
+      }
+    )
   }
 
   /** Whether the number of selected elements matches the total number of rows. */
@@ -61,14 +68,10 @@ export class TaskContainerComponent implements OnInit {
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'}`;
   }
 
-  onConfirm(tasks: MatListOption[]) {
+  onConfirm(tasks: calev[]) {
     tasks.forEach(t => {
-      console.log(t.value);
-      const _t = {
-        ...t.value as calev
-      }
-      _t.confirmed = true
-      this.negiCalendarService.update(_t)
+      t.confirmed = true
+      this.negiCalendarService.update(t)
     })
   }
 
