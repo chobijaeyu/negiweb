@@ -11,7 +11,7 @@ body
     &::-webkit-scrollbar-thumb
         border-radius: 10px
         background-color: $primary
-    
+
 #logo
     svg
         width: 7rem
@@ -19,7 +19,10 @@ body
 button:hover
     opacity: .6
     transition: all 0.8s cubic-bezier(0.075, 0.82, 0.165, 1) 0s
-
+mat-form-field .mat-form-field-flex
+    align-items: center
+    .mat-form-field-infix
+        border-top-width: 0px
 mwl-calendar-month-cell 
     height: 5vw
     overflow-y: scroll
@@ -32,7 +35,7 @@ mwl-calendar-month-cell
     &::-webkit-scrollbar-thumb
         border-radius: 10px
         background-color: $primary
-        
+
     li.ng-star-inserted
         padding: 1rem
         &:nth-child(odd)
