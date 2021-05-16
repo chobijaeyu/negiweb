@@ -1,21 +1,41 @@
-<mat-card>
-    <mat-selection-list #tasks class="toConfirmList">
-        <h1>新規タスク確認待ちリスト</h1>
-        <mat-list-option *ngFor="let task of toConfirmTasks$ |async" [value]="task">
-            <div fxLayout="row" fxLayoutGap="1rem" fxLayoutAlign="space-between center">
-                <span>
-                    内容：{{task.title}}
-                </span>
-                <span>
-                    操作員：{{task.operator}}
-                </span>
-                <span>時間：{{task.CreatedAt|date:"medium"}}</span>
-            </div>
-        </mat-list-option>
-        <button mat-raised-button (click)="onConfirm(tasks.selectedOptions.selected)">確認する</button>
-    </mat-selection-list>
-</mat-card>
-<mat-card>
+<table class="confirmList" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <!-- Checkbox Column -->
+    <ng-container matColumnDef="select">
+        <th mat-header-cell *matHeaderCellDef>
+            <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
+                [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+            </mat-checkbox>
+        </th>
+        <td mat-cell *matCellDef="let row">
+            <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+                [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+            </mat-checkbox>
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef> 内容 </th>
+        <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="operator">
+        <th mat-header-cell *matHeaderCellDef> 操作員 </th>
+        <td mat-cell *matCellDef="let element"> {{element.operator}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="CreatedAt">
+        <th mat-header-cell *matHeaderCellDef> 時間 </th>
+        <td mat-cell *matCellDef="let element"> {{element.CreatedAt|date:"medium"}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)">
+    </tr>
+    {{selection.selected | json}}
+    <!-- <button mat-raised-button (click)="onConfirm(tasks.selectedOptions.selected)">確認する</button> -->
+</table>
+<mat-card class="logList">
     <mat-list class="operatinglogList">
         <h1>操作記録</h1>
         <mat-list-item *ngFor="let ol of operatingLogs$ | async">
