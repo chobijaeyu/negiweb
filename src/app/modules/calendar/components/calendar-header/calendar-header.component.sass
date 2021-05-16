@@ -1,0 +1,23 @@
+@import 'src/variables.sass'
+
+h3
+    margin: 0
+.calandar-title-left
+    margin: 1rem
+.calandar-hint
+    color: #979797
+    @include flex-center()
+    .hint-wrapper
+        @include flex-center()
+        .hint-dot
+            width: 10px
+            height: 10px
+            border-radius: 50%
+            display: inline-block
+            margin: .5rem
+        .normal
+            background: $hint-1
+        .important
+            background: $hint-2
+        .emergency
+            background: $hint-3

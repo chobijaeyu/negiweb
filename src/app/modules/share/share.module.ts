@@ -28,6 +28,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatMenuModule } from '@angular/material/menu';
 
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 
@@ -57,6 +58,7 @@ const m = [
   MatSnackBarModule,
   MatProgressSpinnerModule,
   MatCheckboxModule,
+  MatMenuModule,
 ]
 
 @NgModule({
