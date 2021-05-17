@@ -6,21 +6,55 @@
     flex-direction: column
     align-items: center
 
+header
+    width: 100%
 nav
     width: 100%
-    padding: 1rem 2rem
+    padding: 0 1rem
     background-color: $primary
     button
         position: absolute
         left: 0
     a
-        padding: 0 1rem
-        margin: 0 .5rem
+        display: flex
+        flex-direction: column
+        align-items: center
+        justify-content: center
+        mat-icon
+            width: unset
+            height: unset
+        &:hover
+            opacity: .8
+    #logo
+        margin-right: .5rem
     .user-avatar
         height: 2rem
+        border-radius: 50%
+
+    .sider
+        height: 100%
+        transition: all 0.8s cubic-bezier(0.075, 0.82, 0.165, 1) 0s
+        a 
+            transition: all 0.8s cubic-bezier(0.075, 0.82, 0.165, 1) 0s
+            padding: .5rem
+            display: flex
+            align-items: center
+            flex-direction: column
+            color: white
+            text-decoration: none
+            &.active
+                color: $primary
+                background: white
+
+    .logout
+        color: white
+        cursor: pointer
+        margin-left: .5rem
 
 main
+    width: 100%
     flex: 1
+    background: #28967280
 
 .mat-nav-list
     margin: 0 1rem

@@ -15,16 +15,16 @@
 
     <section class="tasklistsection" formArrayName="tasklist">
         <div class="form-row form-group" *ngFor="let task of tasklist.controls ; let i = index" fxLayout="row"
-            fxLayoutAlign="center center" fxLayoutGap="1rem" fxLayout.lt-lg="column">
+            fxLayoutAlign="center center" fxLayoutGap="1rem">
             {{i+1}}
             <negi-series-task-single-task-form [SingleTaskForm]="getFormGroupAt(task)">
             </negi-series-task-single-task-form>
-            <mat-icon (click)="onAddSingleTask()">add</mat-icon>
-            <mat-icon (click)="onDeleteSingleTask(i)"> delete_forever</mat-icon>
+            <mat-icon color='primary' (click)="onAddSingleTask()">add</mat-icon>
+            <mat-icon color='warn' (click)="onDeleteSingleTask(i)"> delete_forever</mat-icon>
         </div>
     </section>
 
-    <div>
+    <div fxLayout="row" fxLayoutAlign="center center">
         <button mat-raised-button color="primary" (click)="onSubmit()">完成する</button>
     </div>
 

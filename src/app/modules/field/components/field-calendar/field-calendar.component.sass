@@ -1,3 +1,4 @@
+@import 'src/variables.sass'
 $breakpoint: 960px
 
 @media screen and (max-width: $breakpoint)
@@ -16,3 +17,24 @@ $breakpoint: 960px
     opacity: .5
     background-color: rgba(0,0,0,0.3)
     filter: blur(1px)
+h3
+    margin: 0
+.calandar-title-left
+    margin: 1rem
+.calandar-hint
+    color: #979797
+    @include flex-center()
+    .hint-wrapper
+        @include flex-center()
+        .hint-dot
+            width: 10px
+            height: 10px
+            border-radius: 50%
+            display: inline-block
+            margin: .5rem
+        .normal
+            background: $hint-1
+        .important
+            background: $hint-2
+        .emergency
+            background: $hint-3

@@ -79,7 +79,7 @@ $md-negiSecondary: (
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
 $animationsvg-primary: mat-palette($md-negiPrimary);
-$animationsvg-accent: mat-palette($md-negiSecondary,A500,A200,A700);
+$animationsvg-accent: mat-palette($md-negiSecondary);
 
 // The warn palette is optional (defaults to red).
 $animationsvg-warn: mat-palette($mat-red);

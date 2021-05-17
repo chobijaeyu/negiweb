@@ -1,10 +1,50 @@
 /* You can add global styles to this file, and also import other style files */
+@import 'src/variables.sass'
+body
+    &::-webkit-scrollbar
+        width: 1em
 
+    &::-webkit-scrollbar-track
+        background: transparent
+        box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3)
+
+    &::-webkit-scrollbar-thumb
+        border-radius: 10px
+        background-color: $primary
+
+#logo
+    svg
+        width: 7rem
+        // height: 50%
+button:hover
+    opacity: .6
+    transition: all 0.8s cubic-bezier(0.075, 0.82, 0.165, 1) 0s
+mat-form-field.mat-form-field-appearance-legacy .mat-form-field-flex
+    align-items: flex-end
+.mat-form-field-appearance-outline .mat-form-field-flex
+    align-items: center
 mwl-calendar-month-cell 
     height: 5vw
+    overflow-y: scroll
+    &::-webkit-scrollbar
+        width: 1em
+
+    &::-webkit-scrollbar-track
+        background: transparent
+
+    &::-webkit-scrollbar-thumb
+        border-radius: 10px
+        background-color: $primary
 
     li.ng-star-inserted
         padding: 1rem
         &:nth-child(odd)
             background: #dfdeff
-        
+
+.cal-month-view .cal-open-day-events
+    background-color: #28967280
+span.cal-event-actions > a
+    margin: 0 .5rem
+@media screen and (max-width: 768px)
+    .mat-expansion-panel-header-description
+        margin-right: 0

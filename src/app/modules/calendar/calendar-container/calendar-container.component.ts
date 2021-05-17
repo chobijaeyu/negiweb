@@ -19,15 +19,15 @@ import { AngularFireAuth } from '@angular/fire/auth';
 
 const colors: any = {
   red: {
-    primary: '#ad2121',
+    primary: '#FF6756',
     secondary: '#FAE3E3',
   },
   blue: {
-    primary: '#1e90ff',
+    primary: '#2A6AF2',
     secondary: '#D1E8FF',
   },
-  yellow: {
-    primary: '#e3bc08',
+  green: {
+    primary: '#7ED321',
     secondary: '#FDF1BA',
   },
 };
@@ -104,7 +104,7 @@ export class CalendarContainerComponent implements OnInit {
           ...ev,
           actions: this.actions,
           start: new Date(ev.start),
-          color: ev.priority === 1 ? colors.red : {}
+          color: this.priorityColor(ev.priority!)
         }
         if (ev.end) {
           _e = {
@@ -118,6 +118,18 @@ export class CalendarContainerComponent implements OnInit {
     })
   }
 
+  priorityColor(p: number) {
+    switch (p) {
+      case 1:
+        return colors.red
+      case 2:
+        return colors.green
+      case 3:
+        return colors.blue
+      default:
+        return colors.blue
+    }
+  }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {

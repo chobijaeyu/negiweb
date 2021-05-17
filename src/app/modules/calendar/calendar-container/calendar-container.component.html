@@ -1,4 +1,5 @@
-<negi-calendar-header [(view)]="view" [(viewDate)]="viewDate" (_onRefresh)="onRefresh()"></negi-calendar-header>
+<negi-calendar-header [(view)]="view" [(viewDate)]="viewDate" (_onRefresh)="onRefresh()" (onNewJourney)="onNewJourney()"
+    (onAddEvent)="onAddEvent()"></negi-calendar-header>
 
 <ng-template #customCellTemplate let-day="day" let-locale="locale">
     <div class="cal-cell-top">
@@ -27,9 +28,9 @@
 
 <div [ngSwitch]="view">
     <mwl-calendar-month-view *ngSwitchCase="CalendarView.Month" [viewDate]="viewDate" [events]="events"
-         [eventTitleTemplate]="caltitleTemplate"
-        [activeDayIsOpen]="activeDayIsOpen" (dayClicked)="dayClicked($event.day)"
-        (eventTimesChanged)="eventTimesChanged($event)" (eventClicked)="eventClicked($event)">
+        [eventTitleTemplate]="caltitleTemplate" [activeDayIsOpen]="activeDayIsOpen"
+        (dayClicked)="dayClicked($event.day)" (eventTimesChanged)="eventTimesChanged($event)"
+        (eventClicked)="eventClicked($event)">
     </mwl-calendar-month-view>
     <!-- <mwl-calendar-week-view *ngSwitchCase="CalendarView.Week" [viewDate]="viewDate" [events]="events"
         [refresh]="refresh" (eventTimesChanged)="eventTimesChanged($event)">
@@ -38,11 +39,3 @@
         (eventTimesChanged)="eventTimesChanged($event)">
     </mwl-calendar-day-view> -->
 </div>
-<button mat-raised-button (click)="onNewJourney()" type="button" color="primary" class="">
-    <mat-icon>add</mat-icon>
-    標準タスクを追加する
-</button>
-<button mat-raised-button (click)="onAddEvent()" type="button" color="accent" class="">
-    <mat-icon>add</mat-icon>
-    オーダータスクを追加する
-</button>

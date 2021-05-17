@@ -1,17 +1,48 @@
-<div fxLayout="cloumn" fxLayoutAlign="space-around center" fxFill>
-    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="1rem">
-        <button mat-raised-button mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate"
-            (viewDateChange)="viewDateChange.next(viewDate)" color="primary">先月</button>
-        <button mat-raised-button mwlCalendarToday [(viewDate)]="viewDate"
-            (viewDateChange)="viewDateChange.next(viewDate)" color="primary">今月</button>
-        <button mat-raised-button mwlCalendarNextView [view]="view" [(viewDate)]="viewDate"
-            (viewDateChange)="viewDateChange.next(viewDate)" color="primary">来月</button>
+<div fxLayout="cloumn" fxLayoutAlign="space-between center" fxFill>
+    <div class="calandar-title-left" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="1rem">
+        <h3>{{ viewDate | date:'yyyy年MM月' }}</h3>
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="1rem">
+            <button mat-raised-button mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate"
+                (viewDateChange)="viewDateChange.next(viewDate)" color="primary">
+                <mat-icon>arrow_back</mat-icon>
+            </button>
+            <button mat-raised-button mwlCalendarToday [(viewDate)]="viewDate"
+                (viewDateChange)="viewDateChange.next(viewDate)" color="primary">今月</button>
+            <button mat-raised-button mwlCalendarNextView [view]="view" [(viewDate)]="viewDate"
+                (viewDateChange)="viewDateChange.next(viewDate)" color="primary">
+                <mat-icon>arrow_forward</mat-icon>
+            </button>
+        </div>
+        <div class="calandar-hint">
+            <div class="hint-wrapper">
+                <span class="hint-dot normal"></span>
+                <span class="hint-text">一般</span>
+            </div>
+            <div class="hint-wrapper">
+                <span class="hint-dot important"></span>
+                <span class="hint-text">重要</span>
+            </div>
+            <div class="hint-wrapper">
+                <span class="hint-dot emergency"></span>
+                <span class="hint-text">緊急</span>
+            </div>
+        </div>
+        <button mat-mini-fab color="primary" [matMenuTriggerFor]="menu">
+            <mat-icon>add</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="onNewJourney.emit()" type="button" color="primary" class="">
+                <mat-icon>add</mat-icon>
+                標準タスクを追加する
+            </button>
+            <button mat-menu-item (click)="onAddEvent.emit()" type="button" color="accent" class="">
+                <mat-icon>add</mat-icon>
+                オーダータスクを追加する
+            </button>
+        </mat-menu>
     </div>
-    <div class="col-md-4">
-        <h3>{{ viewDate | calendarDate: view + 'ViewTitle':locale }}</h3>
-    </div>
     <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="1rem">
-        <button mat-raised-button color="primary" (click)="onRefresh()">データを更新する</button>
+        <button mat-mini-fab color="primary" (click)="onRefresh()"><mat-icon>sync</mat-icon></button>
         <!-- <button mat-raised-button (click)="viewChange.emit(CalendarView.Month)"
             [class.active]="view === CalendarView.Month" color="primary">月</button> -->
         <!-- <button mat-raised-button (click)="viewChange.emit(CalendarView.Week)"
@@ -20,4 +51,3 @@
             color="primary">日</button> -->
     </div>
 </div>
-<br />
