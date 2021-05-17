@@ -1,4 +1,4 @@
-$breakpoint: 960px
+$breakpoint: 768px
 
 .member-card
     width: 35rem
@@ -44,8 +44,11 @@ div.desc
         margin-left: 3rem
 
 @media screen and (max-width: $breakpoint)
+    .mat-expansion-panel-header-description
+        margin-right: .3rem
     .member-card
         width: 20rem
         margin: .5rem
     .member-avator
-        width: 2rem
+        width: 5rem
+        object-fit: contain

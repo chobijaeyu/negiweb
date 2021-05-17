@@ -4,19 +4,19 @@
             <mat-icon svgIcon="negi-logo" id="logo"></mat-icon>
         </a>
         <div class="sider" fxLayout="row" fxLayoutAlign="center center">
-            <a [routerLink]="[ '/task' ]" routerLinkActive="active" fxHide.lt-md>
+            <a [routerLink]="[ '/task' ]" routerLinkActive="active">
                 <mat-icon>inventory</mat-icon>
                 <span>タスクリスト</span>
             </a>
-            <a [routerLink]="[ '/field' ]" routerLinkActive="active" fxHide.lt-md>
+            <a [routerLink]="[ '/field' ]" routerLinkActive="active">
                 <mat-icon>dashboard</mat-icon>
                 圃場管理
             </a>
-            <a [routerLink]="[ '/members' ]" routerLinkActive="active" fxHide.lt-md *ngIf="isAdmin">
+            <a [routerLink]="[ '/members' ]" routerLinkActive="active" *ngIf="isAdmin">
                 <mat-icon>supervisor_account</mat-icon>
                 メンバー管理
             </a>
-            <a [routerLink]="[ '/titleoption' ]" routerLinkActive="active" fxHide.lt-md *ngIf="isAdmin">
+            <a [routerLink]="[ '/titleoption' ]" routerLinkActive="active" *ngIf="isAdmin">
                 <mat-icon>ballot</mat-icon>
                 タスクタイトル管理
             </a>
