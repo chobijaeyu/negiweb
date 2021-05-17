@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Inject } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -19,6 +20,7 @@ export class NewJourneyDialogComponent implements OnInit {
 
   selectedField!: negifield
   selectedSeriesTaskOption!: seriesTaskOption
+  startDay!: Date
   nfields$!: Observable<negifield[]>;
   calevs: calev[] = []
 
@@ -44,18 +46,20 @@ export class NewJourneyDialogComponent implements OnInit {
       this.selectedField = this.data
     }
   }
+  selectDate(event: MatDatepickerInputEvent<Date>) {
+    this.startDay = event.value!
+  }
 
   genCalEv(seriestasklist: seriesTaskSingleTask[]) {
     seriestasklist.forEach(task => {
       let ev = new calev()
-      let startDay = new Date()
       ev.title = task.title
       ev.allDay = true
       ev.NegiFieldID = this.selectedField.ID
-      startDay.setDate(startDay.getDate() + task.start)
-      ev.start = startDay
+      this.startDay.setDate(this.startDay.getDate() + task.start)
+      ev.start = this.startDay
       if (task.end) {
-        let endDay = new Date()
+        let endDay = this.startDay
         endDay.setDate(endDay.getDate() + task.end)
         ev.end = endDay
       }

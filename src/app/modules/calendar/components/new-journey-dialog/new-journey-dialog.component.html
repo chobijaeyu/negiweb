@@ -1,5 +1,13 @@
 <h1>標準タスクを追加する</h1>
+
+
 <mat-card fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="1rem">
+    <mat-form-field appearance="fill">
+        <mat-label>スタート日を選んでください</mat-label>
+        <input matInput [matDatepicker]="picker" (dateChange)="selectDate($event)">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
     <mat-form-field appearance="fill">
         <mat-label>圃場を選択して下さい</mat-label>
         <mat-select [(value)]="selectedField">
@@ -30,6 +38,9 @@
         <span class="fieldspan">標準タスクオプションタイトル : {{selectedSeriesTaskOption.title}}</span>
         <span class="fieldspan">タスク数 : {{selectedSeriesTaskOption.tasklist.length}}</span>
     </mat-card>
+
+
+
     <mat-card-actions>
         <button mat-raised-button color="primary" (click)="onGoNewJourney(selectedSeriesTaskOption)"
             [disabled]="selectedSeriesTaskOption === undefined|| selectedField === undefined ">OK</button>
