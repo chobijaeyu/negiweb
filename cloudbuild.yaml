@@ -10,3 +10,4 @@ steps:
   args: ['build']
 - name: gcr.io/$PROJECT_ID/firebase
   args: ['deploy', '--project=$PROJECT_ID', '--only=hosting']
+timeout: 1200s
