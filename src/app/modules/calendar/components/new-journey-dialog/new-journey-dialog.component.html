@@ -18,11 +18,7 @@
         </mat-select>
     </mat-form-field>
 
-    <mat-card *ngIf="selectedField">
-        <span class="fieldspan">ID : {{selectedField.ID}}</span>
-        <span class="fieldspan">圃場番号 : {{selectedField.field_name}}</span>
-        <span class="fieldspan">地域 : {{selectedField.group_name}}</span>
-    </mat-card>
+
 
     <mat-form-field appearance="fill">
         <mat-label>標準タスクオプションを選択して下さい</mat-label>
@@ -33,13 +29,18 @@
         </mat-select>
     </mat-form-field>
 
-    <mat-card *ngIf="selectedSeriesTaskOption">
-        <span class="fieldspan">ID : {{selectedSeriesTaskOption.ID}}</span>
-        <span class="fieldspan">標準タスクオプションタイトル : {{selectedSeriesTaskOption.title}}</span>
-        <span class="fieldspan">タスク数 : {{selectedSeriesTaskOption.tasklist.length}}</span>
-    </mat-card>
-
-
+    <div>
+        <span> {{startDay | date:'yyyy年MM月dd日'}} </span>
+        <div *ngIf="selectedField">
+            <span class="fieldspan">圃場番号 : {{selectedField.field_name}}</span>
+            <span class="fieldspan">地域 : {{selectedField.group_name}}</span>
+        </div>
+        <div *ngIf="selectedSeriesTaskOption">
+            <span class="fieldspan">標準タスクオプションタイトル : {{selectedSeriesTaskOption.title}}</span>
+            <span class="fieldspan">タスク数 : {{selectedSeriesTaskOption.tasklist.length}}</span>
+        </div>
+        <span>間違いないように、ダブルチェックしてください。</span>
+    </div>
 
     <mat-card-actions>
         <button mat-raised-button color="primary" (click)="onGoNewJourney(selectedSeriesTaskOption)"

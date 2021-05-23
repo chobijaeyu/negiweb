@@ -67,7 +67,7 @@
         <!-- <mat-slide-toggle formControlName='allDay' name='allDay'>All day</mat-slide-toggle> -->
         <!-- <mat-slide-toggle formControlName='draggable' name='draggable'>ドラッグ可</mat-slide-toggle> -->
     </div>
-    <div>
-        <button mat-raised-button color="primary" (click)="onSubmit()">完成する</button>
+    <div fxLayout="row" fxLayoutAlign="center center">
+        <button mat-raised-button color="primary" *ngIf="calEventForm.valid" (click)="onSubmit()">完成する</button>
     </div>
 </form>
