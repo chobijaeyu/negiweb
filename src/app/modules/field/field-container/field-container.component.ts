@@ -74,7 +74,7 @@ export class FieldContainerComponent implements OnInit, AfterViewInit {
     const dr = this.dialog.open(FieldAddComponent, {})
 
     dr.afterClosed().pipe(switchMap(field => {
-      if (!field){
+      if (!field) {
         return of()
       }
       return this.nf.add(field).pipe(tap(r => {
@@ -92,7 +92,7 @@ export class FieldContainerComponent implements OnInit, AfterViewInit {
     const dr = this.dialog.open(FieldEditComponent, { data: nf })
 
     dr.afterClosed().pipe(switchMap(field => {
-      if (!field){
+      if (!field) {
         return of()
       }
       return this.nf.update(field).pipe(tap(r => {
@@ -133,14 +133,19 @@ export class FieldContainerComponent implements OnInit, AfterViewInit {
   generatePdf(nf: negifield, ev: MouseEvent) {
     ev.stopPropagation()
     let pageSize: PageSize = "A4"
-    let pageMargins: [number, number, number, number] = [5, 9, 6, 8]
-
+    let pageMargins: [number, number, number, number] = [5, 9, 5, 8];
+    (<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
+    (<any>pdfMake).fonts = {
+      NotoSans: {
+        normal: 'https://buzzruswitch.com/assets/fonts/iwp3ml.ttf',
+      }
+    }
     const documentDefinition = {
       pageSize: pageSize,
       pageMargins: pageMargins,
       content: [
         {
-          text: ``
+          text: `圃場番号:${nf.field_name}　地域:${nf.group_name}`, alignment: 'center', fontSize: 18,
         },
         {
 
@@ -151,25 +156,13 @@ export class FieldContainerComponent implements OnInit, AfterViewInit {
         }
       ],
       eccLevel: "H",
+      defaultStyle: {
+        font: 'NotoSans',
+      }
     };
-    pdfMake.createPdf(
+    (<any>pdfMake).createPdf(
       documentDefinition,
-      {},
-      {
-        Roboto: {
-          normal: 'Roboto-Regular.ttf',
-          bold: 'Roboto-Medium.ttf',
-          italics: 'Roboto-Italic.ttf',
-          bolditalics: 'Roboto-Italic.ttf'
-        },
-        Helvetica: {
-          normal: 'Helvetica',
-          bold: 'Helvetica-Bold',
-          italics: 'Helvetica-Oblique',
-          bolditalics: 'Helvetica-BoldOblique'
-        },
-      },
-      pdfFonts.pdfMake.vfs
+      {}, pdfMake.fonts
     ).open();
   }
 }

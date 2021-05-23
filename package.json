@@ -39,7 +39,7 @@
     "date-fns": "^2.16.1",
     "firebase": "^7.0.0 || ^8.0.0",
     "ngx-image-compress": "^11.0.3",
-    "pdfmake": "^0.1.70",
+    "pdfmake": "^0.1.71",
     "rxjs": "~6.6.7",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"
