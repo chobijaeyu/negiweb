@@ -261,10 +261,9 @@ export class CalendarContainerComponent implements OnInit {
 
   beforeMonthViewRender({ body }: { body: CalendarMonthViewDay[] }): void {
     body.forEach((day) => {
-      // day.badgeTotal = day.events.filter(
-      //   (event) => event.meta.incrementsBadgeTotal
-      // ).length;
-      console.log(day.events)
+      day.badgeTotal = day.events.filter(
+        (event:calev) => !event.completed
+      ).length;
     });
   }
   
