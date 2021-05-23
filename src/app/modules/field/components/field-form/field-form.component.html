@@ -6,7 +6,7 @@
 
         <mat-form-field appearance="outline" [hideRequiredMarker]="false">
             <mat-icon matPrefix>stars</mat-icon>
-            <mat-label>圃場の名前</mat-label>
+            <mat-label>圃場番号</mat-label>
             <input matInput formControlName='field_name' name='field_name' required>
             <mat-error *ngIf="fieldForm.controls['field_name'].invalid">
                 <!-- {{fieldForm.controls['field_name']["errorMessage"]}} -->
@@ -16,7 +16,7 @@
 
         <mat-form-field appearance="outline" [hideRequiredMarker]="false">
             <mat-icon matPrefix>stars</mat-icon>
-            <mat-label>地域の名前</mat-label>
+            <mat-label>地域名</mat-label>
             <input matInput formControlName='group_name' name='group_name' required>
             <mat-error *ngIf="fieldForm.controls['group_name'].invalid">
                 <!-- {{fieldForm.controls['group_name']["errorMessage"]}} -->

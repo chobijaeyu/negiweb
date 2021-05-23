@@ -24,6 +24,6 @@
     </mat-card-content>
     <mat-card-actions>
         <!-- <button mat-raised-button color="primary" (click)="onFinished()">Ok only for dev</button> -->
-        <button mat-raised-button color="primary" (click)="onFinished()">タスクを完成する</button>
+        <button mat-raised-button color="primary" *ngIf="isMatchFieldId" (click)="onFinished()">タスクを完成する</button>
     </mat-card-actions>
 </mat-card>
