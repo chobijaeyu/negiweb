@@ -4,21 +4,29 @@
         <mat-card-subtitle>QRコードをスキャンしてください。</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-        <div class="camera-area">
-            <button mat-raised-button color="primary" (click)="scannerEnabled = !scannerEnabled">カメラを開く</button>
+        <div class="camera-area" (click)="scannerEnabled = !scannerEnabled">
+            <!-- <button mat-raised-button color="primary" (click)="scannerEnabled = !scannerEnabled">カメラを開く</button> -->
+            <span class="detail-btn">
+                <mat-icon>photo_camera</mat-icon>
+                カメラを開く
+            </span>
             <zxing-scanner [enable]="scannerEnabled" (camerasFound)="camerasFoundHandler($event)"
                 (camerasNotFound)="camerasNotFoundHandler($event)" (scanSuccess)="scanSuccessHandler($event)"
                 (scanError)="scanErrorHandler($event)"></zxing-scanner>
         </div>
         <div class="img-area">
-            <div class="form-uploader" fxLayoutAlign="center center">
-                <!-- <button mat-raised-button color="primary" (click)="fileInput.click()" type="button">画像を選ぶ</button>
+            <!-- <div class="form-uploader" fxLayoutAlign="center center"> -->
+            <!-- <button mat-raised-button color="primary" (click)="fileInput.click()" type="button">画像を選ぶ</button>
                 <input hidden type="file" #fileInput (change)="onFile($event)" name='Cover'> -->
-                <button mat-raised-button color="accent" (click)="onCompress()">画像を選ぶ</button>
-            </div>
-            <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap=".5rem" *ngIf="imagePreview">
+            <span class="detail-btn" (click)="onCompress()">
+                <mat-icon>image</mat-icon> 画像を選ぶ
+            </span>
+            <!-- </div> -->
+            <div class="img-wrapper" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap=".5rem" *ngIf="imagePreview">
                 <img [src]="imagePreview" width="200">
-                <button mat-raised-button (click)="onUploadImg()">アップロード</button>
+                <span class="detail-btn" (click)="onUploadImg()">
+                    <mat-icon>file_upload</mat-icon> アップロード
+                </span>
             </div>
         </div>
     </mat-card-content>
