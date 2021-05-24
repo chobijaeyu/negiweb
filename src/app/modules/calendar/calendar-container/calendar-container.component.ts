@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, Input, OnInit, TemplateRef } from '@angul
 import { Subject } from 'rxjs';
 import { isSameDay, isSameMonth, } from 'date-fns';
 import { MatDialog } from '@angular/material/dialog';
-import { CalendarView, CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent } from 'angular-calendar';
+import { CalendarView, CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarMonthViewDay } from 'angular-calendar';
 
 import { calev } from 'src/app/models/calendar.model';
 import { neigiCalendarService } from 'src/app/services/calendar.service';
@@ -259,4 +259,12 @@ export class CalendarContainerComponent implements OnInit {
     this.neigiCalEventService.getWithQuery({ confirmed: "true" })
   }
 
+  beforeMonthViewRender({ body }: { body: CalendarMonthViewDay[] }): void {
+    body.forEach((day) => {
+      day.badgeTotal = day.events.filter(
+        (event:calev) => !event.completed
+      ).length;
+    });
+  }
+  
 }

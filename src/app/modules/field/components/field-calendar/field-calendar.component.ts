@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter, Chang
 import { AngularFireAuth } from '@angular/fire/auth';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView } from 'angular-calendar';
+import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarMonthViewDay, CalendarView } from 'angular-calendar';
 import { isSameDay, isSameMonth } from 'date-fns';
 import { Subject } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
@@ -210,6 +210,14 @@ export class FieldCalendarComponent implements OnInit {
 
   onRefresh() {
     this.neigiCalEventService.getWithQuery({ nfID: this.nf.ID, confirmed: "true" })
+  }
+
+  beforeMonthViewRender({ body }: { body: CalendarMonthViewDay[] }): void {
+    body.forEach((day) => {
+      day.badgeTotal = day.events.filter(
+        (event: calev) => !event.completed
+      ).length;
+    });
   }
 
 }
