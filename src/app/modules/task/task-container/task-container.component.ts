@@ -1,14 +1,17 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { MatListOption } from '@angular/material/list';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
+import { of } from 'rxjs';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, switchMap, tap } from 'rxjs/operators';
 import { calev } from 'src/app/models/calendar.model';
 import { operatingLog } from 'src/app/models/log.model';
 import { neigiCalendarService } from 'src/app/services/calendar.service';
 import { environment } from 'src/environments/environment';
+import { ConfirmDialogComponent } from '../../share/components/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'negi-task-container',
@@ -23,10 +26,12 @@ export class TaskContainerComponent implements OnInit {
 
   logdataSource = new MatTableDataSource<operatingLog>();
 
-  displayedColumns: string[] = ['select', 'title', 'operator', 'CreatedAt'];
-  logdisplayedColumns: string[]= ['log','time']
+  displayedColumns: string[] = ['select', 'title', 'operator', 'CreatedAt', 'action'];
+  logdisplayedColumns: string[] = ['log', 'time']
 
   constructor(
+    public dialog: MatDialog,
+    public snackbar: MatSnackBar,
     public negiCalendarService: neigiCalendarService,
     public afs: AngularFirestore
   ) { }
@@ -75,4 +80,18 @@ export class TaskContainerComponent implements OnInit {
     })
   }
 
+  onDelete(el: any) {
+    this.dialog.open(ConfirmDialogComponent, { data: { title: "確認待ち新規タスクを削除する" } }).afterClosed().pipe(switchMap(r => {
+      if (r) {
+        return this.negiCalendarService.delete(el).pipe(tap(result => {
+          this.snackbar.open(`${result}削除しました`, "X", { duration: 5000 })
+        },
+          err => {
+            console.error(err)
+            this.snackbar.open("削除失敗", "X", { duration: 5000 })
+          }))
+      }
+      return of({})
+    })).subscribe()
+  }
 }

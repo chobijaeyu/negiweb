@@ -1,5 +1,4 @@
 import { ChangeDetectorRef, Component, Input, OnInit, TemplateRef } from '@angular/core';
-import { Subject } from 'rxjs';
 import { isSameDay, isSameMonth, } from 'date-fns';
 import { MatDialog } from '@angular/material/dialog';
 import { CalendarView, CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarMonthViewDay } from 'angular-calendar';
@@ -12,10 +11,11 @@ import { NegifieldService } from 'src/app/services/negifield.service';
 import { NewJourneyDialogComponent } from '../components/new-journey-dialog/new-journey-dialog.component';
 import { ConfirmDialogComponent } from '../../share/components/confirm-dialog/confirm-dialog.component';
 import { TaskDetailComponent } from '../../field/components/task-detail/task-detail.component';
-import { map, tap } from 'rxjs/operators';
-import { member } from 'src/app/models/User.model';
+import { first, map, tap } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { Observable } from 'rxjs';
+import { negifield } from 'src/app/models/field.model';
 
 const colors: any = {
   red: {
@@ -262,9 +262,15 @@ export class CalendarContainerComponent implements OnInit {
   beforeMonthViewRender({ body }: { body: CalendarMonthViewDay[] }): void {
     body.forEach((day) => {
       day.badgeTotal = day.events.filter(
-        (event:calev) => !event.completed
+        (event: calev) => !event.completed
       ).length;
     });
   }
-  
+
+  selectEntityById(fieldid: number): Observable<negifield | undefined> {
+    return this.negifieldservice.entityMap$.pipe(
+      map(entities => entities[fieldid]),
+      first());
+  }
+
 }
