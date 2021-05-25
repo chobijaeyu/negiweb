@@ -4,8 +4,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarMonthViewDay, CalendarView } from 'angular-calendar';
 import { isSameDay, isSameMonth } from 'date-fns';
+import { Observable } from 'rxjs';
 import { Subject } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { first, map, tap } from 'rxjs/operators';
 import { calev, colors } from 'src/app/models/calendar.model';
 import { negifield } from 'src/app/models/field.model';
 import { CalendarEventAddDialogComponent } from 'src/app/modules/calendar/components/calendar-event-add-dialog/calendar-event-add-dialog.component';
@@ -181,7 +182,7 @@ export class FieldCalendarComponent implements OnInit {
           // r.resizable.beforeStart = true
           this.neigiCalEventService.add(r)
           this.cdr.markForCheck();
-          if(!this.isAdmin){
+          if (!this.isAdmin) {
             window.alert("タスクを新規追加する場合、担当者の確認が必要です。")
           }
           this.snackbar.open(r.title + " を登録しました", "X", { duration: 5000 })
@@ -218,6 +219,12 @@ export class FieldCalendarComponent implements OnInit {
         (event: calev) => !event.completed
       ).length;
     });
+  }
+
+  selectEntityById(fieldid: number): Observable<negifield | undefined> {
+    return this.nfs.entityMap$.pipe(
+      map(entities => entities[fieldid]),
+      first());
   }
 
 }
