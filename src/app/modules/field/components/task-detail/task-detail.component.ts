@@ -3,9 +3,12 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NgxImageCompressService } from 'ngx-image-compress';
+import { Observable } from 'rxjs';
+import { first, map } from 'rxjs/operators';
 import { calev } from 'src/app/models/calendar.model';
 import { negifield, priorities } from 'src/app/models/field.model';
 import { ImgService } from 'src/app/services/img.service';
+import { NegifieldService } from 'src/app/services/negifield.service';
 
 @Component({
   selector: 'negi-task-detail',
@@ -28,6 +31,7 @@ export class TaskDetailComponent implements OnInit {
     private snackbar: MatSnackBar,
     private imgService: ImgService,
     private imageCompress: NgxImageCompressService,
+    public negifieldservice: NegifieldService,
     public dialogRef: MatDialogRef<TaskDetailComponent>,
     @Inject(MAT_DIALOG_DATA) public data: calev
   ) { }
@@ -115,4 +119,11 @@ export class TaskDetailComponent implements OnInit {
       .then(function (buf) { return new File([buf], filename, { type: mimeType }); })
     );
   }
+
+  selectEntityById(fieldid: number): Observable<negifield | undefined> {
+    return this.negifieldservice.entityMap$.pipe(
+      map(entities => entities[fieldid]),
+      first());
+  }
+  
 }

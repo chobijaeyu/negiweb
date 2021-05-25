@@ -1,7 +1,11 @@
 <mat-card>
     <mat-card-header>
-        <mat-card-title>{{data.ID}}|{{data.title}}</mat-card-title>
-        <mat-card-subtitle>QRコードをスキャンしてください。</mat-card-subtitle>
+        <mat-card-title>{{data.title}}</mat-card-title>
+        <mat-card-subtitle>
+            <span>圃場番号: {{(selectEntityById(data.NegiFieldID) | async)!.field_name}}
+                地域名:{{(selectEntityById(data.NegiFieldID)
+                | async)!.group_name}} </span>
+        </mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
         <div class="camera-area" (click)="scannerEnabled = !scannerEnabled">
@@ -22,7 +26,8 @@
                 <mat-icon>image</mat-icon> 画像を選ぶ
             </span>
             <!-- </div> -->
-            <div class="img-wrapper" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap=".5rem" *ngIf="imagePreview">
+            <div class="img-wrapper" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap=".5rem"
+                *ngIf="imagePreview">
                 <img [src]="imagePreview" width="200">
                 <span class="detail-btn" (click)="onUploadImg()">
                     <mat-icon>file_upload</mat-icon> アップロード
