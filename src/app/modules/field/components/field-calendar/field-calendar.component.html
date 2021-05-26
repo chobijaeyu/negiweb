@@ -4,13 +4,13 @@
         <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="1rem">
             <button mat-raised-button mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate"
                 (viewDateChange)="viewDateChange.next(viewDate)" color="primary">
-                <mat-icon>arrow_back</mat-icon>
+                <mat-icon svgIcon="arrow-left"></mat-icon>
             </button>
             <button mat-raised-button mwlCalendarToday [(viewDate)]="viewDate"
                 (viewDateChange)="viewDateChange.next(viewDate)" color="primary">今月</button>
             <button mat-raised-button mwlCalendarNextView [view]="view" [(viewDate)]="viewDate"
                 (viewDateChange)="viewDateChange.next(viewDate)" color="primary">
-                <mat-icon>arrow_forward</mat-icon>
+                <mat-icon svgIcon="arrow-right"></mat-icon>
             </button>
         </div>
         <div class="calandar-hint">
@@ -28,7 +28,7 @@
             </div>
         </div>
         <button mat-mini-fab color="primary" [matMenuTriggerFor]="menu">
-            <mat-icon>add</mat-icon>
+            <mat-icon svgIcon="add"></mat-icon>
         </button>
         <mat-menu #menu="matMenu">
             <button mat-menu-item (click)="onNewJourney()" type="button" color="primary" class="">
@@ -43,7 +43,7 @@
     </div>
     <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="1rem">
         <button mat-mini-fab color="primary" (click)="onRefresh()">
-            <mat-icon>sync</mat-icon>
+            <mat-icon svgIcon="refresh"></mat-icon>
         </button>
         <!-- <button mat-raised-button (click)="viewChange.emit(CalendarView.Month)"
             [class.active]="view === CalendarView.Month" color="primary">月</button> -->

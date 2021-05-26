@@ -31,6 +31,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatMenuModule } from '@angular/material/menu';
 
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+import { MermaidComponent } from './components/mermaid/mermaid.component';
 
 const m = [
   ReactiveFormsModule,
@@ -62,11 +63,11 @@ const m = [
 ]
 
 @NgModule({
-  declarations: [ConfirmDialogComponent],
+  declarations: [ConfirmDialogComponent, MermaidComponent],
   imports: [
     CommonModule,
     m,
   ],
-  exports: [m]
+  exports: [m, MermaidComponent]
 })
 export class ShareModule { }
