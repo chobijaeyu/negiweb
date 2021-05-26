@@ -38,8 +38,9 @@
         <div *ngIf="selectedSeriesTaskOption">
             <span class="fieldspan">標準タスクオプションタイトル : {{selectedSeriesTaskOption.title}}</span>
             <span class="fieldspan">タスク数 : {{selectedSeriesTaskOption.tasklist.length}}</span>
+                <negi-mermaid [inputSt]="selectedSeriesTaskOption"></negi-mermaid>
         </div>
-        <span>間違いないように、ダブルチェックしてください。</span>
+        <span class="warning">間違いないように、ダブルチェックしてください。</span>
     </div>
 
     <mat-card-actions>

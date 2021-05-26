@@ -15,13 +15,15 @@ export class MermaidComponent implements AfterViewInit {
       theme: "default"
     });
 
-    const element: any = this.mermaidDiv.nativeElement;
+    if (this.mermaidDiv) {
+      const element: any = this.mermaidDiv.nativeElement;
 
-    const graphDefinition = `gantt\ntitle ${this.st.title}\n ${this.generateGantt(this.st.tasklist)}`;
-    mermaid.default.render("graphDiv", graphDefinition, (svgCode: any, bindFunctions: any) => {
-      element.innerHTML = svgCode;
-      bindFunctions(element);
-    });
+      const graphDefinition = `gantt\ntitle ${this.st.title}\n ${this.generateGantt(this.st.tasklist)}`;
+      mermaid.default.render("graphDiv", graphDefinition, (svgCode: any, bindFunctions: any) => {
+        element.innerHTML = svgCode;
+        bindFunctions(element);
+      });
+    }
   }
   @ViewChild('mermaid') mermaidDiv!: ElementRef
 
