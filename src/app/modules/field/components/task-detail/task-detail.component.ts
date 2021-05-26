@@ -24,6 +24,7 @@ export class TaskDetailComponent implements OnInit {
   imagePreview!: string;
   selecetdFile!: File;
   priorities = priorities
+  isAdmin: boolean = false
 
   constructor(
     private afa: AngularFireAuth,
@@ -37,6 +38,9 @@ export class TaskDetailComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.afa.idTokenResult.subscribe(r => {
+      this.isAdmin = r?.claims.role <= 3
+    })
   }
 
   scanSuccessHandler(e: string) {
