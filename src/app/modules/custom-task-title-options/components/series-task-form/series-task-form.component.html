@@ -1,6 +1,5 @@
 <form action="onSubmit" [formGroup]="seriesTaskForm">
     <h1 fxLayout="row" fxLayoutAlign="center center">{{title}}</h1>
-
     <div>
 
         <mat-form-field appearance="outline" [hideRequiredMarker]="false">
@@ -13,6 +12,7 @@
 
     </div>
 
+    <negi-mermaid [inputSt]="this.seriesTaskForm.value"></negi-mermaid>
     <section class="tasklistsection" formArrayName="tasklist">
         <div class="form-row form-group" *ngFor="let task of tasklist.controls ; let i = index" fxLayout="row"
             fxLayoutAlign="center center" fxLayoutGap="1rem">
