@@ -8,7 +8,7 @@
     </div>
     <li *ngFor="let ev of day.events" fxLayout="row" fxLayoutGap="1rem"
         [ngClass]="{'emergency': ev.priority === 1,'important':ev.priority===2,'normal':ev.priority===3,'completed':ev.completed}">
-        <span>圃場番号: {{(selectEntityById(ev.NegiFieldID) | async)!.field_name}}| 地域名:{{(selectEntityById(ev.NegiFieldID)
+        <span>&ensp;圃場番号: {{(selectEntityById(ev.NegiFieldID) | async)!.field_name}}| 地域名:{{(selectEntityById(ev.NegiFieldID)
             | async)!.group_name}}| {{ev.title}}</span>
         <div *ngIf="ev.draggable" fxLayoutGap="1rem">
             <span>{{ev.start | date:"HH:mm "}}</span>
@@ -24,9 +24,10 @@
         [attr.aria-hidden]="{} | calendarA11y: 'hideEventTitle'"
         [ngClass]="{'emergency': event.priority === 1,'important':event.priority===2,'normal':event.priority===3,'completed':event.completed}">
     </span>
-    <span>圃場番号: {{(selectEntityById(event.NegiFieldID) | async)!.field_name}} 地域名:{{(selectEntityById(event.NegiFieldID)
+    <span>&ensp;圃場番号: {{(selectEntityById(event.NegiFieldID) | async)!.field_name}}
+        地域名:{{(selectEntityById(event.NegiFieldID)
         | async)!.group_name}} </span>
-    <span *ngIf="event.operator">-操作員:{{event.operator}}</span>
+    <span *ngIf="event.operator">&ensp;操作員:{{event.operator}}</span>
 </ng-template>
 
 <div [ngSwitch]="view">
