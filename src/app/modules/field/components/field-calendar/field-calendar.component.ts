@@ -129,7 +129,6 @@ export class FieldCalendarComponent implements OnInit {
           start: newStart,
           end: newEnd,
         };
-        console.log(_e)
         // this.calService.updateCalEvent(_e).subscribe(r => console.log(r))
         this.neigiCalEventService.update(_e)
         return _e
@@ -171,7 +170,6 @@ export class FieldCalendarComponent implements OnInit {
       .afterClosed()
       .subscribe((r: calev) => {
         if (r) {
-          console.log(r)
           r.actions = this.actions
           r.operator = this.user.displayName
           if (this.isAdmin) {
