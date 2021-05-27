@@ -32,14 +32,12 @@ export class SeriesTaskFormComponent implements OnInit {
 
     if (this.seriestaskData) {
       if (this.seriestaskData.tasklist) {
-        console.log(this.seriestaskData)
         for (let index = 0; index < this.seriestaskData.tasklist.length - 1; index++) {
           this.st.tasklist.push(new seriesTaskSingleTask())
         }
       }
       this.seriesTaskForm.patchValue(this.seriestaskData)
     }
-    console.log(this.seriesTaskForm)
   }
 
   get tasklist() {

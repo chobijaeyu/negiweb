@@ -61,8 +61,6 @@ export class CalendarEventFormComponent implements OnInit {
     }
 
     if (this.negifield) {
-      console.log(this.negifield);
-
       this.calEventForm.patchValue({ NegiFieldID: this.negifield.ID })
     }
 

@@ -27,7 +27,6 @@ export class CallbackComponent implements OnInit {
       switchMap(at => this.LineGettingFirebaseCustomTokens(at)),
     ).subscribe(
       customToken => {
-        console.log(customToken)
         this.af.signInWithCustomToken(customToken).finally(() => window.close())
       }
     )

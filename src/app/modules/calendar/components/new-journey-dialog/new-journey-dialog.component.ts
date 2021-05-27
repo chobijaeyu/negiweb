@@ -56,11 +56,13 @@ export class NewJourneyDialogComponent implements OnInit {
       ev.title = task.title
       ev.allDay = true
       ev.NegiFieldID = this.selectedField.ID
-      this.startDay.setDate(this.startDay.getDate() + task.start)
-      console.log(this.startDay);
-      ev.start = this.startDay
+      let _start: Date = new Date(this.startDay)
+      _start.setDate(this.startDay.getDate() + task.start)
+      console.log(this.startDay)
+      console.log(_start);
+      ev.start = _start
       if (task.end) {
-        let endDay = this.startDay
+        let endDay = new Date(this.startDay)
         endDay.setDate(endDay.getDate() + task.end)
         ev.end = endDay
       }
