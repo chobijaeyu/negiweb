@@ -75,8 +75,16 @@ export class TaskContainerComponent implements OnInit {
 
   onConfirm(tasks: calev[]) {
     tasks.forEach(t => {
-      t.confirmed = true
-      this.negiCalendarService.update(t)
+      let _t: calev = new calev()
+      Object.assign(_t, t)
+      _t.confirmed = true
+      this.negiCalendarService.update(t).pipe(tap(result => {
+        this.snackbar.open(`${result}確認しました`, "X", { duration: 5000 })
+      },
+        err => {
+          console.error(err)
+          this.snackbar.open("失敗", "X", { duration: 5000 })
+        }))
     })
   }
 
