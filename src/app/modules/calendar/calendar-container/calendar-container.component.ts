@@ -157,7 +157,6 @@ export class CalendarContainerComponent implements OnInit {
           start: newStart,
           end: newEnd,
         };
-        console.log(_e)
         // this.calService.updateCalEvent(_e).subscribe(r => console.log(r))
         this.neigiCalEventService.update(_e)
         return _e
