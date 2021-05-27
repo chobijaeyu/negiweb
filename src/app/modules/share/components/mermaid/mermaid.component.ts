@@ -59,8 +59,10 @@ export class MermaidComponent implements AfterViewInit {
     taskOptionList.forEach(v => {
       let today = new Date()
       today.setHours(0, 0, 0, 0)
-      today.setDate(today.getDate() + v.start)
-      ganttString += ` ${v.title}: ${today.toISOString()}, ${v.end ? v.end : 1}d\n`
+      if (v.start) {
+        today.setDate(today.getDate() + v.start)
+      }
+      ganttString += ` ${v.title}: ${today.toString()}, ${v.end ? v.end : 1}d\n`
     })
     return ganttString
   }
