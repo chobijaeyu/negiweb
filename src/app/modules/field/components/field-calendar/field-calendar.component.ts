@@ -196,6 +196,9 @@ export class FieldCalendarComponent implements OnInit {
       .subscribe((cs: calev[]) => {
         if (cs) {
           cs.forEach(cv => {
+            if (this.isAdmin) {
+              cv.confirmed = true
+            }
             this.neigiCalEventService.add(cv).pipe(tap(
               r => {
                 this.snackbar.open(r.title + ">>> 登録しました", "X", { duration: 5000 })
