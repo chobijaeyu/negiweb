@@ -229,7 +229,14 @@ export class CalendarContainerComponent implements OnInit {
     // this.neigiCalEventService.delete(eventToDelete)
     this._dialog.open(ConfirmDialogComponent, { data: { title: "タスクを削除する" } }).afterClosed().subscribe(r => {
       if (r) {
-        this.neigiCalEventService.delete(eventToDelete)
+        this.neigiCalEventService.delete(eventToDelete).pipe(tap(
+          r => {
+            this.snackbar.open("削除しました", "X", { duration: 5000 })
+          },
+          err => {
+            console.error(err)
+            this.snackbar.open("削除失敗", "X", { duration: 5000 })
+          }))
       }
     })
   }

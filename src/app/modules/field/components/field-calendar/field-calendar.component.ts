@@ -12,6 +12,7 @@ import { negifield } from 'src/app/models/field.model';
 import { CalendarEventAddDialogComponent } from 'src/app/modules/calendar/components/calendar-event-add-dialog/calendar-event-add-dialog.component';
 import { CalendarEventEditDialogComponent } from 'src/app/modules/calendar/components/calendar-event-edit-dialog/calendar-event-edit-dialog.component';
 import { NewJourneyDialogComponent } from 'src/app/modules/calendar/components/new-journey-dialog/new-journey-dialog.component';
+import { ConfirmDialogComponent } from 'src/app/modules/share/components/confirm-dialog/confirm-dialog.component';
 import { neigiCalendarService } from 'src/app/services/calendar.service';
 import { NegifieldService } from 'src/app/services/negifield.service';
 import { TaskDetailComponent } from '../task-detail/task-detail.component';
@@ -154,7 +155,18 @@ export class FieldCalendarComponent implements OnInit {
   onDeleteEvent(eventToDelete: calev) {
     // this.events = this.events.filter((event) => event !== eventToDelete);
     // this.calService.deleteCalEvent(eventToDelete).subscribe(r => console.log(r))
-    this.neigiCalEventService.delete(eventToDelete)
+    this._dialog.open(ConfirmDialogComponent, { data: { title: "タスクを削除する" } }).afterClosed().subscribe(r => {
+      if (r) {
+        this.neigiCalEventService.delete(eventToDelete).pipe(tap(
+          r => {
+            this.snackbar.open("削除しました", "X", { duration: 5000 })
+          },
+          err => {
+            console.error(err)
+            this.snackbar.open("削除失敗", "X", { duration: 5000 })
+          }))
+      }
+    })
   }
 
   eventClicked(ev: any) {
