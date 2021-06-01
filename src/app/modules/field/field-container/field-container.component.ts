@@ -137,7 +137,7 @@ export class FieldContainerComponent implements OnInit, AfterViewInit {
     (<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
     (<any>pdfMake).fonts = {
       NotoSans: {
-        normal: 'https://buzzruswitch.com/assets/fonts/iwp3ml.ttf',
+        normal: 'https://storage.googleapis.com/pdfttf/iwp3ml.ttf',
       }
     }
     const documentDefinition = {
