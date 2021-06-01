@@ -150,7 +150,7 @@ export class FieldContainerComponent implements OnInit, AfterViewInit {
         {
 
           stack: [
-            { qr: JSON.stringify(nf), fit: 550, margin: 20 },
+            { qr: JSON.stringify(nf), fit: 550,margin: 25 },
           ],
 
         }
