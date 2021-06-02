@@ -62,7 +62,7 @@ export class MermaidComponent implements AfterViewInit {
       if (v.start) {
         today.setDate(today.getDate() + v.start)
       }
-      ganttString += ` ${v.title}: ${today.toString()}, ${v.end ? v.end : 1}d\n`
+      ganttString += ` ${v.title}: ${today.toString()}, ${v.end ? (v.end - v.start) : 1}d\n`
     })
     return ganttString
   }
