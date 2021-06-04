@@ -1,4 +1,11 @@
 .singleTaskFormFieldWrapper
-    flex-wrap: wrap
+    flex-wrap: wrap-reverse
     mat-form-field
+        flex: 1
         margin: .5rem
+        &:nth-child(1)
+            order: 1
+        &:nth-child(2),&:nth-child(3)
+            width: 10rem
+        &:nth-child(4)
+            width: 7rem

@@ -1,7 +1,7 @@
 <ng-container [formGroup]="SingleTaskForm">
     <div fxLayout="row" fxLayoutAlign="center center" fxLayout.lt-sm="column" class="singleTaskFormFieldWrapper">
         <mat-form-field appearance="outline" [hideRequiredMarker]="false">
-            <mat-icon matPrefix>stars</mat-icon>
+            <mat-icon matPrefix>receipt_long</mat-icon>
             <mat-label>タイトル</mat-label>
             <input matInput formControlName='title' name='title' [matAutocomplete]="auto" required>
             <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
