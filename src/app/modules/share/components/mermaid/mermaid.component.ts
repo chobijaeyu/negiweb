@@ -10,12 +10,13 @@ import { seriesTaskOption, seriesTaskSingleTask } from 'src/app/models/task-opti
 export class MermaidComponent implements AfterViewInit {
   st: seriesTaskOption = new seriesTaskOption()
   @Input() set inputSt(st: seriesTaskOption) {
+    console.log(st)
     this.st = st
     mermaid.default.initialize({
       theme: "default"
     });
 
-    if (this.mermaidDiv) {
+    if (this.mermaidDiv && this.st.title) {
       const element: any = this.mermaidDiv.nativeElement;
 
       const graphDefinition = `gantt\ntitle ${this.st.title}\n ${this.generateGantt(this.st.tasklist)}`;
@@ -62,7 +63,7 @@ export class MermaidComponent implements AfterViewInit {
       if (v.start) {
         today.setDate(today.getDate() + v.start)
       }
-      ganttString += ` ${v.title}: ${today.toString()}, ${v.end ? (v.end - v.start) : 1}d\n`
+      ganttString += ` ${v.title ? v.title : 'タイトルを入力して下さい'}: ${today.toISOString()} , ${v.end ? (v.end - (v.start ? v.start :0)) : 1}d\n`
     })
     return ganttString
   }
