@@ -78,28 +78,38 @@ $md-negiSecondary: (
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$animationsvg-primary: mat.define-palette($md-negiPrimary);
-$animationsvg-accent: mat.define-palette($md-negiSecondary);
+$negi-primary: mat.define-palette($md-negiPrimary);
+$negi-accent: mat.define-palette($md-negiSecondary);
 
 // The warn palette is optional (defaults to red).
-$animationsvg-warn: mat.define-palette(mat.$red-palette);
-
+$negi-warn: mat.define-palette(mat.$red-palette);
+  $negi-typography: mat.define-typography-config(
+    $font-family: 'Noto Sans JP',
+  );
+  $my-custom-level: mat.define-typography-level(
+  $font-family: 'Noto Sans JP',
+  $font-weight: 400,
+  $font-size: 1rem,
+  $line-height: 1,
+  $letter-spacing: normal,
+);
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".
-$animationsvg-theme: mat.define-light-theme((
+$negi-theme: mat.define-light-theme((
   color: (
-    primary: $animationsvg-primary,
-    accent: $animationsvg-accent,
-    warn: $animationsvg-warn,
-  )
+    primary: $negi-primary,
+    accent: $negi-accent,
+    warn: $negi-warn,
+  ),
+  typography:$negi-typography,
 ));
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
-@include mat.all-component-themes($animationsvg-theme);
+@include mat.all-component-themes($negi-theme);
 
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: "Noto Sans JP",Roboto, sans-serif; }
 
