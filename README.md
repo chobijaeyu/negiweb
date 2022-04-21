@@ -15,7 +15,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 [![](https://mermaid.ink/img/pako:eNp90jtuwzAMANCrEFqbXkBDpvYEXb3QJi0L1S_6NDCC3L2KYze2m1aLBPCRIgVdROeJhRSJT4Vdx28aVUTbOKjL-A4N3AS8Ho8vyntlGCIHL0HpDKGk4S5XoTVtizYk62Y0beAUmGSvI7eYGAafsnYKztxKIA7Gj3-kLJcVt4XPSu19SRwBiUC73m97L26F08lISPjFQJhxA2toX7Xn3A2_5Vxymuh_Utsdg1O1vzoOEqCj-u42RE4JtFX3nFntb18g04M-HaozvhCk7CMqnsfbZ2zMT_dp8OcHXZY4CMvRoqb6gy63WCPywJYbIeuRMH42onHX6kqoo_M76VpYyB5N4oPAkv3H6Dohcyy8oPkLzur6DWmU470)](https://mermaid.live/edit#pako:eNp90jtuwzAMANCrEFqbXkBDpvYEXb3QJi0L1S_6NDCC3L2KYze2m1aLBPCRIgVdROeJhRSJT4Vdx28aVUTbOKjL-A4N3AS8Ho8vyntlGCIHL0HpDKGk4S5XoTVtizYk62Y0beAUmGSvI7eYGAafsnYKztxKIA7Gj3-kLJcVt4XPSu19SRwBiUC73m97L26F08lISPjFQJhxA2toX7Xn3A2_5Vxymuh_Utsdg1O1vzoOEqCj-u42RE4JtFX3nFntb18g04M-HaozvhCk7CMqnsfbZ2zMT_dp8OcHXZY4CMvRoqb6gy63WCPywJYbIeuRMH42onHX6kqoo_M76VpYyB5N4oPAkv3H6Dohcyy8oPkLzur6DWmU470)
 
-![mindmap!](/showpic/mindmap.jpg "mindmap")
+![mindmap!](/showpic/mindmap.JPG "mindmap")
 
 ログイン
 ![login!](/showpic/login.png "login")
