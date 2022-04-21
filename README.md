@@ -1,4 +1,11 @@
-# Negiweb
+<div align="center">
+
+[![Angular ZXing Scanner](/src/assets/icons/icon-512x512.png)](https://github.com/chobijaeyu/negiweb)
+
+
+### @yujun/negiweb
+
+</div>
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.1.
 
